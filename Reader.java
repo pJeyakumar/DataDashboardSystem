@@ -6,7 +6,8 @@ import java.util.Scanner;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
-public class Reader{
+public class Reader
+{
     public static void main(String[] args) 
     {
         String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/SP.POP.TOTL?date=2000:2001&format=json", "can");

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
@@ -25,7 +26,7 @@ public class Reader
 		
 	}
 	
-	public Data<Integer,Integer> retrieveData(Selection choices)
+	public Data retrieveData(Selection choices)
 	{
 		
 		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json", 
@@ -53,23 +54,23 @@ public class Reader
 				int size = jsonArray.size();
 				int sizeOfResults = jsonArray.get(1).getAsJsonArray().size();
 // PIRANA COMMENT -- Create an ArrayList of Generic Type (I put Integer here)
-				ArrayList<Integer> data1 = new ArrayList<Integer>(sizeOfResults);
+				ArrayList<Double> data1 = new ArrayList<Double>(sizeOfResults);
 				ArrayList<Integer> data2 = new ArrayList<Integer>(sizeOfResults);
 				for (int i = 0; i < sizeOfResults; i++) 
 				{
 // PIRANA COMMENT -- In order to add a value to an ArrayList, you need to use the arrayName.add(value) method
-					data1.add(jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("date").getAsInt());
+					data2.add(jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("date").getAsInt());
 					if (jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("value").isJsonNull()) 
 					{
-						data2.add(0);
+						data1.add(0.0);
 					}
 					else 
 					{
-						data2.add(jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("value").getAsInt());
+						data1.add(jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("value").getAsDouble());
 					}
 				}
 // PIRANA COMMENT -- We create an instance of the Data object with the generic parameters being Integer and Integer
-				Data<Integer,Integer> fetchedData = new Data<Integer,Integer>(data1, data2);
+				Data fetchedData = new Data(data1, data2);
 				return fetchedData;
 				
 			}

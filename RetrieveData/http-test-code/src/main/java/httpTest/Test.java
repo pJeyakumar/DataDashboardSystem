@@ -8,13 +8,13 @@ public class Test {
 		
 		Reader myReader = new Reader();
 		
-		Data<Integer, Integer> result = myReader.retrieveData(myChoices);
+		Data result = myReader.retrieveData(myChoices);
 		
-		ArrayList<Integer> first = result.getFirst();
+		ArrayList<Double> first = result.getFirst();
 		ArrayList<Integer> second = result.getSecond();
 		
-		for (int i = 0; i < second.size(); i++) {
-			System.out.printf("%d \n", second.get(i));
+		for (int i = 0; i < first.size(); i++) {
+			System.out.printf("%f \n", first.get(i));
 		}
 		
 	}

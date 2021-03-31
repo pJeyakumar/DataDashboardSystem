@@ -12,7 +12,7 @@ import com.google.gson.JsonParser;
  * DATE: 2021-03-30
  * DESCRIPTION: 
  */
-public class GetData 
+public class Reader 
 {
 // PIRANA COMMENT -- The issue i'm having: so far the code has no syntax errors for when I explicitly declare what the generic types are,
 //					 in this case, both generic types are Integers. Im not sure how I can replace <Integer,Integer> with <A,B> so that we
@@ -20,9 +20,16 @@ public class GetData
 // 					 and then find out how to make it so that lines 18,42,43 and 58 the <Integer, Integer> can be changed to <A,B> where we can 
 //					 decide what A and B will be depending on the data array. For example, if we want A = "String" and B = "Integer".
 	// Method that will make an API request to World Bank
-	public DataPair<Integer,Integer> retrieveData()
+	
+	public Reader() {
+		
+	}
+	
+	public DataPair<Integer,Integer> retrieveData(Selection choices)
 	{
-		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/SP.POP.TOTL?date=2000:2001&format=json", "can");
+		
+		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json", 
+				choices.getCountry(), choices.getAnalysis(), choices.getStartYr(), choices.getEndYr());
 		System.out.println(urlString);
 		try 
 		{

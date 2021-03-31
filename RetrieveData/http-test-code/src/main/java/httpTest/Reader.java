@@ -25,7 +25,7 @@ public class Reader
 		
 	}
 	
-	public DataPair<Integer,Integer> retrieveData(Selection choices)
+	public Data<Integer,Integer> retrieveData(Selection choices)
 	{
 		
 		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json", 
@@ -45,7 +45,9 @@ public class Reader
 				while (sc.hasNext()) 
 				{
 					inline += sc.nextLine();
+					
 				}
+
 				sc.close();
 				JsonArray jsonArray = new JsonParser().parse(inline).getAsJsonArray();
 				int size = jsonArray.size();
@@ -67,7 +69,7 @@ public class Reader
 					}
 				}
 // PIRANA COMMENT -- We create an instance of the Data object with the generic parameters being Integer and Integer
-				DataPair<Integer,Integer> fetchedData = new Data<Integer,Integer>(data1, data2);
+				Data<Integer,Integer> fetchedData = new Data<Integer,Integer>(data1, data2);
 				return fetchedData;
 				
 			}

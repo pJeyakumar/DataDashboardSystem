@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * DATE: 2021-03-30
  * DESCRIPTION: Class that will be used to store the arrays of data from the JSON file that was fetched from the world bank
  */
-public class Data<A,B> implements DataPair<A,B>
+public class Data<A,B>
 {	
 	// Private instance variables
 	private String typeA;

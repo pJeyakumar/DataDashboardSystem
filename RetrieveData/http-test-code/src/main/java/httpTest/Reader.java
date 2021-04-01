@@ -10,25 +10,19 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 /*
  * NAMES: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
- * DATE: 2021-03-30
- * DESCRIPTION: 
+ * DATE: 2021-03-31
+ * DESCRIPTION: Class that will make an API request to the world bank (based on Selection object choices) and fetch that data and store the two sets into ArrayLists.
+ * 				Afterwards, using these ArrayLists, we instantiate an object of the Data class and store them there as firstSet and secondSet. We will then return this
+ * 				Data object to the calling class (aka Analysis class)
  */
 public class Reader 
-{
-// PIRANA COMMENT -- The issue i'm having: so far the code has no syntax errors for when I explicitly declare what the generic types are,
-//					 in this case, both generic types are Integers. Im not sure how I can replace <Integer,Integer> with <A,B> so that we
-//					 can choose to put any type there. We need to first figure out how we're going to find out what types the data arrays are
-// 					 and then find out how to make it so that lines 18,42,43 and 58 the <Integer, Integer> can be changed to <A,B> where we can 
-//					 decide what A and B will be depending on the data array. For example, if we want A = "String" and B = "Integer".
-	// Method that will make an API request to World Bank
-	
+{	
 	public Reader() {
 		
 	}
-	
+	// Method that will make an API request to World Bank
 	public Data retrieveData(Selection choices)
 	{
-		
 		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json", 
 				choices.getCountry(), choices.getAnalysis(), choices.getStartYr(), choices.getEndYr());
 		System.out.println(urlString);
@@ -48,12 +42,11 @@ public class Reader
 					inline += sc.nextLine();
 					
 				}
-
 				sc.close();
 				JsonArray jsonArray = new JsonParser().parse(inline).getAsJsonArray();
 				int size = jsonArray.size();
 				int sizeOfResults = jsonArray.get(1).getAsJsonArray().size();
-// PIRANA COMMENT -- Create an ArrayList of Generic Type (I put Integer here)
+// PIRANA COMMENT -- Create an ArrayList for both value sets (used Double and Integer to cover all cases)
 				ArrayList<Double> data1 = new ArrayList<Double>(sizeOfResults);
 				ArrayList<Integer> data2 = new ArrayList<Integer>(sizeOfResults);
 				for (int i = 0; i < sizeOfResults; i++) 
@@ -69,17 +62,16 @@ public class Reader
 						data1.add(jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("value").getAsDouble());
 					}
 				}
-// PIRANA COMMENT -- We create an instance of the Data object with the generic parameters being Integer and Integer
+// PIRANA COMMENT -- We create an instance of the Data object
 				Data fetchedData = new Data(data1, data2);
-				return fetchedData;
-				
+				return fetchedData;		
 			}
 		} 
 		catch (IOException e)
 		{
 			// TODO Auto-generated catch block e.printStackTrace();
 		}
-// PIRANA COMMENT -- If we reached this point, it means an error has occured, meaning we would return null as something went wrong
+// PIRANA COMMENT -- If we reached this point, it means an error has occurred, meaning we would return null as something went wrong
 		return null;
 	}
 }

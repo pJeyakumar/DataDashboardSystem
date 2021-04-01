@@ -10,16 +10,16 @@ import java.util.ArrayList;
 public class Data
 {	
 	// Private instance variables
-	private String typeA;
-	private ArrayList<Double> firstSet;
-	private ArrayList<Integer> secondSet;
+	private String typeA;					// analysis
+	private ArrayList<Double> firstSet;		// values
+	private ArrayList<Integer> secondSet;	// years
 	
-	// Constructor class with dataType, dataArray1 and dataArray2 as parameters
+	// Constructor class with data1 as a parameter
 	public Data(ArrayList<Double> data1)
 	{
 		this.firstSet = data1;
 	}
-	
+	// Second Constructor class with 
 	public Data(ArrayList<Double> data1, ArrayList<Integer> data2)
 	{
 		this.firstSet = data1;

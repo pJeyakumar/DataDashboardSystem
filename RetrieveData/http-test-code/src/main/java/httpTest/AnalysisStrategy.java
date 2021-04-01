@@ -1,4 +1,4 @@
-
+package httpTest;
 /**
  * @author Group 46
  * 
@@ -12,13 +12,14 @@
  * 
  */
 
-public class AnalysisStrategy {
+abstract class AnalysisStrategy {
 	
 	// Reader class which will return Data objects
 	private Reader reader;
 	
-	private Data[] dataArray;
-	private Data[] processedDataArray;
+	private Data[] data;
+	private Data[] processedData;
+	private int numOfSeries;
 	
 	// Constructor - to be created by Computational Server class
 	public AnalysisStrategy() {
@@ -34,31 +35,22 @@ public class AnalysisStrategy {
 	* @param Selection
 	* 
 	*/
-	public void doAnalysis(Selection selection) {
-		
-		
-		
-	}
+	public abstract void doAnalysis(Selection selection);
+	
 	
 	/**
 	 * Retrieve Data
 	 * To be called from Do Analysis to get the data to be processed
 	 * @return Data
 	 */
-	public Data retrieveData() {
-		
-		
-		// return this.reader.getData();
-	}
+	public abstract Data retrieveData();
 	
 	/**
 	 * Populate Results
 	 * @param Data to be Processed
 	 */
-	public populateResults() {
-		
-		this.processedData
-		
+	public void populateResults(Results res) {
+		res.setData(this.processedData);
 	}
 	
 	/**

@@ -1,6 +1,7 @@
 package httpTest;
 
-public class AnalysisD extends AnalysisStrategy{
+public class AnalysisD extends AnalysisStrategy
+{
 	
 	
 	public AnalysisD() {
@@ -27,6 +28,8 @@ public class AnalysisD extends AnalysisStrategy{
 	 * To be called from Do Analysis to get the data to be processed
 	 * @return Data
 	 */
-	public Data retrieveData() {
+	public Data[] retrieveData(Selection selection) 
+	{
 		
+	}
 }

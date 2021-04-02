@@ -7,9 +7,11 @@ package httpTest;
  */
 import java.util.ArrayList;
 
-public class AnalysisA extends AnalysisStrategy{
+public class AnalysisA extends AnalysisStrategy
+{
 	
-	public AnalysisA() {
+	public AnalysisA() 
+	{
 		
 	}
 	

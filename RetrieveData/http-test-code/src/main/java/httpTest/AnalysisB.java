@@ -1,9 +1,11 @@
 package httpTest;
 // PIRANAVAN
-public class AnalysisB extends AnalysisStrategy{
+public class AnalysisB extends AnalysisStrategy
+{
 	
 	
-	public AnalysisB() {
+	public AnalysisB() 
+	{
 		
 	}
 	
@@ -17,7 +19,8 @@ public class AnalysisB extends AnalysisStrategy{
 	* @param Selection
 	* 
 	*/
-	public void doAnalysis(Selection selection) {
+	public void doAnalysis(Selection selection)
+	{
 		
 	}
 	
@@ -27,6 +30,8 @@ public class AnalysisB extends AnalysisStrategy{
 	 * To be called from Do Analysis to get the data to be processed
 	 * @return Data
 	 */
-	public Data retrieveData() {
+	public Data[] retrieveData(Selection selection)
+	{
 		
+	}
 }

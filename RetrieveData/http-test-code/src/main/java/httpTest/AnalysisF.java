@@ -1,9 +1,11 @@
 package httpTest;
 
-public class AnalysisF extends AnalysisStrategy{
+public class AnalysisF extends AnalysisStrategy
+{
 	
 	
-	public AnalysisF() {
+	public AnalysisF()
+	{
 		
 	}
 	
@@ -17,7 +19,8 @@ public class AnalysisF extends AnalysisStrategy{
 	* @param Selection
 	* 
 	*/
-	public void doAnalysis(Selection selection) {
+	public void doAnalysis(Selection selection)
+	{
 		
 	}
 	
@@ -27,6 +30,9 @@ public class AnalysisF extends AnalysisStrategy{
 	 * To be called from Do Analysis to get the data to be processed
 	 * @return Data
 	 */
-	public Data retrieveData() {
+	public Data[] retrieveData(Selection selection) 
+	{
 		
+
+	}
 }

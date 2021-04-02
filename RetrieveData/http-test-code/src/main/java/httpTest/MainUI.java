@@ -199,7 +199,7 @@ public class MainUI extends JFrame {
 		dataset2.addSeries(series2);
 
 		TimeSeries series3 = new TimeSeries("Hospital Beds/1000 people");
-		series3.add(new Year(2018), 2.92);
+		//series3.add(new Year(2018), 2.92);
 		series3.add(new Year(2017), 2.87);
 		series3.add(new Year(2016), 2.77);
 		series3.add(new Year(2015), 2.8);

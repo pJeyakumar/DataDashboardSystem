@@ -12,7 +12,7 @@ public class PieChart extends Viewer
 	}
 	
 	@Override
-	protected void display(ArrayList<Double>[] data, int[] years, String[] types, JPanel plotArea) 
+	protected void display(ArrayList<Double>[] data, ArrayList<Integer>[] years, String[] types, JPanel plotArea, String[] units, String analysisID) 
 	{
 		
 	}

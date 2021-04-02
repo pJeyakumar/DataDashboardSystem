@@ -27,6 +27,6 @@ public abstract class Viewer
 	}
 	
 	// Subclass-level displaying
-	protected abstract void display(ArrayList<Double>[] data, int[] years, String[] types, JPanel plotArea);
+	protected abstract void display(ArrayList<Double>[] data, ArrayList<Integer>[] years, String[] types, JPanel plotArea, String[] units, String analysisID);
 	
 }

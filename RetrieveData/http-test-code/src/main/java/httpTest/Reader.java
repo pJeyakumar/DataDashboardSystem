@@ -21,10 +21,10 @@ public class Reader
 		
 	}
 	// Method that will make an API request to World Bank
-	public Data retrieveData(Selection choices)
+	public Data retrieveData(Selection choices, String ind)
 	{
 		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json", 
-				choices.getCountry(), choices.getAnalysis(), choices.getStartYr(), choices.getEndYr());
+				choices.getCountry(), ind, choices.getStartYr(), choices.getEndYr());
 		System.out.println(urlString);
 		try 
 		{

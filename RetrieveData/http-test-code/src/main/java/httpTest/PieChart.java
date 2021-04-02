@@ -1,5 +1,9 @@
 package httpTest;
 
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
 public class PieChart extends Viewer
 {
 	PieChart()
@@ -8,7 +12,7 @@ public class PieChart extends Viewer
 	}
 	
 	@Override
-	protected void display(double[][] data) 
+	protected void display(ArrayList<Double>[] data, int[] years, String[] types, JPanel plotArea) 
 	{
 		
 	}

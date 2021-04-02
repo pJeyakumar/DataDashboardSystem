@@ -31,9 +31,14 @@ abstract class AnalysisStrategy {
 	// Results object which will be populated with processed Data objects
 	// private Results results;
 	
-	// Arrays to hold the Data to be processed and the Data that is processed
-	private ArrayList<Data> dataArray;
-	private ArrayList<Data> processedData;
+	// Array to hold the ArrayList<Double> that have the processed data values | sent to results object
+	protected ArrayList<Double>[] processedData; 
+	// Array to hold the ArrayListZ<Integer> that have the years corresponding to the above data values | sent to results object
+	protected ArrayList<Integer>[] years;
+	// Array to hold the Strings that indicate the name of the series above | sent to results object
+	protected String[] dataNames;
+	// Integer value that indicates the number of series the analysis deals with | sent to results object
+	protected int numOfSeries; 
 	
 
 	// Based on number of series for a selection, get numOfSeries Data objects from Reader
@@ -41,7 +46,6 @@ abstract class AnalysisStrategy {
 	/*
 	private Data[] data;
 	private Data[] processedData;
-	private int numOfSeries;
 	*/
 	
 	// Constructor - to be created by Computational Server class

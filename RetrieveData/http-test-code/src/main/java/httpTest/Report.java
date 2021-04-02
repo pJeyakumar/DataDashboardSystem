@@ -1,5 +1,9 @@
 package httpTest;
 
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
 public class Report extends Viewer
 {
 	Report()
@@ -8,7 +12,7 @@ public class Report extends Viewer
 	}
 	
 	@Override
-	protected void display(double[][] data) 
+	protected void display(ArrayList<Double>[] data, int[] years, String[] types, JPanel plotArea) 
 	{
 		
 		

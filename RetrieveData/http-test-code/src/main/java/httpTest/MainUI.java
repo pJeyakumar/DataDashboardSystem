@@ -185,7 +185,7 @@ public class MainUI extends JFrame {
 		series1.add(new Year(2011), 6.2);
 		series1.add(new Year(2010), 6.4);
 
-		TimeSeries series2 = new TimeSeries("Health Expenditure per Capita");
+		TimeSeries series2 = new TimeSeries("Health Expenditure per Capita"); 
 		series2.add(new Year(2018), 10624);
 		series2.add(new Year(2017), 10209);
 		series2.add(new Year(2016), 9877);
@@ -221,7 +221,7 @@ public class MainUI extends JFrame {
 		plot.setRenderer(0, itemrenderer1);
 		DateAxis domainAxis = new DateAxis("Year");
 		plot.setDomainAxis(domainAxis);
-		plot.setRangeAxis(new NumberAxis(""));
+		plot.setRangeAxis(new NumberAxis("Num of Deaths"));
 
 		plot.setDataset(1, dataset2);
 		plot.setRenderer(1, itemrenderer2);
@@ -229,6 +229,7 @@ public class MainUI extends JFrame {
 
 		plot.mapDatasetToRangeAxis(0, 0);// 1st dataset to 1st y-axis
 		plot.mapDatasetToRangeAxis(1, 1); // 2nd dataset to 2nd y-axis
+		
 
 		JFreeChart scatterChart = new JFreeChart("Mortality vs Expenses & Hospital Beds",
 				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);

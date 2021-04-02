@@ -1,4 +1,9 @@
 package httpTest;
+
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
 /*
  * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
  * DATE: 2021-04-01
@@ -22,6 +27,6 @@ public abstract class Viewer
 	}
 	
 	// Subclass-level displaying
-	protected abstract void display(double[][] data);
+	protected abstract void display(ArrayList<Double>[] data, int[] years, String[] types, JPanel plotArea);
 	
 }

@@ -29,8 +29,12 @@ abstract class AnalysisStrategy {
 	private ArrayList<Data> dataArray;
 	private ArrayList<Data> processedData;
 	
+
 	// Based on number of series for a selection, get numOfSeries Data objects from Reader
 	// (i.e. call Reader numOfSeries times)
+
+	private Data[] data;
+	private Data[] processedData;
 	private int numOfSeries;
 	
 	// Constructor - to be created by Computational Server class
@@ -50,6 +54,7 @@ abstract class AnalysisStrategy {
 	* 
 	*/
 	public abstract void doAnalysis(Selection selection);
+
 		/*
 		// Get the Data from Reader, store in tempData
 		Data tempData = retrieveData(selection);
@@ -61,6 +66,7 @@ abstract class AnalysisStrategy {
 		populateResults(this.processedDataArray[0]);
 		*/
 	 // End Do Analysis Method
+
 	
 	/**
 	 * Retrieve Data Method
@@ -77,8 +83,9 @@ abstract class AnalysisStrategy {
 	 * @output
 	 * 	- Populate Results Object
 	 */
-	public abstract Results populateResults(ArrayList<Data> processedData);
-		// Result.setData(processedData) ?
-	// End Populate Results method
+	public void populateResults(Results res) {
+		res.setData(this.processedData);
+	}
+	
 	
 } // END CLASS

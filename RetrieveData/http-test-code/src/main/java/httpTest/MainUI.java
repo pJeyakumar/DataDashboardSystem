@@ -168,6 +168,8 @@ public class MainUI extends JFrame {
 
 		report.setText(reportMessage);
 		JScrollPane outputScrollPane = new JScrollPane(report);
+		
+		// MAIN INTERFACE
 		west.add(outputScrollPane);
 	}
 

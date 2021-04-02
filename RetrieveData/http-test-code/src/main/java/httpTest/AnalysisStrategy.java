@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * @author Group 46 - Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
+ * @author - Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
  * 
  * Analysis Strategy Class
  * Functional Class that:
@@ -18,12 +18,18 @@ import java.util.ArrayList;
  * - Results - the
  */
 
+
 abstract class AnalysisStrategy {
+	
+	AnalysisStrategy A = AnalysisCreator.create("A");
 	
 	// Reader class which will return unprocessed Data objects
 	private Reader reader;
-	// Results class which will be populated with processed Data objects
-	private Results results;
+	
+	// ?
+	// maybe initialize Results object earlier
+	// Results object which will be populated with processed Data objects
+	// private Results results;
 	
 	// Arrays to hold the Data to be processed and the Data that is processed
 	private ArrayList<Data> dataArray;
@@ -32,10 +38,11 @@ abstract class AnalysisStrategy {
 
 	// Based on number of series for a selection, get numOfSeries Data objects from Reader
 	// (i.e. call Reader numOfSeries times)
-
+	/*
 	private Data[] data;
 	private Data[] processedData;
 	private int numOfSeries;
+	*/
 	
 	// Constructor - to be created by Computational Server class
 	public AnalysisStrategy() {
@@ -50,7 +57,7 @@ abstract class AnalysisStrategy {
 	* 1. Gets unprocessed data from Reader class
 	* 2. 
 	* 
-	* @param Selection
+	* @param Selection - has getAnalysis, getAnalysis, getCountry, getStartYr, getEndYr
 	* 
 	*/
 	public abstract void doAnalysis(Selection selection);
@@ -73,7 +80,7 @@ abstract class AnalysisStrategy {
 	 * To be called from Do Analysis to get the data to be processed
 	 * @return Data - a single Data object
 	 */
-	public abstract Data retrieveData(Selection selection);
+	public abstract Data[] retrieveData(Selection selection);
 		//return this.reader.retrieveData(selection);
 	 // End Retrieve Data method
 	
@@ -84,7 +91,27 @@ abstract class AnalysisStrategy {
 	 * 	- Populate Results Object
 	 */
 	public void populateResults(Results res) {
-		res.setData(this.processedData);
+		// res.setData(this.processedData);
+	}
+	
+	/**
+	 * Not abstract because all inherited Analysis types may use it
+	 * @param value1
+	 * @param value2
+	 * @return
+	 */
+	public double getAverage(double value1, double value2) {
+		
+	}
+	
+	/**
+	 * Not abstract because all inherited Analysis types may use it
+	 * @param value1
+	 * @param value2
+	 * @return
+	 */
+	public double getRatio(double value1, double value2) {
+		
 	}
 	
 	

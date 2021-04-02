@@ -18,19 +18,25 @@ import java.util.ArrayList;
  * - Results - the
  */
 
-public class AnalysisStrategy {
+abstract class AnalysisStrategy {
 	
 	// Reader class which will return unprocessed Data objects
 	private Reader reader;
-	// Results class which will be populated with processed Data
+	// Results class which will be populated with processed Data objects
 	private Results results;
 	
 	// Arrays to hold the Data to be processed and the Data that is processed
 	private ArrayList<Data> dataArray;
-	private ArrayList<Data> processedDataArray;
+	private ArrayList<Data> processedData;
+	
+	// Based on number of series for a selection, get numOfSeries Data objects from Reader
+	// (i.e. call Reader numOfSeries times)
+	private int numOfSeries;
 	
 	// Constructor - to be created by Computational Server class
 	public AnalysisStrategy() {
+		
+		// Initialize Reader
 		this.reader = new Reader();
 	}
 	
@@ -43,8 +49,8 @@ public class AnalysisStrategy {
 	* @param Selection
 	* 
 	*/
-	public void doAnalysis(Selection selection) {
-		
+	public abstract void doAnalysis(Selection selection);
+		/*
 		// Get the Data from Reader, store in tempData
 		Data tempData = retrieveData(selection);
 		
@@ -52,30 +58,27 @@ public class AnalysisStrategy {
 		ArrayList<Double> pData1 = new ArrayList<Double>();
 		this.processedDataArray[0] = new Data(pData1);
 		
-		
 		populateResults(this.processedDataArray[0]);
-		
-	} // End Do Analysis Method
+		*/
+	 // End Do Analysis Method
 	
 	/**
 	 * Retrieve Data Method
 	 * To be called from Do Analysis to get the data to be processed
 	 * @return Data - a single Data object
 	 */
-	public Data retrieveData(Selection selection) {
-		
-		return this.reader.retrieveData(selection);
-	} // End Retrieve Data method
+	public abstract Data retrieveData(Selection selection);
+		//return this.reader.retrieveData(selection);
+	 // End Retrieve Data method
 	
 	/**
 	 * Populate Results Method
-	 * @param Data to be Processed
+	 * @input Data to be Processed (Array)
+	 * @output
+	 * 	- Populate Results Object
 	 */
-	public Results populateResults(ArrayList<Data> processedData) {
-		
-		Results returnResults = null;
+	public abstract Results populateResults(ArrayList<Data> processedData);
+		// Result.setData(processedData) ?
+	// End Populate Results method
 	
-		return returnResults;
-	} // End Populate Results method
-
 } // END CLASS

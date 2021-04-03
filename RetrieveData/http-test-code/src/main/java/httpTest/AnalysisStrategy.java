@@ -21,24 +21,29 @@ import java.util.ArrayList;
 
 abstract class AnalysisStrategy {
 	
-	// Reader class which will return unprocessed Data objects
-	private Reader reader;
+	// ---- NAMES ----
+	// String to hold the full, formal name of this analysis 
+	protected String analysisID; 
+	// Array to hold the Strings that indicate the name of the series above | sent to results object
+	protected String[] dataNames;    // i.e. "Mortality/1000"   "Methane Emissions (MT)"
 	
-	// ?
-	// maybe initialize Results object earlier
-	// Results object which will be populated with processed Data objects
-	// private Results results;
+	protected String[] axisNames;    // i.e. "$USD"  "Year" 
 	
+	
+	// ---- DATA ----
 	// Array to hold the ArrayList<Double> that have the processed data values | sent to results object
 	protected ArrayList<Double>[] processedData; 
 	// Array to hold the ArrayListZ<Integer> that have the years corresponding to the above data values | sent to results object
 	protected ArrayList<Integer>[] years;
-	// Array to hold the Strings that indicate the name of the series above | sent to results object
-	protected String[] dataNames;
+
+	
+	protected Reader reader;
+	
+	
 	// Integer value that indicates the number of series the analysis deals with | sent to results object
 	protected int numOfSeries; 
 	
-	protected String[] units;
+	
 	
 
 	// Based on number of series for a selection, get numOfSeries Data objects from Reader
@@ -95,7 +100,7 @@ abstract class AnalysisStrategy {
 	 * 	- Populate Results Object
 	 */
 	public void populateResults(Results res) {
-		// res.setData(this.processedData);
+		res.setData(this.processedData, this.years, this.dataNames, this.axisNames, this.analysisID);
 	}
 	
 	/**

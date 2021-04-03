@@ -20,7 +20,7 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.Year;
 /*
  * ISSUES WE NEED TO RESOLVE: 
- * 1. How do we find out how many TimeSeriesCollections we will need? We will need 1 per UNIQUE unit, for example if units = {kg, kg, g} (for a 3-series graph), we need to create 2 TimeSeriesCollection objects
+ * 1. How do we find out how many TimeSeriesCollections we will need? We will need 1 per UNIQUE unit, for example if axisNames = {kg, kg, g} (for a 3-series graph), we need to create 2 TimeSeriesCollection objects
  */
 public class ScatterPlot extends Viewer
 {
@@ -30,10 +30,12 @@ public class ScatterPlot extends Viewer
 	}
 	
 	@Override
-	protected void display(ArrayList<Double>[] data, ArrayList<Integer>[] years, String[] types, JPanel plotArea, String[] units, String analysisID) 
+	protected void display(JPanel plotArea, ArrayList<Double>[] data, ArrayList<Integer>[] years, String[] dataNames,  String[] axisNames, String analysisID) 
 	{
 		// Variable Declaration
 		int numTS = data.length;
+		int numTSC = axisNames.length;
+		
 		// create TimeSeries for each series in data
 		TimeSeries[] seriesArray = new TimeSeries[numTS];
 		for(int i = 0; i < numTS; i++)
@@ -50,15 +52,31 @@ public class ScatterPlot extends Viewer
 			}
 		}
 		
+		
 		// group TimeSeries in TimeSeriesCollections by units
-		TimeSeriesCollection[] dataSet = new TimeSeriesCollection[numofTSC];
+		TimeSeriesCollection[] dataSet = new TimeSeriesCollection[numTSC];
+		for (int i = 0 ; i < numTSC ; i++) dataSet[i] = new TimeSeriesCollection();
+		
+		// If there are two TSCollections, add first series to one collection, and all the rest to the other
+		if (numTSC == 2) {
+			dataSet[0].addSeries(seriesArray[0]);
+			for (int i = 1; i < numTS; i++) dataSet[1].addSeries(seriesArray[i]);
+		
+		// Otherwise add all time series to the single collection
+		}else{
+			for (int i = 0; i < numTS; i++) dataSet[0].addSeries(seriesArray[i]);
+		}
+		
 		// create XYPlot 
 		XYPlot plot = new XYPlot();
 		// create XYItemRenderer array
-		XYItemRenderer[] itemRenArray = new XYItemRenderer[numofTSC];
+		XYItemRenderer[] itemRenArray = new XYItemRenderer[numTSC];
 		// create XYItemRenderer for EACH TimeSeriesCollection
-		// set the data sets and renderers for the plot
-		for(int k = 0; k < numOfTSC; k++) 
+		// set the data sets and renderers for the plot\
+		
+		
+		
+		for(int k = 0; k < numTSC; k++) 
 		{
 			// create XYLineAndShapeRenderer for that TimeSeriesCollection
 			itemRenArray[k] = new XYLineAndShapeRenderer(false, true);
@@ -67,7 +85,7 @@ public class ScatterPlot extends Viewer
 			// set the XYItemRenderer for that TimeSeriesCollection
 			plot.setRenderer(k, itemRenArray[k]);
 			// set Range axis (at most 2) [provide names]
-			plot.setRangeAxis(k, new NumberAxis(TSCUnits[k]));
+			plot.setRangeAxis(k, new NumberAxis(axisNames[k]));
 			// set the datasets to their corresponding y-axis
 			plot.mapDatasetToRangeAxis(k, k);
 		}

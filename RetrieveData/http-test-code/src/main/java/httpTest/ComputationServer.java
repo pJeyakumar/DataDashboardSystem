@@ -1,10 +1,14 @@
 package httpTest;
 
+import javax.swing.JPanel;
+
 public class ComputationServer {
 	
 	private AnalysisStrategy currentStrat; 
 	private Selection userChoices;
-	//private String analysisID;
+	
+	private static ComputationServer instance = null; 
+	
 	/*recalculate()
 	{
 		HashMap map = new HashMap(AnalysisBox.analysisID);
@@ -14,16 +18,31 @@ public class ComputationServer {
 		cs.setStrategy(obj);
 		cs.runStrategy();
 	}*/
-	public ComputationServer(Selection input) {
-		userChoices = input;
+	public ComputationServer() {
+		
+	}
+	
+	// Singleton design pattern, not sure if we want to keep this 
+	public static ComputationServer getInstance() {
+		if (instance == null) {
+			instance = new ComputationServer();
+		}
+		return instance;
+	}
+	
+	public void setSelection(Selection choice) {
+		userChoices = choice;
 	}
 	
 	public void setStrategy(AnalysisStrategy newStrat) {
 		currentStrat = newStrat;
 	}
 	
-	public void runStrategy() {
+	public void runStrategy(JPanel panel) {
+		Results results = new Results();
 		currentStrat.doAnalysis(userChoices /*,results object*/);
+		results.setJPanel(panel);
+		currentStrat.populateResults(results);
 	}
 	
 }

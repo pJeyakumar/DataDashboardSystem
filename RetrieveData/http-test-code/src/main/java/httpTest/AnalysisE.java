@@ -9,6 +9,16 @@ public class AnalysisE extends AnalysisStrategy
 	public AnalysisE() 
 	{
 		this.numOfSeries = 3; 
+		this.analysisID = "Agricultural Land vs NO2 Emissions vs Methane Emissions";
+		
+		this.dataNames = new String[3];
+		this.dataNames[0] = "Agricultural Land (% Total)";
+		this.dataNames[1] = "Nitrous Oxide Emission (MT)";
+		this.dataNames[2] = "Methane Emissions (MT)";
+		
+		this.axisNames = new String[2];
+		this.axisNames[0] = "% Total Land";
+		this.axisNames[1] = "Megatons";
 	}
 	
 	
@@ -24,22 +34,29 @@ public class AnalysisE extends AnalysisStrategy
 	*/
 	public void doAnalysis(Selection selection) 
 	{
+		
 		// Variable Declarations
 		this.processedData = new ArrayList[3];
 		this.years = new ArrayList[3];
-		this.dataNames = new String[3];
 		
 		// Getting array of Data objects from Reader class
-		Data[] finalData = this.retrieveData(selection);
+		Data[] dataSets = this.retrieveData(selection);
 		
+		double[] divisionFactor = {1.0, 1000.0, 1000.0};
+		
+		ArrayList<Double> temp; 
 		// Storing the ArrayList<Double> into the Array | we will get an ARRAY storing ArrayList<Double>, which are the data values
-		for (int i = 0 ; i < finalData.length; i++) {
-			this.processedData[i] = finalData[i].getFirst();
-			this.years[i] = finalData[i].getSecond();
-			this.dataNames[0] = finalData[i].getTypeA();
+		for (int i = 0 ; i < dataSets.length; i++) {
+			
+			temp = dataSets[i].getFirst();
+			
+			for (int j = 0; j < temp.size(); j++) {
+				temp.set(j, (temp.get(j)) / divisionFactor[i]);
+			}
+			
+			this.processedData[i] = temp;
+			this.years[i] = dataSets[i].getSecond();
 		}
-				
-		// this.units =['kwh', 'kwh', '%']
 	}
 	
 	
@@ -53,13 +70,13 @@ public class AnalysisE extends AnalysisStrategy
 		// Create an instance of the Reader class
 		Reader reader = new Reader();
 		
-		String[] analyses = {"EN.ATM.NOXE.AG.KT.CE","EN.ATM.METH.AG.KT.CE",  "AG.LND.AGRI.ZS"};
+		String[] urlNames = {"AG.LND.AGRI.ZS", "EN.ATM.NOXE.AG.KT.CE","EN.ATM.METH.AG.KT.CE"};
 		
 		// Get Data object for Renewable electricity output (% of total electricity output) P.I
 		Data[] seriesArray = new Data[3];
 		
 		for (int i = 0; i < 3 ; i ++) {
-			seriesArray[i] = reader.retrieveData(selection, analyses[i]);
+			seriesArray[i] = reader.retrieveData(selection, urlNames[i]);
 		}
 
 		// Return Data objects Array to caller

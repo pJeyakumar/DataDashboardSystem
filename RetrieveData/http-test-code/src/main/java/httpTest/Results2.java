@@ -59,6 +59,11 @@ public class Results2 {
         // take values from result object, display these new values
         // for every viewer, update data --> update()
         // take values from result object, display these new values
+    	
+    	
+    	// Check : at least one viewer loaded 
+    	// Check : valid analysis strategy loaded 
+    	
         for (Viewer v : viewers){
             v.display(mainPanel, analysis.processedData, 
             		analysis.years, analysis.dataNames, 

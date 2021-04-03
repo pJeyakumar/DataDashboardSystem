@@ -21,8 +21,6 @@ import java.util.ArrayList;
 
 abstract class AnalysisStrategy {
 	
-	AnalysisStrategy A = AnalysisCreator.create("A");
-	
 	// Reader class which will return unprocessed Data objects
 	private Reader reader;
 	
@@ -39,6 +37,8 @@ abstract class AnalysisStrategy {
 	protected String[] dataNames;
 	// Integer value that indicates the number of series the analysis deals with | sent to results object
 	protected int numOfSeries; 
+	
+	protected String[] units;
 	
 
 	// Based on number of series for a selection, get numOfSeries Data objects from Reader

@@ -49,6 +49,7 @@ public class AnalysisA extends AnalysisStrategy
 		this.dataNames[0] = finalData[0].getTypeA();
 		this.dataNames[1] = finalData[1].getTypeA();
 		
+		// this.units =['kwh', 'kwh', '%']
 	}
 	
 	

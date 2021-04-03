@@ -63,7 +63,7 @@ public class Reader
 					}
 				}
 // PIRANA COMMENT -- We create an instance of the Data object
-				Data fetchedData = new Data(data1, data2);
+				Data fetchedData = new Data(data1, data2, choices.getAnalysis());
 				return fetchedData;		
 			}
 		} 

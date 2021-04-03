@@ -15,7 +15,6 @@ public class AnalysisA extends AnalysisStrategy
 		
 	}
 	
-	
 	/** Do Analysis Method
 	* To be called from Computational Server class
 	* Core method of the project that, based on the user selection:
@@ -36,22 +35,18 @@ public class AnalysisA extends AnalysisStrategy
 		
 		// Getting array of Data objects from Reader class
 		Data[] finalData = retrieveData(selection);
-		
-		// Storing the ArrayList<Double> into the Array | we will get an ARRAY storing ArrayList<Double>, which are the data values
-		this.processedData[0] = finalData[0].getFirst();
-		this.processedData[1] = finalData[1].getFirst();
-		
-		// Storing the ArrayList<Integer> into the Array | we will get an ARRAY storing ArrayList<Integer>, which are the years
-		this.years[0] = finalData[0].getSecond();
-		this.years[1] = finalData[1].getSecond();
-		
-		// Storing the Strings into the Array | we will get an ARRAY storing Strings, which are the name of the data series
-		this.dataNames[0] = finalData[0].getTypeA();
-		this.dataNames[1] = finalData[1].getTypeA();
-		
-		// this.units =['kwh', 'kwh', '%']
-	}
 	
+		for(int i = 0; i < 2; i++)
+		{
+			// Storing the ArrayList<Double> into the Array | we will get an ARRAY storing ArrayList<Double>, which are the data values
+			this.processedData[i] = finalData[i].getFirst();
+			// Storing the ArrayList<Integer> into the Array | we will get an ARRAY storing ArrayList<Integer>, which are the years
+			this.years[i] = finalData[i].getSecond();
+			// Storing the Strings into the Array | we will get an ARRAY storing Strings, which are the name of the data series
+			this.dataNames[i] = finalData[i].getTypeA();
+		}
+		
+	}
 	
 	/**
 	 * Retrieve Data

@@ -30,7 +30,8 @@ public class ScatterPlot extends Viewer
 	}
 	
 	@Override
-	protected void display(JPanel plotArea, ArrayList<Double>[] data, ArrayList<Integer>[] years, String[] dataNames,  String[] axisNames, String analysisID) 
+	protected void display(JPanel plotArea, ArrayList<Double>[] data, 
+			ArrayList<Integer>[] years, String[] dataNames,  String[] axisNames, String analysisID) 
 	{
 		// Variable Declaration
 		int numTS = data.length;
@@ -44,7 +45,7 @@ public class ScatterPlot extends Viewer
 			// Find out number of years for that series
 			int numYears = years[i].size();
 			// Create a new TimeSeries using the series name
-			seriesArray[i] = new TimeSeries(types[i]);
+			seriesArray[i] = new TimeSeries(dataNames[i]);
 			// For every year in the specified series, add the Year and its corresponding data value to that series
 			for(int j = 0; j < numYears; j++)
 			{
@@ -52,35 +53,43 @@ public class ScatterPlot extends Viewer
 			}
 		}
 		
-		
 		// group TimeSeries in TimeSeriesCollections by units
 		TimeSeriesCollection[] dataSet = new TimeSeriesCollection[numTSC];
-		for (int i = 0 ; i < numTSC ; i++) dataSet[i] = new TimeSeriesCollection();
+		for (int i = 0 ; i < numTSC ; i++) 
+		{
+			dataSet[i] = new TimeSeriesCollection();
+		}
 		
 		// If there are two TSCollections, add first series to one collection, and all the rest to the other
-		if (numTSC == 2) {
+		if (numTSC == 2) 
+		{
 			dataSet[0].addSeries(seriesArray[0]);
-			for (int i = 1; i < numTS; i++) dataSet[1].addSeries(seriesArray[i]);
-		
-		// Otherwise add all time series to the single collection
-		}else{
-			for (int i = 0; i < numTS; i++) dataSet[0].addSeries(seriesArray[i]);
+			for (int i = 1; i < numTS; i++) 
+			{
+				dataSet[1].addSeries(seriesArray[i]);
+			}
+		}
+		// Otherwise ad all time series into a single collection
+		else
+		{
+			for (int i = 0; i < numTS; i++) 
+			{
+				dataSet[0].addSeries(seriesArray[i]);
+			}
 		}
 		
 		// create XYPlot 
 		XYPlot plot = new XYPlot();
 		// create XYItemRenderer array
 		XYItemRenderer[] itemRenArray = new XYItemRenderer[numTSC];
+		
 		// create XYItemRenderer for EACH TimeSeriesCollection
-		// set the data sets and renderers for the plot\
-		
-		
-		
+		// set the data sets and renderers for the plot\		
 		for(int k = 0; k < numTSC; k++) 
 		{
 			// create XYLineAndShapeRenderer for that TimeSeriesCollection
 			itemRenArray[k] = new XYLineAndShapeRenderer(false, true);
-			// set the Dataset for that TimeSeriesCollection
+			// set the dataset for that TimeSeriesCollection
 			plot.setDataset(k, dataSet[k]);
 			// set the XYItemRenderer for that TimeSeriesCollection
 			plot.setRenderer(k, itemRenArray[k]);

@@ -12,7 +12,8 @@ public class BarGraph extends Viewer
 	}
 	
 	@Override
-	protected void display(ArrayList<Double>[] data, ArrayList<Integer>[]  years, String[] types, JPanel plotArea, String[] units, String analysisID) 
+	protected void display(JPanel plotArea, ArrayList<Double>[] data, 
+			ArrayList<Integer>[] years, String[] dataNames, String[] axisNames, String analysisID) 
 	{
 		
 	}

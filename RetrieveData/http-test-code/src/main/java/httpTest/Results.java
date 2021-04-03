@@ -1,21 +1,70 @@
 package httpTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Results {
 	
-	private Data[] storedData; 
-	private int numOfSeries; 
-	public Results(Data[] inputData) {
+	private List<Viewer> viewers;
+	private int state;
+	
+	private String type;
+	private ArrayList<Double>[] values;
+	private ArrayList<Integer> years;
+	public Results(Data data) {
+		this.values = data.getFirst();
+		this.years = data.getSecond();
+		this.type = data.getTypeA();
 		
-		storedData = inputData;
-		numOfSeries = inputData.length;
+		this.viewers = new ArrayList<Viewer>();
+		this.state = 0;
+		
 	}
 	
 	public Data getData(int i) throws OutOfBoundsException{
-		if (i > numOfSeries) {
-			 throw new OutOfBoundsException("Data entry not found");
-		}
 		
-		return storedData[i];
 	}
 	
+	public void setData(Data newData){
+		
+	}
+	
+	public void attachViewer (Viewer viewer) {
+		viewers.add(viewer);
+	}
+	
+	public void detachViewer (Viewer viewer) throws Exception{
+		viewers.remove(viewer);
+	}
+	
+	
+	public int getState() {
+		return state;
+		
+	}
+	
+	public void setState(int state) {
+		this.state = state;
+		notifyViewers();
+	}
+	
+	public void notifyViewers() {
+		// take values from result object, display these new values
+		// for every viewer, update data --> update()
+		// take values from result object, display these new values
+		for v in (ATTACHED VIEWERS) {
+			v.display(JPanel west);
+		}
+	}
+	
+	
 }
+
+
+// attachViewer
+// detachViewer
+// notifyViewers
+// getState
+// setState
+// getData
+// setData

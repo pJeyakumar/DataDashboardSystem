@@ -11,6 +11,8 @@ public class Results {
 	private String type;
 	private ArrayList<Double>[] values;
 	private ArrayList<Integer> years;
+	private String[] units; 
+	
 	public Results(Data data) {
 		this.values = data.getFirst();
 		this.years = data.getSecond();
@@ -21,12 +23,12 @@ public class Results {
 		
 	}
 	
-	public Data getData(int i) throws OutOfBoundsException{
-		
-	}
 	
-	public void setData(Data newData){
-		
+	public void setData(ArrayList<Double>[] processedData, ArrayList<Integer>[] years, String[] units){
+		// Load 
+		//private ArrayList<Double>[] values;
+		//private ArrayList<Integer> years;
+		// 
 	}
 	
 	public void attachViewer (Viewer viewer) {

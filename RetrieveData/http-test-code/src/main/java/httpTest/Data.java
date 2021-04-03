@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Data
 {	
 	// Private instance variables
-	private String typeA;					// analysis
+	private String aType;					// analysis
 	private ArrayList<Double> firstSet;		// values
 	private ArrayList<Integer> secondSet;	// years
 	
@@ -24,7 +24,16 @@ public class Data
 	{
 		this.firstSet = data1;
 		this.secondSet = data2;
+
 	}
+	
+	public Data(ArrayList<Double> data1, ArrayList<Integer> data2, String type)
+	{
+		this.firstSet = data1;
+		this.secondSet = data2;
+		this.aType = type;
+	}
+	
 	// Setter method for firstSet variable
 	public void  setFirst(ArrayList<Double> data) 
 	{
@@ -35,10 +44,10 @@ public class Data
 	{
 		this.secondSet = data;
 	}
-	// Setter method for typeA variable
+	// Setter method for aType variable
 	public void setTypeA(String type) 
 	{
-		this.typeA = type;
+		this.aType = type;
 	}
 	// Getter method for firstSet
 	public ArrayList<Double> getFirst() 
@@ -53,7 +62,7 @@ public class Data
 	// Getter method for type
 	public String getTypeA() 
 	{
-		return this.typeA;
+		return this.aType;
 	}
 }
 

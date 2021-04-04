@@ -17,7 +17,8 @@ import java.util.ArrayList;
  * - Attributes of Fetched Data
  * - Arrays to contain Processed Data and Related Years
  * Methods:
- * - Do Analysis: Varies per Analysis Strategy
+ * - Do Analysis: Varies per Analysis Strategy. Does the computations if needed
+ *    , and fills processed data and year arrays
  * - Populate Results - Set Data organized to a Results object
  * - Helper methods for getting averages and ratios
  */

@@ -1,12 +1,22 @@
 package httpTest;
 
+import java.util.ArrayList;
+
 public class AnalysisG extends AnalysisStrategy
 {
-	
+	// skeleton TBC
 	
 	public AnalysisG() 
 	{
+		this.numOfSeries = 1;
+		this.analysisID = " (ratio)";
 		
+		this.dataNames = new String[1];
+		this.dataNames[0] = "Ratio of Agricultural vs Forest Land";
+		
+		this.axisNames = new String[1];
+		this.axisNames[0] = "Ratio";
+
 	}
 	
 	
@@ -21,7 +31,19 @@ public class AnalysisG extends AnalysisStrategy
 	*/
 	public void doAnalysis(Selection selection)
 	{
+		this.processedData = new ArrayList[2];
+		this.years = new ArrayList[2];
+		this.dataNames = new String[2];
 		
+		Data[] finalData = retrieveData(selection);
+		
+		for(int i = 0; i < 2; i++) {
+			this.processedData[i] = finalData[i].getFirst();
+			
+			this.years[i] = finalData[i].getSecond();
+			
+			this.dataNames[i] = finalData[i].getTypeA();
+		}
 	}
 	
 	
@@ -32,6 +54,16 @@ public class AnalysisG extends AnalysisStrategy
 	 */
 	public Data[] retrieveData(Selection selection) 
 	{
+		Reader reader = new Reader();
 		
+		Data series1 = reader.retrieveData(selection,  "AG.LND.AGRI.ZS");
+		Data series2 = reader.retrieveData(selection,  "AG.LND.FRST.ZS");
+		
+		Data[] seriesArray = new Data[2];
+		
+		seriesArray[0] = series1;
+		seriesArray[1] = series2;
+		
+		return seriesArray;
 	}
 }

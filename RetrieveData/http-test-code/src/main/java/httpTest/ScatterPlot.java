@@ -24,6 +24,7 @@ import org.jfree.data.time.Year;
  */
 public class ScatterPlot extends Viewer
 {
+	private ChartPanel chartPanel;
 	ScatterPlot()
 	{
 		super(ViewerType.SCATTERPLOT);
@@ -108,14 +109,17 @@ public class ScatterPlot extends Viewer
 		// create JFreeChart with Title, Font and plot
 		JFreeChart scatterChart = new JFreeChart(analysisID,
 				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-		// create ChartPanel using JFreeChart and set dimensions, border and background
-		ChartPanel chartPanel = new ChartPanel(scatterChart);
-		chartPanel.setPreferredSize(new Dimension(400, 300));
-		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-		chartPanel.setBackground(Color.white);
+
+		chartPanel.setChart(scatterChart);
+
 	
 		// add ChartPanel to JPanel plotArea
 		plotArea.add(chartPanel);
+	}
+	
+	public void setChartPanel(ChartPanel panel) 
+	{
+		this.chartPanel = panel;
 	}
 	
 }

@@ -22,6 +22,7 @@ import org.jfree.data.time.Year;
 
 public class LineGraph extends Viewer
 {
+	private ChartPanel chartPanel;
 	LineGraph()
 	{
 		super(ViewerType.LINEGRAPH);
@@ -104,16 +105,17 @@ public class LineGraph extends Viewer
 		plot.setDomainAxis(domainAxis);
 		
 		// create JFreeChart with Title, Font and plot
-		JFreeChart scatterChart = new JFreeChart(analysisID,
+		JFreeChart lineGraph = new JFreeChart(analysisID,
 				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-		// create ChartPanel using JFreeChart and set dimensions, border and background
-		ChartPanel chartPanel = new ChartPanel(scatterChart);
-		chartPanel.setPreferredSize(new Dimension(400, 300));
-		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-		chartPanel.setBackground(Color.white);
+		
+		chartPanel.setChart(lineGraph);
 	
 		// add ChartPanel to JPanel plotArea
 		plotArea.add(chartPanel);
 	}
-
+	
+	public void setChartPanel(ChartPanel panel) 
+	{
+		this.chartPanel = panel;
+	}
 }

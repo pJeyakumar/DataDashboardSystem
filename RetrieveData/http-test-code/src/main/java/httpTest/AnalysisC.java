@@ -44,15 +44,26 @@ public class AnalysisC extends AnalysisStrategy
 	*/
 	public void doAnalysis(Selection selection) {
 		
-		this.processedData = new ArrayList[1];
+		this.processedData = new ArrayList[2];
+		this.years = new ArrayList[29];
 		
-		this.years = new ArrayList[28];
+		Data[] dataSet = this.retrieveData(selection);
+		ArrayList<Double> forestData = dataSet[0].getFirst();
+		double avgForest = this.getAverage(forestData);
 		
+		ArrayList<Double> avgForestList = new ArrayList<Double>();
+		Double avgForest_As_Double = Double.valueOf(avgForest);
+		avgForestList.add(avgForest_As_Double);
 		
+		double restOfLand = 1 - avgForest;
+		ArrayList<Double> restOfLandList = new ArrayList<Double>();
+		Double restOfLand_As_Double = Double.valueOf(restOfLand);
+		restOfLandList.add(restOfLand_As_Double);
 		
+		this.processedData[0] = avgForestList;
+		this.processedData[1] = restOfLandList;
 		
-		
-	}
+	} // End Do Analysis
 	
 	
 	/**

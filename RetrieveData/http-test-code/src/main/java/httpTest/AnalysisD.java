@@ -7,15 +7,17 @@ import java.util.ArrayList;
  * Analysis Strategy for Analysis D:
  *  - 2-series
  *  - AG.LND.FRST.ZS VS EN.CLC.GHGR.MT.CE
- *  - Average of Forest area (% of land area) in Canada from 1990 to 2009
+ *  - Forest area (% of land area) in Canada from 1990 to 2009
  *    VS
  *    Average of GHG net emissions/removals by LUCF (Mt of CO2 equivalent) in Canada from 1990 to 2009
  *  - In other words, 
  *    
  *  - Line Graph
- *    - Line 1: Average of Forest area in Canada from 1990 to 2009
+ *    - Line 1: Forest area in Canada from 1990 to 2009
  *    - Line 2: Average of Greenhouse gas net emissions/removals by land-use, change and forestry in Canada
  *              from 1990 to 2009
+ *              (Horizontal line as it is one value)
+ *              
  */
 
 public class AnalysisD extends AnalysisStrategy
@@ -47,9 +49,23 @@ public class AnalysisD extends AnalysisStrategy
 	*/
 	public void doAnalysis(Selection selection) {
 		
+		this.processedData = new ArrayList[2];
+		this.years = new ArrayList[20];
 		
+		Data[] dataSet = this.retrieveData(selection);
 		
-	}
+		// dataSet[1] = the GHG emissions/removals data
+		ArrayList<Double> GHGData = dataSet[1].getFirst(); // get values
+		double avgGHG = this.getAverage(GHGData);
+		
+		ArrayList<Double> avgGHGList = new ArrayList<Double>();
+		Double avgGHG_As_Double = Double.valueOf(avgGHG);
+		avgGHGList.add(avgGHG_As_Double);
+		
+		this.processedData[0] = dataSet[0].getFirst(); // Unchanged values of Forest Area
+		this.processedData[1] = avgGHGList; // Data for single horizontal line that is the avg GHG emissions/removals
+		
+	} // End Do Analysis
 	
 	
 	/**
@@ -70,7 +86,6 @@ public class AnalysisD extends AnalysisStrategy
 		
 		// Return data
 		return seriesArray;
-		
 		
 	} // End Retrieve Data
 	

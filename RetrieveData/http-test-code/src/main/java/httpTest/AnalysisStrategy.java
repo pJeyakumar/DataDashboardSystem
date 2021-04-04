@@ -14,8 +14,12 @@ import java.util.ArrayList;
  * Called by
  *  - Computational Server class
  * Data:
- * - Reader - the reader to get original data from
- * - 
+ * - Attributes of Fetched Data
+ * - Arrays to contain Processed Data and Related Years
+ * Methods:
+ * - Do Analysis: Varies per Analysis Strategy
+ * - Populate Results - Set Data organized to a Results object
+ * - Helper methods for getting averages and ratios
  */
 
 
@@ -33,20 +37,11 @@ abstract class AnalysisStrategy {
 	// ---- DATA ----
 	// Array to hold the ArrayList<Double> that have the processed data values | sent to results object
 	protected ArrayList<Double>[] processedData; 
-	// Array to hold the ArrayListZ<Integer> that have the years corresponding to the above data values | sent to results object
+	// Array to hold the ArrayList<Integer> that have the years corresponding to the above data values | sent to results object
 	protected ArrayList<Integer>[] years;
 
-	
-	
 	// Integer value that indicates the number of series the analysis deals with | sent to results object
-	protected int numOfSeries; 
-	
-	// Based on number of series for a selection, get numOfSeries Data objects from Reader
-	// (i.e. call Reader numOfSeries times)
-	/*
-	private Data[] data;
-	private Data[] processedData;
-	*/
+	protected int numOfSeries;
 	
 	// Constructor - to be created by Computational Server class
 	public AnalysisStrategy() {}

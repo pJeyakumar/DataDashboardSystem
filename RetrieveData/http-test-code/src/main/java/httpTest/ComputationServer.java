@@ -38,9 +38,9 @@ public class ComputationServer {
 		currentStrat = newStrat;
 	}
 	
-	public void runStrategy(JPanel panel) {
-		Results results = new Results();
-		currentStrat.doAnalysis(userChoices /*,results object*/);
+	public void runStrategy(JPanel panel, Results results) {
+		//Results results = new Results();
+		currentStrat.doAnalysis(userChoices);
 		results.setJPanel(panel);
 		currentStrat.populateResults(results);
 	}

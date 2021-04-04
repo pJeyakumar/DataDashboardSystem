@@ -244,11 +244,11 @@ public class MainUI extends JFrame {
 	private void createPie(JPanel west) {
 		// Different way to create pie chart
 		/*
-		 * var dataset = new DefaultPieDataset(); dataset.setValue("Unemployed", 3.837);
+		 * var dataset = new DefaultPieDataset(); 
+		 * dataset.setValue("Unemployed", 3.837);
 		 * dataset.setValue("Employed", 96.163);
 		 * 
-		 * JFreeChart pieChart = ChartFactory.createPieChart("Women's Unemployment",
-		 * dataset, true, true, false);
+		 * JFreeChart pieChart = ChartFactory.createPieChart("Women's Unemployment", dataset, true, true, false);
 		 */
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -309,7 +309,7 @@ public class MainUI extends JFrame {
 		plot.setRenderer(0, barrenderer1);
 		CategoryAxis domainAxis = new CategoryAxis("Year");
 		plot.setDomainAxis(domainAxis);
-		plot.setRangeAxis(new NumberAxis(""));
+		plot.setRangeAxis(0, new NumberAxis(""));
 
 		plot.setDataset(1, dataset2);
 		plot.setRenderer(1, barrenderer2);
@@ -344,7 +344,7 @@ public class MainUI extends JFrame {
 		series1.add(2018, 5.6);
 		series1.add(2017, 5.7);
 		series1.add(2016, 5.8);
-		series1.add(2015, 5.8);
+		series1.add(2015, 51312.8);
 		series1.add(2014, 5.9);
 		series1.add(2013, 6.0);
 		series1.add(2012, 6.1);
@@ -386,6 +386,8 @@ public class MainUI extends JFrame {
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 		renderer.setSeriesPaint(0, Color.RED);
 		renderer.setSeriesStroke(0, new BasicStroke(2.0f));
+
+
 
 		plot.setRenderer(renderer);
 		plot.setBackgroundPaint(Color.white);

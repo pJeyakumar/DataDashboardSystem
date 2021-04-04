@@ -1,5 +1,9 @@
 package httpTest;
-
+/*
+ * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
+ * DATE: 2021-04-01
+ * DESCRIPTION: Class responsible for creating a Viewer object based on the ViewerType that was given
+ */
 import javax.naming.spi.DirStateFactory.Result;
 
 public class ViewerCreator 

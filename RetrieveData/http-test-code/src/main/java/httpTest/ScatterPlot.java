@@ -41,7 +41,6 @@ public class ScatterPlot extends Viewer
 		TimeSeries[] seriesArray = new TimeSeries[numTS];
 		for(int i = 0; i < numTS; i++)
 		{
-			
 			// Find out number of years for that series
 			int numYears = years[i].size();
 			// Create a new TimeSeries using the series name
@@ -49,7 +48,10 @@ public class ScatterPlot extends Viewer
 			// For every year in the specified series, add the Year and its corresponding data value to that series
 			for(int j = 0; j < numYears; j++)
 			{
-				seriesArray[i].add(new Year(years[i].get(j)), data[i].get(j));
+				if(data[i].get(j) != -1) 
+				{
+					seriesArray[i].add(new Year(years[i].get(j)), data[i].get(j));
+				}
 			}
 		}
 		

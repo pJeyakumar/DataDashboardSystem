@@ -32,6 +32,7 @@ public class AnalysisA extends AnalysisStrategy
 		this.processedData = new ArrayList[2];
 		this.years = new ArrayList[2];
 		this.dataNames = new String[2];
+		this.axisNames = new String[1];
 		
 		// Getting array of Data objects from Reader class
 		Data[] finalData = retrieveData(selection);
@@ -46,6 +47,10 @@ public class AnalysisA extends AnalysisStrategy
 			this.dataNames[i] = finalData[i].getTypeA();
 		}
 		
+		// Setting AnalysisID
+		this.analysisID = "Renewable electricity output vs Renewable energy consumption";
+		// Setting Units
+		this.axisNames[0] = "%";
 	}
 	
 	/**

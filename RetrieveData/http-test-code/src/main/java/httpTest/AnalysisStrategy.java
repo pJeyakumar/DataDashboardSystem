@@ -103,25 +103,32 @@ abstract class AnalysisStrategy {
 		res.setData(this.processedData, this.years, this.dataNames, this.axisNames, this.analysisID);
 	}
 	
-	/**
-	 * Not abstract because all inherited Analysis types may use it
-	 * @param value1
-	 * @param value2
-	 * @return
-	 */
-	public double getAverage(double value1, double value2) {
+	public ArrayList<Double> getAverage(ArrayList<Double> value1, ArrayList<Double> value2) 
+	{
 		
 	}
 	
-	/**
-	 * Not abstract because all inherited Analysis types may use it
-	 * @param value1
-	 * @param value2
-	 * @return
-	 */
-	public double getRatio(double value1, double value2) {
+	public ArrayList<Double> getRatios(ArrayList<Double> numVal, ArrayList<Double> denoVal) 
+	{
+		// Creating ArrayList<Double> variable
+		ArrayList<Double> ratioVals = new ArrayList<Double>();
+		// For loop to iterate through all the values of both ArrayLists
+		for(int i = 0; i < numVal.size(); i++)
+		{
+			// If either value from one of the ArrayLists is 0 (meaning there originally was a NULL value), we will store -1.0 in the final ArrayList
+			// so that in the Viewer class, it will skip this Year-Value set
+			if(numVal.get(i) == 0 || denoVal.get(i) == 0)
+			{
+				ratioVals.add(i, -1.0);
+			}
+			// Otherwise add the num/deno value in normally
+			else
+			{
+				ratioVals.add(i, numVal.get(i)/denoVal.get(i));
+			}
+		}
 		
+		return ratioVals;		
 	}
-	
 	
 } // END CLASS

@@ -20,6 +20,7 @@ import org.jfree.data.time.TimeSeriesCollection;
 
 public class BarGraph extends Viewer
 {
+	private ChartPanel chartPanel;
 	BarGraph()
 	{
 		super(ViewerType.BARGRAPH);
@@ -88,13 +89,14 @@ public class BarGraph extends Viewer
 		JFreeChart barChart = new JFreeChart(analysisID,
 				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 		
-		ChartPanel chartPanel = new ChartPanel(barChart);
-		chartPanel.setPreferredSize(new Dimension(400, 300));
-		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-		chartPanel.setBackground(Color.white);
+		chartPanel.setChart(barChart);
 		
 		// add ChartPanel to JPanel plotArea
 		plotArea.add(chartPanel);
 	}
 	
+	public void setChartPanel(ChartPanel panel) 
+	{
+		this.chartPanel = panel;
+	}
 }

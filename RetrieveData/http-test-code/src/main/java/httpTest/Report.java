@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 
 public class Report extends Viewer
 {
+	private JScrollPane output;
 	Report()
 	{
 		super(ViewerType.REPORT);
@@ -35,10 +36,14 @@ public class Report extends Viewer
 			}
 		}
 		myReport.setText(reportMessage);
-		JScrollPane output = new JScrollPane(myReport);
+		output.setViewportView(myReport);
 		
 		plotArea.add(output);
 		
+	}
+	public void setScrollPane (JScrollPane jScroll) 
+	{
+		this.output = jScroll;
 	}
 	
 }

@@ -1,4 +1,22 @@
 package httpTest;
+import java.util.ArrayList;
+
+/**
+ * @author Shoumik Shill
+ * 
+ * Analysis Strategy for Analysis D:
+ *  - 2-series
+ *  - AG.LND.FRST.ZS VS EN.CLC.GHGR.MT.CE
+ *  - Average of Forest area (% of land area) in Canada from 1990 to 2009
+ *    VS
+ *    Average of GHG net emissions/removals by LUCF (Mt of CO2 equivalent) in Canada from 1990 to 2009
+ *  - In other words, 
+ *    
+ *  - Line Graph
+ *    - Line 1: Average of Forest area in Canada from 1990 to 2009
+ *    - Line 2: Average of Greenhouse gas net emissions/removals by land-use, change and forestry in Canada
+ *              from 1990 to 2009
+ */
 
 public class AnalysisD extends AnalysisStrategy
 {
@@ -6,6 +24,15 @@ public class AnalysisD extends AnalysisStrategy
 	
 	public AnalysisD() {
 		
+		this.numOfSeries = 2;
+		this.analysisID = "Forest area (% of land area) vs Average GHG net emissions/removals by LUCF";
+		
+		this.dataNames = new String[2];
+		this.dataNames[0] = "Average Forest area in Canada";
+		this.dataNames[1] = "Average GHG net emissions/removal";
+		
+		this.axisNames = new String[1];
+		this.axisNames[0] = "Year";
 	}
 	
 	
@@ -20,16 +47,31 @@ public class AnalysisD extends AnalysisStrategy
 	*/
 	public void doAnalysis(Selection selection) {
 		
+		
+		
 	}
 	
 	
 	/**
 	 * Retrieve Data
 	 * To be called from Do Analysis to get the data to be processed
-	 * @return Data
+	 * @return Data from World Bank
 	 */
 	public Data[] retrieveData(Selection selection) 
 	{
 		
-	}
-}
+		// Initialize Data Array to be returned
+		Data[] seriesArray = new Data[2];
+		
+		// Create a reader and retrieve data based on selection and Analysis
+		Reader reader = new Reader();
+		seriesArray[0] = reader.retrieveData(selection, "AG.LND.FRST.ZS");
+		seriesArray[1] = reader.retrieveData(selection, "EN.CLC.GHGR.MT.CE");
+		
+		// Return data
+		return seriesArray;
+		
+		
+	} // End Retrieve Data
+	
+} // End Analysis D Class

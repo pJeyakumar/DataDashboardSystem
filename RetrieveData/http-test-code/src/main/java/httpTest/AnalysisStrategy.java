@@ -6,29 +6,29 @@ import java.util.ArrayList;
 /**
  * @author - Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
  * 
- * Analysis Strategy Class
- * Functional Class that:
- *   1. (Input) Gets fetched Data (calls a Reader Class that returns Data Object)
+ * Analysis Strategy Classes Abstract
+ * Functional Classes that:
+ *   1. (Input) Gets fetched Data (calls a Reader Class that returns Data Objects)
  *   2. Handles the analysis and computation (if needed for an Analysis) on these Data Objects
  *   3. (Output) Populates this Processed Data to a Results Object
  * Called by
  *  - Computational Server class
  * Data:
  * - Reader - the reader to get original data from
- * - Results - the
+ * - 
  */
 
 
 abstract class AnalysisStrategy {
+	
+	// ---- Instance Variables ----
 	
 	// ---- NAMES ----
 	// String to hold the full, formal name of this analysis 
 	protected String analysisID; 
 	// Array to hold the Strings that indicate the name of the series above | sent to results object
 	protected String[] dataNames;    // i.e. "Mortality/1000"   "Methane Emissions (MT)"
-	
 	protected String[] axisNames;    // i.e. "$USD"  "Year" 
-	
 	
 	// ---- DATA ----
 	// Array to hold the ArrayList<Double> that have the processed data values | sent to results object
@@ -37,15 +37,10 @@ abstract class AnalysisStrategy {
 	protected ArrayList<Integer>[] years;
 
 	
-	protected Reader reader;
-	
 	
 	// Integer value that indicates the number of series the analysis deals with | sent to results object
 	protected int numOfSeries; 
 	
-	
-	
-
 	// Based on number of series for a selection, get numOfSeries Data objects from Reader
 	// (i.e. call Reader numOfSeries times)
 	/*
@@ -54,11 +49,7 @@ abstract class AnalysisStrategy {
 	*/
 	
 	// Constructor - to be created by Computational Server class
-	public AnalysisStrategy() {
-		
-		// Initialize Reader
-		this.reader = new Reader();
-	}
+	public AnalysisStrategy() {}
 	
 	/** Do Analysis Method
 	* To be called from Computational Server class
@@ -103,11 +94,29 @@ abstract class AnalysisStrategy {
 		res.setData(this.processedData, this.years, this.dataNames, this.axisNames, this.analysisID);
 	}
 	
-	public ArrayList<Double> getAverage(ArrayList<Double> value1, ArrayList<Double> value2) 
+	/*
+	 * Helper method to get an average (mean) from a list of values
+	 */
+	public double getAverage(ArrayList<Double> values) 
 	{
+		// Initialize average variable, number of values and sum of the values
+		double average = 0;
+		int numValues = values.size();
+		double sum = 0;
 		
-	}
+		// Iterate over length of values array
+		for (int i = 0; i < values.size(); i++) {
+			sum += values.get(i).doubleValue();
+		}
+		
+		average = sum / numValues;
+		return average;
+		
+	} // End Get Average
 	
+	/*
+	 * Helper method to get a bunch of ratios between two lists of values
+	 */
 	public ArrayList<Double> getRatios(ArrayList<Double> numVal, ArrayList<Double> denoVal) 
 	{
 		// Creating ArrayList<Double> variable
@@ -129,6 +138,6 @@ abstract class AnalysisStrategy {
 		}
 		
 		return ratioVals;		
-	}
+	} // End Get Ratios
 	
-} // END CLASS
+} // End Class

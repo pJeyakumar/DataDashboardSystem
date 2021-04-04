@@ -4,7 +4,7 @@ import javax.naming.spi.DirStateFactory.Result;
 
 public class ViewerCreator 
 {
-	public static Viewer createViewer(ViewerType viewer) 
+	public Viewer createViewer(ViewerType viewer) 
 	{
 		Viewer newViewer = null;
 		switch(viewer)

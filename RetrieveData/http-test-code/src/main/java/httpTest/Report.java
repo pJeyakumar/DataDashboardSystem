@@ -2,10 +2,12 @@ package httpTest;
 
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class Report extends Viewer
 {
+	private JScrollPane targetPanel; 
+	
 	Report()
 	{
 		super(ViewerType.REPORT);
@@ -16,6 +18,10 @@ public class Report extends Viewer
 	{
 		
 		
+	}
+	
+	public void setPanel(JScrollPane target) {
+		this.targetPanel = target;
 	}
 	
 }

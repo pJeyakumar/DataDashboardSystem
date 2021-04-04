@@ -14,6 +14,8 @@ public abstract class Viewer
 	// private instance variables
 	private ViewerType viewerState = null;
 	
+	private JPanel targetPanel;
+	
 	// constructor class with ViewerType for parameter
 	public Viewer(ViewerType viewer) 
 	{
@@ -25,6 +27,11 @@ public abstract class Viewer
 	{
 		return this.viewerState;
 	}
+	
+	public void setPanel(JPanel target) {
+		targetPanel = target;
+	}
+	
 	
 	// Subclass-level displaying
 	protected abstract void display(JPanel plotArea, ArrayList<Double>[] data, 

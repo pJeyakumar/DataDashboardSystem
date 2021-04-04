@@ -47,7 +47,7 @@ import org.jfree.data.time.Year;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class MainDisplay extends JFrame{
+public class MainDisplay extends JFrame implements ActionListener{
 	/**
 	 * 
 	 */
@@ -57,6 +57,8 @@ public class MainDisplay extends JFrame{
 	private ArrayList<Viewer> myViewers;
 	
 	private ArrayList<ChartPanel> myPanels;
+	
+	private JScrollPane myReport;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -69,6 +71,15 @@ public class MainDisplay extends JFrame{
 
 		return instance;
 	}
+	
+	JButton recalculate;
+	JButton addView;
+	JButton removeView;
+	JComboBox<String> chosenViewer;
+	JComboBox<String> country;
+	JComboBox<String> startYear;
+	JComboBox<String> endYear;
+	
 	
 	public String AnalysisID;
 
@@ -111,8 +122,8 @@ public class MainDisplay extends JFrame{
 		north.add(toList);
 
 		// Set bottom bar
-		JButton recalculate = new JButton("Recalculate");
-		recalculate.addActionListener(new recompute());
+		
+		
 
 		JLabel viewsLabel = new JLabel("Available Views: ");
 
@@ -124,10 +135,9 @@ public class MainDisplay extends JFrame{
 		viewsNames.add("Report");
 		JComboBox<String> viewsList = new JComboBox<String>(viewsNames);
 		
-		JButton addView = new JButton("+");
-		
-		addView.addActionListener(new addViewer(viewsList, plotDisplay));
-		JButton removeView = new JButton("-");
+		recalculate = new JButton("Recalculate");
+		addView = new JButton("+");
+		removeView = new JButton("-");
 
 		JLabel methodLabel = new JLabel("        Choose analysis method: ");
 
@@ -157,8 +167,17 @@ public class MainDisplay extends JFrame{
 		myViewers = new ArrayList<Viewer>();
 		myPanels = new ArrayList<ChartPanel>();
 		
+		JTextArea report = new JTextArea();
+		report.setEditable(false);
+		report.setPreferredSize(new Dimension(400, 300));
+		report.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		report.setBackground(Color.white);
+		JScrollPane outputScrollPane = new JScrollPane(report);
 		
-		for (int i = 0 ; i < 6; i++) {
+		myReport = outputScrollPane;
+		plotDisplay.add(outputScrollPane);
+		
+		for (int i = 0; i < 5; i++) {
 			CategoryPlot plot = new CategoryPlot();
 			JFreeChart chart = new JFreeChart("", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 			ChartPanel chartPanel = new ChartPanel(chart);
@@ -176,56 +195,161 @@ public class MainDisplay extends JFrame{
 		getContentPane().add(south, BorderLayout.SOUTH);
 		getContentPane().add(plotDisplay, BorderLayout.WEST);
 	}
-
-	class addViewer implements ActionListener{
+	public void addActionListeners() {
+		recalculate.addActionListener(this);
+		addView.addActionListener(this);
+		removeView.addActionListener(this);
+		chosenViewer.addActionListener(this);
 		
-		public String selectedViewer;
-		public JPanel plotDisplay;
-		public JComboBox<String> dropdown;
-		public String choice;
-		public addViewer(JComboBox<String> viewsList, JPanel plot) {
-			dropdown = viewsList;
-			plotDisplay = plot;
-		}
-		public void actionPerformed(ActionEvent actionEvent) {
-			selectedViewer = (String) dropdown.getSelectedItem();
-			System.out.println(selectedViewer);
+		country.addActionListener(this);
+		startYear.addActionListener(this);
+		endYear.addActionListener(this);
+	}
+	
+
+	public void actionPerformed(ActionEvent press) {
+		if (press.getSource() == recalculate) {
 			
+		}
+		
+		if (press.getSource() == addView) {
+			String selectedViewer;
+			selectedViewer = (String) chosenViewer.getSelectedItem();
+			System.out.println(selectedViewer);
 			
 			ViewerCreator myCreator = new ViewerCreator();
 			
 			if (selectedViewer.equals("Report")) {
 				JTextArea report = new JTextArea();
-				JScrollPane chart = new JScrollPane(report);
+				report.setText("Textual Report");
 				
+				myReport.setViewportView(report);
+				
+				// Call the viewer creator, create a new bar chart, and attach it 
+				ViewerType type = ViewerType.REPORT;
+				Viewer newViewer = myCreator.createViewer(type);
+				
+				
+				Report myRep = (Report) newViewer;
+				myRep.setPanel(myReport);
+				
+				myViewers.add(myRep);
+				myResults.attachViewer(myRep);
 			}else {
 				ChartPanel chartPanel;
+				JFreeChart chart;
+				Viewer newViewer;
 				if (selectedViewer.equals("Bar Chart")){
 					CategoryPlot plot = new CategoryPlot();
-					JFreeChart chart = new JFreeChart("HELLO THERE", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-					myPanels.get(2).setChart(chart);
+					chart = new JFreeChart("Bar Chart", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 					
+					// Display a temporary empty plot window
+					myPanels.get(1).setChart(chart);
 					
 					// Call the viewer creator, create a new bar chart, and attach it 
 					ViewerType type = ViewerType.BARGRAPH;
-					myViewers.add(myCreator.createViewer(type));
+					newViewer = myCreator.createViewer(type);
+					newViewer.setPanel(myPanels.get(1));
+					
 				}else if(selectedViewer.equals("Scatter Chart")) {
 					XYPlot plot = new XYPlot();
-					JFreeChart chart = new JFreeChart("MY NAME IS", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-					myPanels.get(3).setChart(chart);
+					chart = new JFreeChart("Scatter Plot", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+
+					// Display a temporary empty plot window
+					myPanels.get(2).setChart(chart);
+					
+					// Call the viewer creator, create a new bar chart, and attach it 
+					ViewerType type = ViewerType.SCATTERPLOT;
+					newViewer = myCreator.createViewer(type);
+					newViewer.setPanel(myPanels.get(2));
+					
+					
 				}else if(selectedViewer.equals("Line Chart")) {
 					XYPlot plot = new XYPlot();
-					JFreeChart chart = new JFreeChart("JOHN",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-					myPanels.get(4).setChart(chart);
+					chart = new JFreeChart("Line Chart",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+					
+					// Display a temporary empty plot window
+					myPanels.get(3).setChart(chart);
+					
+					// Call the viewer creator, create a new bar chart, and attach it 
+					ViewerType type = ViewerType.LINEGRAPH;
+					newViewer = myCreator.createViewer(type);
+					
+					newViewer.setPanel(myPanels.get(3));
+					
 				}else{
 					DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-					JFreeChart chart = ChartFactory.createMultiplePieChart("Unemployment: Men vs Women", dataset,TableOrder.BY_COLUMN, true, true, false);
-					myPanels.get(5).setChart(chart);
+					chart = ChartFactory.createMultiplePieChart("Pie Chart", dataset,TableOrder.BY_COLUMN, true, true, false);
+
+					// Display a temporary empty plot window
+					myPanels.get(4).setChart(chart);
+					
+					// Call the viewer creator, create a new bar chart, and attach it 
+					ViewerType type = ViewerType.PIECHART;
+					newViewer = myCreator.createViewer(type);
+					
+					newViewer.setPanel(myPanels.get(4));
+				}
+				myResults.attachViewer(newViewer);
+				myViewers.add(newViewer);
+			}
+		}
+			
+		// REMOVE BUTTON 
+		if (press.getSource() == removeView) {
+			String selectedViewer;
+			selectedViewer = (String) chosenViewer.getSelectedItem();
+			
+			if (selectedViewer.equals("Report")) {
+				JTextArea report = new JTextArea();
+				myReport.setViewportView(report);
+				
+				// Call the viewer creator, create a new bar chart, and attach it 
+				removeViewer(ViewerType.REPORT);
+				
+			}else {
+				JFreeChart chart;
+				if (selectedViewer.equals("Bar Chart")){
+					CategoryPlot plot = new CategoryPlot();
+					chart = new JFreeChart("", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+					
+					myPanels.get(1).setChart(chart);
+					
+					removeViewer(ViewerType.BARGRAPH);
+				}else if(selectedViewer.equals("Scatter Chart")) {
+					XYPlot plot = new XYPlot();
+					chart = new JFreeChart("", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+
+					myPanels.get(2).setChart(chart);
+					
+					removeViewer(ViewerType.SCATTERPLOT);
+				}else if(selectedViewer.equals("Line Chart")) {
+					XYPlot plot = new XYPlot();
+					chart = new JFreeChart("",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+					
+					myPanels.get(3).setChart(chart);
+					
+					removeViewer(ViewerType.LINEGRAPH);
+				}else{
+					DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+					chart = ChartFactory.createMultiplePieChart("Unemployment: Men vs Women", dataset,TableOrder.BY_COLUMN, true, true, false);
+					
+					myPanels.get(4).setChart(chart);
+					
+					removeViewer(ViewerType.PIECHART);
 				}
 
 			}
-				
-	    }
+		}
+	}
+
+	public void removeViewer(ViewerType type) {
+		for (int i = 0 ; i < myViewers.size(); i++) {
+			if (myViewers.get(i).getType() == type) {
+				myResults.detachViewer(myViewers.get(i).getType());
+				myViewers.remove(i);
+			}
+		}
 	}
 	
 	class removeViewer implements ActionListener{
@@ -239,33 +363,7 @@ public class MainDisplay extends JFrame{
 			plotDisplay = plot;
 		}
 		public void actionPerformed(ActionEvent actionEvent) {
-			selectedViewer = (String) dropdown.getSelectedItem();
-			System.out.println(selectedViewer);
-			if (selectedViewer.equals("Report")) {
-				JTextArea report = new JTextArea();
-				JScrollPane chart = new JScrollPane(report);
-				
-			}else {
-				ChartPanel chartPanel;
-				if (selectedViewer.equals("Bar Chart")){
-					CategoryPlot plot = new CategoryPlot();
-					JFreeChart chart = new JFreeChart("HELLO THERE", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-					myPanels.get(2).setChart(chart);
-				}else if(selectedViewer.equals("Scatter Chart")) {
-					XYPlot plot = new XYPlot();
-					JFreeChart chart = new JFreeChart("MY NAME IS", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-					myPanels.get(3).setChart(chart);
-				}else if(selectedViewer.equals("Line Chart")) {
-					XYPlot plot = new XYPlot();
-					JFreeChart chart = new JFreeChart("JOHN",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-					myPanels.get(4).setChart(chart);
-				}else{
-					DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-					JFreeChart chart = ChartFactory.createMultiplePieChart("Unemployment: Men vs Women", dataset,TableOrder.BY_COLUMN, true, true, false);
-					myPanels.get(5).setChart(chart);
-				}
-
-			}
+			
 				
 	    }
 		

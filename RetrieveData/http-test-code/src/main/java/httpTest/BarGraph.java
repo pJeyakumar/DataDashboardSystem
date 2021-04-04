@@ -1,5 +1,9 @@
 package httpTest;
-
+/*
+ * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
+ * DATE: 2021-04-04
+ * DESCRIPTION: Class responsible for rendering the bar graph viewer and adding that render to the ChartPanel
+ */
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;

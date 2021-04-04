@@ -1,5 +1,9 @@
 package httpTest;
-
+/*
+ * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
+ * DATE: 2021-04-04
+ * DESCRIPTION: Abstract class for describing the methods and variables the subclasses will inherit
+ */
 import java.util.ArrayList;
 
 import javax.swing.JPanel;

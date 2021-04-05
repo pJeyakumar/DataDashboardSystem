@@ -87,7 +87,7 @@ abstract class AnalysisStrategy {
 	 * 	- Populate Results Object
 	 */
 	public void populateResults(Results res) {
-		res.setData(this.processedData, this.years, this.dataNames, this.axisNames, this.analysisID);
+		res.attachAnalysis(this);
 	}
 	
 	/*

@@ -51,11 +51,15 @@ public class MainDisplay extends JFrame implements ActionListener{
 	/**
 	 * 
 	 */
-	private boolean analysisSelected;
+	Boolean areValid = false;
+	
 	private String countryChoice;
-	private int startYrChoice;
-	private int endYrChoice;
-	private String analysisChoice;
+	
+	private int startYearChoice;
+	
+	private int endYearChoice;
+	
+	private String analysisID;
 	
 	private Results myResults;  
 	
@@ -70,7 +74,8 @@ public class MainDisplay extends JFrame implements ActionListener{
 	private final JPanel plotDisplay;
 	private static MainDisplay instance;
 
-	public static MainDisplay getInstance() {
+	public static MainDisplay getInstance() 
+	{
 		if (instance == null)
 			instance = new MainDisplay();
 
@@ -84,11 +89,13 @@ public class MainDisplay extends JFrame implements ActionListener{
 	JComboBox<String> country;
 	JComboBox<String> startYear;
 	JComboBox<String> endYear;
+	JComboBox<String> analysis;
 	
 	
 	public String AnalysisID;
 
-	private MainDisplay() {
+	private MainDisplay() 
+	{
 		// Set window title
 		super("Country Statistics");
 		
@@ -127,9 +134,21 @@ public class MainDisplay extends JFrame implements ActionListener{
 		north.add(toList);
 
 		// Set bottom bar
+		// analysis drop down default text
+		JLabel methodLabel = new JLabel("		Choose analysis type");
+		// Analysis drop down menu options
+		Vector<String> methodNames = new Vector<String>();
+		methodNames.add("Renewable electricity output vs Renewable energy consumption");
+		methodNames.add("Ratio of Electricity production from coal sources vs Renewable electricity output");
+		methodNames.add("Forest area (% of land area)");
+		methodNames.add("Forest area (% of land area) vs Average GHG net emissions/removals by LUCF");
+		methodNames.add("Agricultural Land vs NO2 Emissions vs Methane Emissions");
+		methodNames.add("Total GHG Emissions vs % Urban Population vs % Fossil Fuel Energy Consumption");
+		methodNames.add("Ratio of agricultural land (% of total area) vs forest land (%)");
+		methodNames.add("Average Agricultural land (% of land area)");
+		// creating JComboBox object for analysis, with the analysis options
+		analysis = new JComboBox<String>(methodNames);
 		
-		
-
 		JLabel viewsLabel = new JLabel("Available Views: ");
 
 		Vector<String> viewsNames = new Vector<String>();
@@ -144,18 +163,6 @@ public class MainDisplay extends JFrame implements ActionListener{
 		addView = new JButton("+");
 		removeView = new JButton("-");
 
-		JLabel methodLabel = new JLabel("        Choose analysis method: ");
-
-		Vector<String> methodsNames = new Vector<String>();
-		methodsNames.add("Mortality");
-		methodsNames.add("Mortality vs Expenses");
-		methodsNames.add("Mortality vs Expenses & Hospital Beds");
-		methodsNames.add("Mortality vs GDP");
-		methodsNames.add("Unemployment vs GDP");
-		methodsNames.add("Unemployment");
-
-		JComboBox<String> methodsList = new JComboBox<String>(methodsNames);
-
 		JPanel south = new JPanel();
 		south.add(viewsLabel);
 		south.add(viewsList);
@@ -163,7 +170,8 @@ public class MainDisplay extends JFrame implements ActionListener{
 		south.add(removeView);
 
 		south.add(methodLabel);
-		south.add(methodsList);
+		// add analysis drop down
+		south.add(analysis);
 		south.add(recalculate);
 
 		JPanel plotDisplay = new JPanel();
@@ -213,8 +221,22 @@ public class MainDisplay extends JFrame implements ActionListener{
 	
 
 	public void actionPerformed(ActionEvent press) {
-		if (press.getSource() == recalculate) {
-			
+		if (press.getSource() == recalculate) 
+		{
+			if(!countryChoice.equals(null) && !startYear.equals(null) && !endYear.equals(null) && !analysisID.equals(null) && areValid) 
+			{
+				Selection input = new Selection();
+				input.setCountry(countryChoice);
+				input.setStartYear(startYearChoice);
+				input.setEndYear(endYearChoice);
+				input.setAnalysis(analysisID);
+				ComputationServer cs = new ComputationServer();
+				cs.setSelection(input);
+				AnalysisStrategy analysis = AnalysisCreator.create(analysisID);
+				cs.setStrategy(analysis);
+				cs.runStrategy(plotDisplay, myResults);
+				
+			}
 		}
 		
 		if (press.getSource() == addView) {
@@ -357,7 +379,31 @@ public class MainDisplay extends JFrame implements ActionListener{
 		}
 	}
 	
-
+	class removeViewer implements ActionListener{
+		
+		public String selectedViewer;
+		public JPanel plotDisplay;
+		public JComboBox<String> dropdown;
+		public String choice;
+		public removeViewer(JComboBox<String> viewsList, JPanel plot) {
+			dropdown = viewsList;
+			plotDisplay = plot;
+		}
+		public void actionPerformed(ActionEvent actionEvent) {
+			
+				
+	    }
+		
+			
+	
+	}
+	
+	class recompute implements ActionListener{
+		
+		public void actionPerformed(ActionEvent actionEvent) {
+			System.out.println("Hello there");
+	    }
+	}
 
 	public static void main(String[] args) {
 

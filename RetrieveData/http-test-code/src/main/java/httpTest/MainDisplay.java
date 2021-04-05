@@ -231,7 +231,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 				
 				
 				Report myRep = (Report) newViewer;
-				myRep.setPanel(myReport);
+				myRep.setScrollPane(myReport);
 				
 				myViewers.add(myRep);
 				myResults.attachViewer(myRep);
@@ -332,7 +332,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 					removeViewer(ViewerType.LINEGRAPH);
 				}else{
 					DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-					chart = ChartFactory.createMultiplePieChart("Unemployment: Men vs Women", dataset,TableOrder.BY_COLUMN, true, true, false);
+					chart = ChartFactory.createMultiplePieChart("", dataset,TableOrder.BY_COLUMN, true, true, false);
 					
 					myPanels.get(4).setChart(chart);
 					
@@ -341,7 +341,12 @@ public class MainDisplay extends JFrame implements ActionListener{
 
 			}
 		}
-	}
+		
+		if (press.getSource() == )
+	}	JComboBox<String> chosenViewer;
+	JComboBox<String> country;
+	JComboBox<String> startYear;
+	JComboBox<String> endYear;
 
 	public void removeViewer(ViewerType type) {
 		for (int i = 0 ; i < myViewers.size(); i++) {
@@ -352,31 +357,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		}
 	}
 	
-	class removeViewer implements ActionListener{
-		
-		public String selectedViewer;
-		public JPanel plotDisplay;
-		public JComboBox<String> dropdown;
-		public String choice;
-		public removeViewer(JComboBox<String> viewsList, JPanel plot) {
-			dropdown = viewsList;
-			plotDisplay = plot;
-		}
-		public void actionPerformed(ActionEvent actionEvent) {
-			
-				
-	    }
-		
-			
-	
-	}
-	
-	class recompute implements ActionListener{
-		
-		public void actionPerformed(ActionEvent actionEvent) {
-			System.out.println("Hello there");
-	    }
-	}
+
 
 	public static void main(String[] args) {
 

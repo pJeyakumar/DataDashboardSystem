@@ -5,53 +5,27 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-public class Results {
-    
-	
+public class Results implements IResults
+{
+   
 	private JPanel mainPanel; 
     private ArrayList<Viewer> viewers;
     private int state;
     
-    private ArrayList<String> indicators;    // data indicators
-    private ArrayList<Double>[] values;
-    private ArrayList<Integer>[] years;
+    
+    // ---- DRAFT CLASS ----
+    // Had an idea for a way less crowded results class where we simply attach the analysis strategy
+    // Might not be correct, just a thought; its far more efficient tho
+    private AnalysisStrategy analysis; 
+    
     public Results() {
 
-        // strategyID
-        indicators = new ArrayList<String>();
         viewers = new ArrayList<Viewer>();
         state = 0;
     }
     
-    // get data based on its indicator
-    public Data getData(String indicator) throws OutOfBoundsException{
-        Data returnedData;
-        int index = indicators.indexOf(indicator);
-        if (index != -1) {
-            returnedData = new Data(values.get(index), years);
-        } else {
-            throw new OutOfBoundsException("Indicator does not exist");
-        }
-    }
-    
-    // set data for either a: new indicator or change for existing
-//    public void setData(Data newData, String indicator){
-//        int index = indicators.indexOf(indicator);
-//        if (index != -1) {
-//            values.set(index, newData.getFirst());
-//            years = newData.getSecond();
-//        } else {
-//            values.add(newData.getFirst());
-//            indicators.add(indicator);
-//        }
-//    }
-    
-    public void setData(ArrayList<Double>[] finalData, ArrayList<Integer>[] yrs, 
-    		String[] dataNames, String[] axisNames, String analysisID ){
-    	int numSeries = finalData.length;
-    	
-    	values = finalData; 
-    	years = yrs;
+    public void attachAnalysis(AnalysisStrategy current){
+    	analysis = current;
     }
     
     public void setJPanel(JPanel panel) {
@@ -63,18 +37,23 @@ public class Results {
         viewers.add(viewer);
     }
     
-    public void detachViewer (Viewer viewer) throws Exception{
+    public boolean detachViewer (ViewerType type) throws Exception{
         if (viewers.size() == 0) {
         	throw new Exception("No viewers are loaded");
         }
-        viewers.remove(viewer);
         
+        for (int i = 0 ; i < viewers.size(); i ++) {
+        	if (viewers.get(i).getType() == type) {
+        		viewers.remove(i);
+        		return true;
+        	}
+        }
+        throw new Exception("Viewer not found");
     }
     
     
     public int getState() {
         return state;
-        
     }
     
     public void setState(int newState) {
@@ -86,8 +65,13 @@ public class Results {
         // take values from result object, display these new values
         // for every viewer, update data --> update()
         // take values from result object, display these new values
+    	
+    	
+    	// Check : at least one viewer loaded 
+    	// Check : valid analysis strategy loaded 
+    	
         for (Viewer v : viewers){
-            v.display(mainPanel, values, years, units, analysisID);
+            v.display(mainPanel, analysis.getProcessedData(), analysis.getYears(), analysis.getDataNames(), analysis.getAxisNames(), analysis.getAnalysisID());
         }
     }
     

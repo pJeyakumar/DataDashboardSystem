@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-public class Results2 {
-    
-	
+public class Results2 implements IResults
+{
+   
 	private JPanel mainPanel; 
     private ArrayList<Viewer> viewers;
     private int state;

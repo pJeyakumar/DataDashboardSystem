@@ -7,6 +7,6 @@ package httpTest;
 public interface IResults 
 {
 	public void attachViewer (Viewer viewer);
-	public boolean detachViewer (ViewerType type) throws Exception;
+	public void detachViewer (Viewer viewer) throws Exception;
 	public void notifyViewers();
 }

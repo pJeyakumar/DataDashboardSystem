@@ -38,6 +38,10 @@ public abstract class Viewer
 		targetPanel = target;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 	
 	// Subclass-level displaying
 	protected abstract void display(JPanel plotArea, ArrayList<Double>[] data, 

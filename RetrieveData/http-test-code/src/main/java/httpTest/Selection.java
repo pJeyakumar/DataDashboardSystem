@@ -22,7 +22,7 @@ public class Selection {
 		country_dict = new HashMap<String,String>();
 		
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("./country_list.csv"));
+			BufferedReader br = new BufferedReader(new FileReader("country_list.csv"));
 			while ((line = br.readLine()) != null) {
 				fields = line.split(",");
 				country_dict.put(fields[1], fields[5]);								

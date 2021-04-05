@@ -14,6 +14,11 @@ public class AnalysisDB {
 	boolean country, start, end, viewer;
 
 	String analysis; 
+	
+	public AnalysisDB() {
+		
+	}
+	
 	public AnalysisDB(String analysisID) {
 		// Used to load a  dictionary (hashmap)
 		
@@ -24,15 +29,16 @@ public class AnalysisDB {
 		analysis = analysisID;
 		
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("../../../analysis_check.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("analysis_check.txt"));
 			while ((line = br.readLine()) != null) {
-				
+
 				fields = line.split(":");
 				String[][] list = new String[3][];
 				
 				String[] items;
 				for (int i = 1 ; i <= 3 ; i ++) {
-					 list[i-1] = fields[i].split(",");
+					list[i-1] = fields[i].split(",");
+					 
 				}
 				
 				analysis_dict.put(fields[0], list);								
@@ -51,9 +57,10 @@ public class AnalysisDB {
 	}
 	
 	public boolean validCountry(String input) {
-		String [] countries = analysis_dict.get(analysis)[1];
+		String [] countries = analysis_dict.get(analysis)[0];
 		for (int i = 0 ; i < countries.length ; i ++) {
 			 if (countries[i].equals(input)) {
+				 country = false;
 				 return false;
 			 }
 		}
@@ -62,30 +69,33 @@ public class AnalysisDB {
 	}
 	
 	public boolean validStartYr(int input) {
-		String s = analysis_dict.get(analysis)[2][0];
+		String s = analysis_dict.get(analysis)[1][0];
 		if (input >= Integer.valueOf(s)) {
 			start = true;
 			return true;
 		}else {
+			start = false;
 			return false;
 		}
 		
 	}
 	
 	public boolean validEndYr(int input) {
-		String e = analysis_dict.get(analysis)[2][1];
+		String e = analysis_dict.get(analysis)[1][1];
 		if (input >= Integer.valueOf(e)) {
 			end = true;
 			return true;
 		}else {
+			end = false;
 			return false;
 		}
 	}
 	
 	public boolean validViewer(String input) {
-		String[] viewers = analysis_dict.get(analysis)[3];
+		String[] viewers = analysis_dict.get(analysis)[2];
 		for (int i = 0 ; i < viewers.length ; i ++) {
 			 if (viewers[i].equals(input)) {
+				 viewer = false;
 				 return false;
 			 }
 		}

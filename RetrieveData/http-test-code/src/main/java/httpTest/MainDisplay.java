@@ -65,7 +65,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 	
 	private Results myResults;  
 	
-	private AnalysisDB analysisCheck = null;
+	private AnalysisDB analysisCheck;
 	
 	private ArrayList<Viewer> myViewers;
 	
@@ -103,6 +103,9 @@ public class MainDisplay extends JFrame implements ActionListener{
 		// Set window title
 		super("Country Statistics");
 		
+		
+		System.out.println("CONSTRUCTING MAIN DISPLAY...");
+		
 		// Set charts region
 		JPanel east = new JPanel();
 		plotDisplay = new JPanel();
@@ -123,12 +126,25 @@ public class MainDisplay extends JFrame implements ActionListener{
 		JLabel from = new JLabel("From");
 		JLabel to = new JLabel("To");
 		Vector<String> years = new Vector<String>();
-		for (int i = 2021; i >= 2010; i--) {
+		
+		int s = 1995;
+		int e = 2015;
+		for (int i = e; i >= s; i--) {
 			years.add("" + i);
 		}
 		startYear = new JComboBox<String>(years);
+		startYear.setSelectedIndex(years.size()-1);
 		endYear = new JComboBox<String>(years);
-
+		endYear.setSelectedIndex(0);
+		
+		countryChoice = "Brazil";
+		
+		startYearChoice = s;
+		endYearChoice = e;
+		
+		analysisID = "Renewable electricity output vs Renewable energy consumption";
+		analysisCheck = new AnalysisDB(analysisID);
+		
 		JPanel north = new JPanel();
 		north.add(chooseCountryLabel);
 		north.add(country);
@@ -206,6 +222,8 @@ public class MainDisplay extends JFrame implements ActionListener{
 			plotDisplay.add(chartPanel);
 		}
 		
+		myResults = new Results();
+		
 		this.addActionListeners();
 		
 
@@ -223,6 +241,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		country.addActionListener(this);
 		startYear.addActionListener(this);
 		endYear.addActionListener(this);
+		analysis.addActionListener(this);
 	}
 	
 
@@ -231,20 +250,26 @@ public class MainDisplay extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent press) 
 	{
+
 		// if the recalculate button is pressed
 		if (press.getSource() == recalculate) 
 		{
+			System.out.println("RECALCULATE STARTING...");
 			// check if all the choices are not null and are all valid
-			if(!countryChoice.equals(null) && startYearChoice != -1 && endYearChoice != -1 && !analysisID.equals(null) && analysisCheck.allValid()) 
+			if(countryChoice != null && startYearChoice != -1 && endYearChoice != -1 && analysisID!=null && analysisCheck.allValid()) 
 			{
 				// create a selection object
+				System.out.println("LOADING SELECTION...");
 				Selection input = new Selection();
 				// set the user choices in the selection object
 				input.setCountry(countryChoice);
 				input.setStartYear(startYearChoice);
 				input.setEndYear(endYearChoice);
 				input.setAnalysis(analysisID);
+				
 				// create a comp server object
+				System.out.printf("%s  %s  %d  %d  \n", input.getAnalysis(), input.getCountry(), input.getStartYr(), input.getEndYr());
+				
 				ComputationServer cs = new ComputationServer();
 				// set the selection object for comp server
 				cs.setSelection(input);
@@ -253,14 +278,25 @@ public class MainDisplay extends JFrame implements ActionListener{
 				// set analysis object for comp server
 				cs.setStrategy(analysis);
 				// run comp server strategy
+				System.out.println("RUNNING STRATEGY...");
 				cs.runStrategy(plotDisplay, myResults);
 				
+			}else {
+				System.out.println(countryChoice != null);
+				System.out.println(startYearChoice != -1);
+				System.out.println( endYearChoice != -1);
+				System.out.println(analysisID!=null ); 
+				System.out.println(analysisCheck.allValid() );
+				System.out.println("Invalid Selection or Choices not loaded yet");
 			}
 		}
+        
+
 		if(press.getSource() == analysis) 
 		{
 			// get analysis drop down menu box
-			String newAnalysis = String.valueOf(analysis.getSelectedItem());
+			System.out.println("CHANGING ANALYSIS...");
+			String newAnalysis = (String) analysis.getSelectedItem();
 			System.out.println(newAnalysis);
 			
 			
@@ -268,6 +304,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 			if (this.analysisID != newAnalysis) {
 				// If the existing analysis ID is not null, empty the viewers
 				if (this.analysisID != null) {
+					System.out.println("NEW ANALYSIS, EMPTYING VIEWERS...");
 					myResults.emptyViewers();
 				}
 				
@@ -282,96 +319,104 @@ public class MainDisplay extends JFrame implements ActionListener{
 		if (press.getSource() == addView) {
 			String selectedViewer;
 			selectedViewer = (String) chosenViewer.getSelectedItem();
+			
+			System.out.print("ADDING VIEWER...");
 			System.out.println(selectedViewer);
 			
 			ViewerCreator myCreator = new ViewerCreator();
 			boolean valid = false;
 			
-			if (analysisCheck != null && analysisCheck.validViewer(selectedViewer)) {
-				valid = true;
-			}
-			if (!valid) {
-				chosenViewer.setBackground(Color.red);
-			}
-			
-			if (selectedViewer.equals("Report")) {
+			if (analysisCheck.validViewer(selectedViewer)) {
+				System.out.print("VALID VIEWER!");
+				chosenViewer.setBackground(Color.white);
+
 				
-				JTextArea report = new JTextArea();
-				report.setText("Textual Report");
-				
-				myReport.setViewportView(report);
-				
-				// Call the viewer creator, create a new bar chart, and attach it 
-				ViewerType type = ViewerType.REPORT;
-				Viewer newViewer = myCreator.createViewer(type);
-				
-				
-				Report myRep = (Report) newViewer;
-				myRep.setScrollPane(myReport);
-				
-				myViewers.add(myRep);
-				myResults.attachViewer(myRep);
+				if (selectedViewer.equals("Report")) {
+					
+					JTextArea report = new JTextArea();
+					report.setText("Textual Report");
+					
+					myReport.setViewportView(report);
+					
+					// Call the viewer creator, create a new bar chart, and attach it 
+					ViewerType type = ViewerType.REPORT;
+					Viewer newViewer = myCreator.createViewer(type);
+					
+					
+					Report myRep = (Report) newViewer;
+					myRep.setScrollPane(myReport);
+					
+					myViewers.add(myRep);
+					myResults.attachViewer(myRep);
+					
+				}else {
+					ChartPanel chartPanel;
+					JFreeChart chart;
+					Viewer newViewer;
+					
+					if (selectedViewer.equals("Bar Chart")){
+						
+						CategoryPlot plot = new CategoryPlot();
+						chart = new JFreeChart("BAR CHART",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+						
+						// Display a temporary empty plot window
+						myPanels.get(1).setChart(chart);
+						
+						// Call the viewer creator, create a new bar chart, and attach it 
+						ViewerType type = ViewerType.BARGRAPH;
+						newViewer = myCreator.createViewer(type);
+						newViewer.setPanel(myPanels.get(1));
+						
+					}else if(selectedViewer.equals("Scatter Chart")) {
+						XYPlot plot = new XYPlot();
+						chart = new JFreeChart("SCATTER PLOT", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+
+						// Display a temporary empty plot window
+						myPanels.get(2).setChart(chart);
+						
+						// Call the viewer creator, create a new bar chart, and attach it 
+						ViewerType type = ViewerType.SCATTERPLOT;
+						newViewer = myCreator.createViewer(type);
+						newViewer.setPanel(myPanels.get(2));
+						
+						
+					}else if(selectedViewer.equals("Line Chart")) {
+						XYPlot plot = new XYPlot();
+						chart = new JFreeChart("LINE CHART",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+						
+						// Display a temporary empty plot window
+						myPanels.get(3).setChart(chart);
+						
+						// Call the viewer creator, create a new bar chart, and attach it 
+						ViewerType type = ViewerType.LINEGRAPH;
+						newViewer = myCreator.createViewer(type);
+						
+						newViewer.setPanel(myPanels.get(3));
+						
+					}else{
+						DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+						chart = ChartFactory.createMultiplePieChart("PIE CHART", dataset,TableOrder.BY_COLUMN, true, true, false);
+
+						// Display a temporary empty plot window
+						myPanels.get(4).setChart(chart);
+						
+						// Call the viewer creator, create a new bar chart, and attach it 
+						ViewerType type = ViewerType.PIECHART;
+						newViewer = myCreator.createViewer(type);
+						
+						newViewer.setPanel(myPanels.get(4));
+					}
+					System.out.println("ATTACHING VIEWER");
+					myResults.attachViewer(newViewer);
+					System.out.println("ADDING VIEWER");
+					myViewers.add(newViewer);
+					System.out.printf("CURRENT # OF VIEWERS: %d", myViewers.size());
+					this.pack();
+				}
 				
 			}else {
-				ChartPanel chartPanel;
-				JFreeChart chart;
-				Viewer newViewer;
-				
-				if (selectedViewer.equals("Bar Chart")){
-					
-					CategoryPlot plot = new CategoryPlot();
-					chart = new JFreeChart("BAR CHART",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-					
-					// Display a temporary empty plot window
-					myPanels.get(1).setChart(chart);
-					
-					// Call the viewer creator, create a new bar chart, and attach it 
-					ViewerType type = ViewerType.BARGRAPH;
-					newViewer = myCreator.createViewer(type);
-					newViewer.setPanel(myPanels.get(1));
-					
-				}else if(selectedViewer.equals("Scatter Chart")) {
-					XYPlot plot = new XYPlot();
-					chart = new JFreeChart("SCATTER PLOT", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-
-					// Display a temporary empty plot window
-					myPanels.get(2).setChart(chart);
-					
-					// Call the viewer creator, create a new bar chart, and attach it 
-					ViewerType type = ViewerType.SCATTERPLOT;
-					newViewer = myCreator.createViewer(type);
-					newViewer.setPanel(myPanels.get(2));
-					
-					
-				}else if(selectedViewer.equals("Line Chart")) {
-					XYPlot plot = new XYPlot();
-					chart = new JFreeChart("LINE CHART",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-					
-					// Display a temporary empty plot window
-					myPanels.get(3).setChart(chart);
-					
-					// Call the viewer creator, create a new bar chart, and attach it 
-					ViewerType type = ViewerType.LINEGRAPH;
-					newViewer = myCreator.createViewer(type);
-					
-					newViewer.setPanel(myPanels.get(3));
-					
-				}else{
-					DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-					chart = ChartFactory.createMultiplePieChart("PIE CHART", dataset,TableOrder.BY_COLUMN, true, true, false);
-
-					// Display a temporary empty plot window
-					myPanels.get(4).setChart(chart);
-					
-					// Call the viewer creator, create a new bar chart, and attach it 
-					ViewerType type = ViewerType.PIECHART;
-					newViewer = myCreator.createViewer(type);
-					
-					newViewer.setPanel(myPanels.get(4));
-				}
-				myResults.attachViewer(newViewer);
-				myViewers.add(newViewer);
-				this.pack();
+				System.out.print("INVALID VIEWER!");
+				chosenViewer.setBackground(Color.red);
 			}
 		}
 			
@@ -379,7 +424,8 @@ public class MainDisplay extends JFrame implements ActionListener{
 		if (press.getSource() == removeView) {
 			String selectedViewer;
 			selectedViewer = (String) chosenViewer.getSelectedItem();
-			boolean valid = true;
+			
+			
 			if (selectedViewer.equals("Report")) {
 				JTextArea report = new JTextArea();
 				myReport.setViewportView(report);
@@ -416,10 +462,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 					
 					myPanels.get(4).setChart(chart);
 					
-					valid = removeViewer(ViewerType.PIECHART);
-				}
-				if (valid) {
-					chosenViewer.setBackground(Color.white);
+					removeViewer(ViewerType.PIECHART);
 				}
 
 			}
@@ -444,7 +487,10 @@ public class MainDisplay extends JFrame implements ActionListener{
 					myResults.detachViewer(myViewers.get(i).getType());
 					myViewers.remove(i);
 				}
-				if (!analysisCheck.validCountry(myViewers.get(i).name)) {
+			}
+			
+			for (int j = 0; j < myViewers.size(); j++) {
+				if (!analysisCheck.validViewer(myViewers.get(j).getName())) {
 					valid = false;
 				}
 			}

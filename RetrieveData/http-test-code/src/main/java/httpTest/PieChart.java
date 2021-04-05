@@ -1,14 +1,8 @@
 package httpTest;
 /*
-<<<<<<< Updated upstream
  * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
  * DATE: 2021-04-04
  * DESCRIPTION: Class responsible for rendering the pie chart viewer and adding that render to the ChartPanel
-=======
- * NAME: Piranavan Jeyakumar
- * DATE: 2021-04-04
- * DESCRIPTION: 
->>>>>>> Stashed changes
  */
 import java.util.ArrayList;
 

@@ -51,6 +51,11 @@ public class MainDisplay extends JFrame implements ActionListener{
 	/**
 	 * 
 	 */
+	private boolean analysisSelected;
+	private String countryChoice;
+	private int startYrChoice;
+	private int endYrChoice;
+	private String analysisChoice;
 	
 	private Results myResults;  
 	
@@ -342,8 +347,15 @@ public class MainDisplay extends JFrame implements ActionListener{
 			}
 		}
 		
-		if (press.getSource() == )
-	}	JComboBox<String> chosenViewer;
+		if (press.getSource() == country) {
+			if (analysisSelected) {
+				
+				countryChoice = (String) country.getSelectedItem();
+			}
+			
+			
+		}
+	}	
 	JComboBox<String> country;
 	JComboBox<String> startYear;
 	JComboBox<String> endYear;

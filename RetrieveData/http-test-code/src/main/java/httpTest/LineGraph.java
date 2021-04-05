@@ -26,7 +26,7 @@ import org.jfree.data.time.Year;
 
 public class LineGraph extends Viewer
 {
-	private ChartPanel chartPanel;
+	// constructor
 	LineGraph()
 	{
 		super(ViewerType.LINEGRAPH);
@@ -34,7 +34,7 @@ public class LineGraph extends Viewer
 	}
 
 	@Override
-	protected void display(JPanel plotArea, ArrayList<Double>[] data, 
+	protected void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames, String[] axisNames, String analysisID) 
 	{
 		// Variable Declaration
@@ -75,6 +75,11 @@ public class LineGraph extends Viewer
 				dataSet[1].addSeries(seriesArray[i]);
 			}
 		}
+		// print out an error message if there are more than 2 TSCs
+		else if(numTSC > 2) 
+		{
+			System.out.println("ERROR: there should not be more than 2 TimeSeriesCollections - line");
+		}
 		// Otherwise ad all time series into a single collection
 		else
 		{
@@ -113,14 +118,13 @@ public class LineGraph extends Viewer
 		JFreeChart lineGraph = new JFreeChart(analysisID,
 				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 		
-		chartPanel.setChart(lineGraph);
-	
-		// add ChartPanel to JPanel plotArea
-		plotArea.add(chartPanel);
+		// set chart panel with JFreeChart we just made
+		targetPanel.setChart(lineGraph);
 	}
-	
+	/*
 	public void setChartPanel(ChartPanel panel) 
 	{
 		this.chartPanel = panel;
 	}
+	(*/
 }

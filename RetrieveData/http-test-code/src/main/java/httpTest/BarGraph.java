@@ -28,6 +28,7 @@ public class BarGraph extends Viewer
 	BarGraph()
 	{
 		super(ViewerType.BARGRAPH);
+		this.name = "Bar Chart";
 	}
 	
 	@Override

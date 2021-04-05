@@ -7,7 +7,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -51,17 +55,17 @@ public class MainDisplay extends JFrame implements ActionListener{
 	/**
 	 * 
 	 */
-	Boolean areValid = false;
+	private String countryChoice = null;
 	
-	private String countryChoice;
+	private int startYearChoice = -1;
 	
-	private int startYearChoice;
-	
-	private int endYearChoice;
+	private int endYearChoice = -1;
 	
 	private String analysisID = null;
 	
 	private Results myResults;  
+	
+	private AnalysisDB analysisCheck = null;
 	
 	private ArrayList<Viewer> myViewers;
 	
@@ -114,7 +118,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		countriesNames.add("China");
 		countriesNames.add("Brazil");
 		countriesNames.sort(null);
-		JComboBox<String> countriesList = new JComboBox<String>(countriesNames);
+		country = new JComboBox<String>(countriesNames);
 
 		JLabel from = new JLabel("From");
 		JLabel to = new JLabel("To");
@@ -122,16 +126,16 @@ public class MainDisplay extends JFrame implements ActionListener{
 		for (int i = 2021; i >= 2010; i--) {
 			years.add("" + i);
 		}
-		JComboBox<String> fromList = new JComboBox<String>(years);
-		JComboBox<String> toList = new JComboBox<String>(years);
+		startYear = new JComboBox<String>(years);
+		endYear = new JComboBox<String>(years);
 
 		JPanel north = new JPanel();
 		north.add(chooseCountryLabel);
-		north.add(countriesList);
+		north.add(country);
 		north.add(from);
-		north.add(fromList);
+		north.add(startYear);
 		north.add(to);
-		north.add(toList);
+		north.add(endYear);
 
 		// Set bottom bar
 		// analysis drop down default text
@@ -157,7 +161,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		viewsNames.add("Bar Chart");
 		viewsNames.add("Scatter Chart");
 		viewsNames.add("Report");
-		JComboBox<String> viewsList = new JComboBox<String>(viewsNames);
+		chosenViewer = new JComboBox<String>(viewsNames);
 		
 		recalculate = new JButton("Recalculate");
 		addView = new JButton("+");
@@ -165,7 +169,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 
 		JPanel south = new JPanel();
 		south.add(viewsLabel);
-		south.add(viewsList);
+		south.add(chosenViewer);
 		south.add(addView);
 		south.add(removeView);
 
@@ -202,6 +206,8 @@ public class MainDisplay extends JFrame implements ActionListener{
 			plotDisplay.add(chartPanel);
 		}
 		
+		this.addActionListeners();
+		
 
 		getContentPane().add(north, BorderLayout.NORTH);
 		getContentPane().add(east, BorderLayout.EAST);
@@ -220,13 +226,16 @@ public class MainDisplay extends JFrame implements ActionListener{
 	}
 	
 
+	
+	
+
 	public void actionPerformed(ActionEvent press) 
 	{
 		// if the recalculate button is pressed
 		if (press.getSource() == recalculate) 
 		{
 			// check if all the choices are not null and are all valid
-			if(!countryChoice.equals(null) && !startYear.equals(null) && !endYear.equals(null) && !analysisID.equals(null) && areValid) 
+			if(!countryChoice.equals(null) && startYearChoice != -1 && endYearChoice != -1 && !analysisID.equals(null) && analysisCheck.allValid()) 
 			{
 				// create a selection object
 				Selection input = new Selection();
@@ -252,21 +261,22 @@ public class MainDisplay extends JFrame implements ActionListener{
 		{
 			// get analysis drop down menu box
 			String newAnalysis = String.valueOf(analysis.getSelectedItem());
-			// if the previous analysisID was null, set it to the chosen analysisID
-			if(this.analysisID == null) 
-			{
-				this.analysisID = newAnalysis;
-			}
-			// if the previous analysisID was the same as the chosen one, leave as is
-			else if(this.analysisID == newAnalysis) 
-			{
+			System.out.println(newAnalysis);
+			
+			
+			// Proceed if there is a change 
+			if (this.analysisID != newAnalysis) {
+				// If the existing analysis ID is not null, empty the viewers
+				if (this.analysisID != null) {
+					myResults.emptyViewers();
+				}
 				
-			}
-			else 
-			{
-				myResults.emptyViewers();
+				// Always set the new analysisID and create a new analysisDB
 				this.analysisID = newAnalysis;
+				analysisCheck = new AnalysisDB(newAnalysis);
 			}
+			
+
 		}
 		
 		if (press.getSource() == addView) {
@@ -275,8 +285,17 @@ public class MainDisplay extends JFrame implements ActionListener{
 			System.out.println(selectedViewer);
 			
 			ViewerCreator myCreator = new ViewerCreator();
+			boolean valid = false;
+			
+			if (analysisCheck != null && analysisCheck.validViewer(selectedViewer)) {
+				valid = true;
+			}
+			if (!valid) {
+				chosenViewer.setBackground(Color.red);
+			}
 			
 			if (selectedViewer.equals("Report")) {
+				
 				JTextArea report = new JTextArea();
 				report.setText("Textual Report");
 				
@@ -288,17 +307,20 @@ public class MainDisplay extends JFrame implements ActionListener{
 				
 				
 				Report myRep = (Report) newViewer;
-				myRep.setPanel(myReport);
+				myRep.setScrollPane(myReport);
 				
 				myViewers.add(myRep);
 				myResults.attachViewer(myRep);
+				
 			}else {
 				ChartPanel chartPanel;
 				JFreeChart chart;
 				Viewer newViewer;
+				
 				if (selectedViewer.equals("Bar Chart")){
+					
 					CategoryPlot plot = new CategoryPlot();
-					chart = new JFreeChart("Bar Chart", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+					chart = new JFreeChart("BAR CHART",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 					
 					// Display a temporary empty plot window
 					myPanels.get(1).setChart(chart);
@@ -310,7 +332,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 					
 				}else if(selectedViewer.equals("Scatter Chart")) {
 					XYPlot plot = new XYPlot();
-					chart = new JFreeChart("Scatter Plot", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+					chart = new JFreeChart("SCATTER PLOT", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 
 					// Display a temporary empty plot window
 					myPanels.get(2).setChart(chart);
@@ -323,7 +345,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 					
 				}else if(selectedViewer.equals("Line Chart")) {
 					XYPlot plot = new XYPlot();
-					chart = new JFreeChart("Line Chart",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+					chart = new JFreeChart("LINE CHART",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 					
 					// Display a temporary empty plot window
 					myPanels.get(3).setChart(chart);
@@ -336,7 +358,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 					
 				}else{
 					DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-					chart = ChartFactory.createMultiplePieChart("Pie Chart", dataset,TableOrder.BY_COLUMN, true, true, false);
+					chart = ChartFactory.createMultiplePieChart("PIE CHART", dataset,TableOrder.BY_COLUMN, true, true, false);
 
 					// Display a temporary empty plot window
 					myPanels.get(4).setChart(chart);
@@ -349,6 +371,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 				}
 				myResults.attachViewer(newViewer);
 				myViewers.add(newViewer);
+				this.pack();
 			}
 		}
 			
@@ -356,7 +379,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		if (press.getSource() == removeView) {
 			String selectedViewer;
 			selectedViewer = (String) chosenViewer.getSelectedItem();
-			
+			boolean valid = true;
 			if (selectedViewer.equals("Report")) {
 				JTextArea report = new JTextArea();
 				myReport.setViewportView(report);
@@ -389,51 +412,49 @@ public class MainDisplay extends JFrame implements ActionListener{
 					removeViewer(ViewerType.LINEGRAPH);
 				}else{
 					DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-					chart = ChartFactory.createMultiplePieChart("Unemployment: Men vs Women", dataset,TableOrder.BY_COLUMN, true, true, false);
+					chart = ChartFactory.createMultiplePieChart("", dataset,TableOrder.BY_COLUMN, true, true, false);
 					
 					myPanels.get(4).setChart(chart);
 					
-					removeViewer(ViewerType.PIECHART);
+					valid = removeViewer(ViewerType.PIECHART);
+				}
+				if (valid) {
+					chosenViewer.setBackground(Color.white);
 				}
 
 			}
 		}
+		if (press.getSource() == country) {
+			// Perform check that the country is valid given the analysis 
+			
+			// Add the country to the 
+		}
+		
+	}
+	
+
+	
+	
+
+	public boolean removeViewer(ViewerType type) {
+		boolean valid = true;
+		try {
+			for (int i = 0 ; i < myViewers.size(); i++) {
+				if (myViewers.get(i).getType() == type) {
+					myResults.detachViewer(myViewers.get(i).getType());
+					myViewers.remove(i);
+				}
+				if (!analysisCheck.validCountry(myViewers.get(i).name)) {
+					valid = false;
+				}
+			}
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}
+		return valid;
+		
 	}
 
-	public void removeViewer(ViewerType type) {
-		for (int i = 0 ; i < myViewers.size(); i++) {
-			if (myViewers.get(i).getType() == type) {
-				myResults.detachViewer(myViewers.get(i).getType());
-				myViewers.remove(i);
-			}
-		}
-	}
-	
-	class removeViewer implements ActionListener{
-		
-		public String selectedViewer;
-		public JPanel plotDisplay;
-		public JComboBox<String> dropdown;
-		public String choice;
-		public removeViewer(JComboBox<String> viewsList, JPanel plot) {
-			dropdown = viewsList;
-			plotDisplay = plot;
-		}
-		public void actionPerformed(ActionEvent actionEvent) {
-			
-				
-	    }
-		
-			
-	
-	}
-	
-	class recompute implements ActionListener{
-		
-		public void actionPerformed(ActionEvent actionEvent) {
-			System.out.println("Hello there");
-	    }
-	}
 
 	public static void main(String[] args) {
 

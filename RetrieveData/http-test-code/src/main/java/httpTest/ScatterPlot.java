@@ -28,6 +28,7 @@ public class ScatterPlot extends Viewer
 	ScatterPlot()
 	{
 		super(ViewerType.SCATTERPLOT);
+		this.name = "Scatter Chart";
 	}
 	
 	@Override

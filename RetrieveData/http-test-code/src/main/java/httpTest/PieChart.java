@@ -20,6 +20,7 @@ public class PieChart extends Viewer
 	PieChart()
 	{
 		super(ViewerType.PIECHART);
+		this.name = "Pie Chart";
 	}
 	
 	@Override

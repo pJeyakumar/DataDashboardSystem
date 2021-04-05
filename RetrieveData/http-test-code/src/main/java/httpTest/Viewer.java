@@ -18,6 +18,8 @@ public abstract class Viewer
 	// private instance variables
 	private ViewerType viewerState = null;
 	
+	public String name;
+	
 	private JPanel targetPanel;
 	
 	// constructor class with ViewerType for parameter

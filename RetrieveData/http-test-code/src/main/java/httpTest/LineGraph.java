@@ -30,6 +30,7 @@ public class LineGraph extends Viewer
 	LineGraph()
 	{
 		super(ViewerType.LINEGRAPH);
+		this.name = "Line Chart";
 	}
 
 	@Override

@@ -19,6 +19,7 @@ public class Report extends Viewer
 	Report()
 	{
 		super(ViewerType.REPORT);
+		this.name = "Report";
 	}
 	
 	@Override

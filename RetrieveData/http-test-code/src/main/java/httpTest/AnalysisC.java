@@ -48,19 +48,15 @@ public class AnalysisC extends AnalysisStrategy
 		this.years = new ArrayList[29];
 		
 		Data[] dataSet = this.retrieveData(selection);
-		ArrayList<Double> forestData = dataSet[0].getFirst();
-		double avgForest = this.getAverage(forestData);
+		ArrayList<Double> forestData = dataSet[0].getFirst(); // Get data to perform avg calc on
+		ArrayList<Double> avgForest = this.getAverage(forestData); // Array that has an element with the average
 		
-		ArrayList<Double> avgForestList = new ArrayList<Double>();
-		Double avgForest_As_Double = Double.valueOf(avgForest);
-		avgForestList.add(avgForest_As_Double);
-		
-		double restOfLand = 1 - avgForest;
+		double restOfLand = 1 - avgForest.get(0); // Calc 100-average for rest of pie-chart
 		ArrayList<Double> restOfLandList = new ArrayList<Double>();
 		Double restOfLand_As_Double = Double.valueOf(restOfLand);
 		restOfLandList.add(restOfLand_As_Double);
 		
-		this.processedData[0] = avgForestList;
+		this.processedData[0] = avgForest;
 		this.processedData[1] = restOfLandList;
 		
 	} // End Do Analysis

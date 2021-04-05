@@ -56,14 +56,10 @@ public class AnalysisD extends AnalysisStrategy
 		
 		// dataSet[1] = the GHG emissions/removals data
 		ArrayList<Double> GHGData = dataSet[1].getFirst(); // get values
-		double avgGHG = this.getAverage(GHGData);
-		
-		ArrayList<Double> avgGHGList = new ArrayList<Double>();
-		Double avgGHG_As_Double = Double.valueOf(avgGHG);
-		avgGHGList.add(avgGHG_As_Double);
+		ArrayList<Double> avgGHG = this.getAverage(GHGData);
 		
 		this.processedData[0] = dataSet[0].getFirst(); // Unchanged values of Forest Area
-		this.processedData[1] = avgGHGList; // Data for single horizontal line that is the avg GHG emissions/removals
+		this.processedData[1] = avgGHG; // Data for single horizontal line that is the avg GHG emissions/removals
 		
 	} // End Do Analysis
 	

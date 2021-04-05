@@ -17,22 +17,22 @@ public class AnalysisCreator {
 	
 	public static AnalysisStrategy create(String analysisType) {
 		
-		if (analysisType.equals("A")) {
+		if (analysisType.equals("Renewable electricity output vs Renewable energy consumption")) {
 			return new AnalysisA();
-		} else if (analysisType.equals("B")) {
+		} else if (analysisType.equals("Ratio of Electricity production from coal sources vs Renewable electricity output")) {
 			return new AnalysisB();
-		} else if (analysisType.equals("C")) {
+		} else if (analysisType.equals("Forest area (% of land area)")) {
 			return new AnalysisC();
-		} else if (analysisType.equals("D")) {
+		} else if (analysisType.equals("Forest area (% of land area) vs Average GHG net emissions/removals by LUCF")) {
 			return new AnalysisD();
-		} else if (analysisType.equals("E")) {
+		} else if (analysisType.equals("Agricultural Land vs NO2 Emissions vs Methane Emissions")) {
 			return new AnalysisE();
-		} else if (analysisType.equals("F")) {
+		} else if (analysisType.equals("Total GHG Emissions vs % Urban Population vs % Fossil Fuel Energy Consumption")) {
 			return new AnalysisF();
-		} else if (analysisType.equals("G")) {
+		} else if (analysisType.equals("Ratio of agricultural land (% of total area) vs forest land (%)")) {
 			return new AnalysisG();
 		} else {
-			return new AnalysisH();
+			return new AnalysisH(); // "Average Agricultural land (% of land area)"
 		}
 	}
 } // End AnalysisCreator

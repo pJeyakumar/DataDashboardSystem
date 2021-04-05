@@ -134,6 +134,30 @@ abstract class AnalysisStrategy {
 		}
 		
 		return ratioVals;		
-	} // End Get Ratios
+	} 
+	
+	/**
+	 * Following methods used as getters in the "Result" class
+	 */
+	
+	public ArrayList<Double>[] getProcessedData() {
+		return this.processedData;
+	}
+	
+	public ArrayList<Integer>[] getYears() {
+		return this.years;
+	}
+	
+	public String[] getDataNames() {
+		return this.dataNames;
+	}
+	
+	public String[] getAxisNames() {
+		return this.axisNames;
+	}
+	
+	public String getAnalysisID() {
+		return this.analysisID;
+	}
 	
 } // End Class

@@ -346,19 +346,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 
 			}
 		}
-		
-		if (press.getSource() == country) {
-			if (analysisSelected) {
-				
-				countryChoice = (String) country.getSelectedItem();
-			}
-			
-			
-		}
-	}	
-	JComboBox<String> country;
-	JComboBox<String> startYear;
-	JComboBox<String> endYear;
+	}
 
 	public void removeViewer(ViewerType type) {
 		for (int i = 0 ; i < myViewers.size(); i++) {

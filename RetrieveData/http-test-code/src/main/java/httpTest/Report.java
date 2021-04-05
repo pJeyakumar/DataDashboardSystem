@@ -2,6 +2,7 @@ package httpTest;
 
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class Report extends Viewer

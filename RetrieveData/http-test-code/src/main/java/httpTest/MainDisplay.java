@@ -236,7 +236,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 				
 				
 				Report myRep = (Report) newViewer;
-				myRep.setScrollPane(myReport);
+				myRep.setPanel(myReport);
 				
 				myViewers.add(myRep);
 				myResults.attachViewer(myRep);
@@ -337,7 +337,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 					removeViewer(ViewerType.LINEGRAPH);
 				}else{
 					DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-					chart = ChartFactory.createMultiplePieChart("", dataset,TableOrder.BY_COLUMN, true, true, false);
+					chart = ChartFactory.createMultiplePieChart("Unemployment: Men vs Women", dataset,TableOrder.BY_COLUMN, true, true, false);
 					
 					myPanels.get(4).setChart(chart);
 					

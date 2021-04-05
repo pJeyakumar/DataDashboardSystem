@@ -322,12 +322,27 @@ public class MainDisplay extends JFrame implements ActionListener{
 				// If the existing analysis ID is not null, empty the viewers
 				if (this.analysisID != null) {
 					System.out.println("NEW ANALYSIS, EMPTYING VIEWERS...");
+					
+					CategoryPlot plot = new CategoryPlot();
+					JFreeChart chart = new JFreeChart("", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+					for (ChartPanel p : myPanels) p.setChart(chart);
+					
+					myViewers = new ArrayList<Viewer>();
 					myResults.emptyViewers();
 				}
 				
 				// Always set the new analysisID and create a new analysisDB
 				this.analysisID = newAnalysis;
 				analysisCheck = new AnalysisDB(newAnalysis);
+				if (!analysisCheck.validCountry(countryChoice)) {
+					countryBox.setBackground(Color.red);
+				}
+				if (!analysisCheck.validStartYr(startYearChoice)) {
+					startYearBox.setBackground(Color.red);
+				}
+				if (!analysisCheck.validEndYr(endYearChoice)) {
+					endYearBox.setBackground(Color.red);
+				}
 			}
 			
 
@@ -445,6 +460,8 @@ public class MainDisplay extends JFrame implements ActionListener{
 			boolean valid = false;
 			
 			
+			
+			
 			if (selectedViewer.equals("Report")) {
 				JTextArea report = new JTextArea();
 				myReport.setViewportView(report);
@@ -453,32 +470,22 @@ public class MainDisplay extends JFrame implements ActionListener{
 				valid = removeViewer(ViewerType.REPORT);
 				
 			}else {
-				JFreeChart chart;
-				if (selectedViewer.equals("Bar Chart")){
-					CategoryPlot plot = new CategoryPlot();
-					chart = new JFreeChart("", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-					
+				CategoryPlot plot = new CategoryPlot();
+				JFreeChart chart = new JFreeChart("", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
+				
+				if (selectedViewer.equals("Bar Chart")){					
 					myPanels.get(1).setChart(chart);
 					
 					valid = removeViewer(ViewerType.BARGRAPH);
 				}else if(selectedViewer.equals("Scatter Chart")) {
-					XYPlot plot = new XYPlot();
-					chart = new JFreeChart("", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-
 					myPanels.get(2).setChart(chart);
 					
 					valid = removeViewer(ViewerType.SCATTERPLOT);
 				}else if(selectedViewer.equals("Line Chart")) {
-					XYPlot plot = new XYPlot();
-					chart = new JFreeChart("",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-					
 					myPanels.get(3).setChart(chart);
 					
 					valid = removeViewer(ViewerType.LINEGRAPH);
 				}else{
-					DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-					chart = ChartFactory.createMultiplePieChart("", dataset,TableOrder.BY_COLUMN, true, true, false);
-					
 					myPanels.get(4).setChart(chart);
 					
 					valid = removeViewer(ViewerType.PIECHART);

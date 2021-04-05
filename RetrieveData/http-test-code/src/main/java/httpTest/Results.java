@@ -67,7 +67,7 @@ public class Results implements IResults
     	// Check : valid analysis strategy loaded 
     	System.out.println("NOTIFYING VIEWERS ...");
         for (Viewer v : viewers){
-            v.display(mainPanel, analysis.getProcessedData(), analysis.getYears(), analysis.getDataNames(), analysis.getAxisNames(), analysis.getAnalysisID());
+            v.display(analysis.getProcessedData(), analysis.getYears(), analysis.getDataNames(), analysis.getAxisNames(), analysis.getAnalysisID());
         }
     }
     public void emptyViewers()

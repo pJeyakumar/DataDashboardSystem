@@ -36,6 +36,8 @@ public class AnalysisDB {
 				String[][] list = new String[3][];
 				
 				String[] items;
+				System.out.println(list.length);
+				System.out.println(fields.length);
 				for (int i = 1 ; i <= 3 ; i ++) {
 					list[i-1] = fields[i].split(",");
 					 

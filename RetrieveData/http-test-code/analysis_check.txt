@@ -1,3 +1,2 @@
 Renewable electricity output vs Renewable energy consumption:Japan,India,Sri Lanka,Norway,Belgium,USA,World:1995,2015:Bar Chart,Line Chart,Scatter Chart,Report
 Ratio of Electricity production from coal sources vs Renewable electricity output:Canada,Brazil,China,Japan,India,Sri Lanka,Norway,Belgium,USA,World:1995,2015:Bar Chart,Line Chart,Scatter Chart
-

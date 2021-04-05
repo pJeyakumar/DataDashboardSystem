@@ -29,6 +29,7 @@ public class AnalysisA extends AnalysisStrategy
 	public void doAnalysis(Selection selection) 
 	{
 		// Variable Declarations
+		System.out.println("PERFORMING ANALYSIS A...");
 		this.processedData = new ArrayList[2];
 		this.years = new ArrayList[2];
 		this.dataNames = new String[2];

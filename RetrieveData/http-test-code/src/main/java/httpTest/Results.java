@@ -27,11 +27,7 @@ public class Results implements IResults
     public void attachAnalysis(AnalysisStrategy current){
     	analysis = current;
     }
-    
-    public void setJPanel(JPanel panel) {
-    	mainPanel = panel; 
-    }
-    
+       
     
     public void attachViewer (Viewer viewer) {
         viewers.add(viewer);
@@ -69,13 +65,14 @@ public class Results implements IResults
     	
     	// Check : at least one viewer loaded 
     	// Check : valid analysis strategy loaded 
-    	
+    	System.out.println("NOTIFYING VIEWERS ...");
         for (Viewer v : viewers){
             v.display(mainPanel, analysis.getProcessedData(), analysis.getYears(), analysis.getDataNames(), analysis.getAxisNames(), analysis.getAnalysisID());
         }
     }
     public void emptyViewers()
     {
+    	System.out.println("EMPTYING VIEWERS ...");
     	this.viewers = new ArrayList<Viewer>();
     }
 }

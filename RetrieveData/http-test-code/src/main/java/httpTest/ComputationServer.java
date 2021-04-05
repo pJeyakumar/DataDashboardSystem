@@ -9,6 +9,15 @@ public class ComputationServer {
 	
 	private static ComputationServer instance = null; 
 	
+	/*recalculate()
+	{
+		HashMap map = new HashMap(AnalysisBox.analysisID);
+		Selection input = new Selection(countryBox.country, fYearBox.sYear, LYearBox.eYear, AnalysisBox.analysisID);
+		ComputationServer cs = new ComputationServer(input);
+		AnalysisStrategy obj = AnalysisCreator.create(input.getAnalysis());
+		cs.setStrategy(obj);
+		cs.runStrategy();
+	}*/
 	public ComputationServer() {
 		
 	}
@@ -29,11 +38,12 @@ public class ComputationServer {
 		currentStrat = newStrat;
 	}
 	
-	public void runStrategy(JPanel panel, Results results) {
+	public void runStrategy(Results results) {
 		//Results results = new Results();
+		System.out.println("RUNNING STRATEGY...");
 		currentStrat.doAnalysis(userChoices);
-		results.setJPanel(panel);
 		currentStrat.populateResults(results);
+		results.setState(1);
 	}
 	
 }

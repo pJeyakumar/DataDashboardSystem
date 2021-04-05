@@ -89,11 +89,11 @@ public class MainDisplay extends JFrame implements ActionListener{
 	JButton recalculate;
 	JButton addView;
 	JButton removeView;
-	JComboBox<String> chosenViewer;
-	JComboBox<String> country;
-	JComboBox<String> startYear;
-	JComboBox<String> endYear;
-	JComboBox<String> analysis;
+	JComboBox<String> viewerBox;
+	JComboBox<String> countryBox;
+	JComboBox<String> startYearBox;
+	JComboBox<String> endYearBox;
+	JComboBox<String> analysisBox;
 	
 	
 	public String AnalysisID;
@@ -112,7 +112,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		plotDisplay.setLayout(new GridLayout(2, 0));
 		
 		
-		// Set top bar
+		// COUNTRIES 
 		JLabel chooseCountryLabel = new JLabel("Choose a country: ");
 		Vector<String> countriesNames = new Vector<String>();
 		countriesNames.add("USA");
@@ -121,8 +121,10 @@ public class MainDisplay extends JFrame implements ActionListener{
 		countriesNames.add("China");
 		countriesNames.add("Brazil");
 		countriesNames.sort(null);
-		country = new JComboBox<String>(countriesNames);
+		countryBox = new JComboBox<String>(countriesNames);
 
+		
+		// YEARS 
 		JLabel from = new JLabel("From");
 		JLabel to = new JLabel("To");
 		Vector<String> years = new Vector<String>();
@@ -132,10 +134,12 @@ public class MainDisplay extends JFrame implements ActionListener{
 		for (int i = e; i >= s; i--) {
 			years.add("" + i);
 		}
-		startYear = new JComboBox<String>(years);
-		startYear.setSelectedIndex(years.size()-1);
-		endYear = new JComboBox<String>(years);
-		endYear.setSelectedIndex(0);
+		
+		
+		startYearBox = new JComboBox<String>(years);
+		startYearBox.setSelectedIndex(years.size()-1);
+		endYearBox = new JComboBox<String>(years);
+		endYearBox.setSelectedIndex(0);
 		
 		countryChoice = "Brazil";
 		
@@ -145,13 +149,18 @@ public class MainDisplay extends JFrame implements ActionListener{
 		analysisID = "Renewable electricity output vs Renewable energy consumption";
 		analysisCheck = new AnalysisDB(analysisID);
 		
+		analysisCheck.validStartYr(s);
+		analysisCheck.validEndYr(e);
+		analysisCheck.validCountry(countryChoice);
+		
+		
 		JPanel north = new JPanel();
 		north.add(chooseCountryLabel);
-		north.add(country);
+		north.add(countryBox);
 		north.add(from);
-		north.add(startYear);
+		north.add(startYearBox);
 		north.add(to);
-		north.add(endYear);
+		north.add(endYearBox);
 
 		// Set bottom bar
 		// analysis drop down default text
@@ -167,7 +176,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		methodNames.add("Ratio of agricultural land (% of total area) vs forest land (%)");
 		methodNames.add("Average Agricultural land (% of land area)");
 		// creating JComboBox object for analysis, with the analysis options
-		analysis = new JComboBox<String>(methodNames);
+		analysisBox = new JComboBox<String>(methodNames);
 		
 		JLabel viewsLabel = new JLabel("Available Views: ");
 
@@ -177,7 +186,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		viewsNames.add("Bar Chart");
 		viewsNames.add("Scatter Chart");
 		viewsNames.add("Report");
-		chosenViewer = new JComboBox<String>(viewsNames);
+		viewerBox = new JComboBox<String>(viewsNames);
 		
 		recalculate = new JButton("Recalculate");
 		addView = new JButton("+");
@@ -185,21 +194,23 @@ public class MainDisplay extends JFrame implements ActionListener{
 
 		JPanel south = new JPanel();
 		south.add(viewsLabel);
-		south.add(chosenViewer);
+		south.add(viewerBox);
 		south.add(addView);
 		south.add(removeView);
 
 		south.add(methodLabel);
 		// add analysis drop down
-		south.add(analysis);
+		south.add(analysisBox);
 		south.add(recalculate);
 
+		
+		// Main Plot 
 		JPanel plotDisplay = new JPanel();
 		plotDisplay.setLayout(new GridLayout(2, 0));
 		
-		myViewers = new ArrayList<Viewer>();
-		myPanels = new ArrayList<ChartPanel>();
 		
+		
+		// INITIALIZE REPORT SEPARATELY
 		JTextArea report = new JTextArea();
 		report.setEditable(false);
 		report.setPreferredSize(new Dimension(400, 300));
@@ -209,6 +220,12 @@ public class MainDisplay extends JFrame implements ActionListener{
 		
 		myReport = outputScrollPane;
 		plotDisplay.add(outputScrollPane);
+		
+		
+	
+		// INITIALIZE VIEWERS AND PANELS 
+		myViewers = new ArrayList<Viewer>();
+		myPanels = new ArrayList<ChartPanel>();
 		
 		for (int i = 0; i < 5; i++) {
 			CategoryPlot plot = new CategoryPlot();
@@ -236,12 +253,12 @@ public class MainDisplay extends JFrame implements ActionListener{
 		recalculate.addActionListener(this);
 		addView.addActionListener(this);
 		removeView.addActionListener(this);
-		chosenViewer.addActionListener(this);
+		viewerBox.addActionListener(this);
 		
-		country.addActionListener(this);
-		startYear.addActionListener(this);
-		endYear.addActionListener(this);
-		analysis.addActionListener(this);
+		countryBox.addActionListener(this);
+		startYearBox.addActionListener(this);
+		endYearBox.addActionListener(this);
+		analysisBox.addActionListener(this);
 	}
 	
 
@@ -278,8 +295,8 @@ public class MainDisplay extends JFrame implements ActionListener{
 				// set analysis object for comp server
 				cs.setStrategy(analysis);
 				// run comp server strategy
-				System.out.println("RUNNING STRATEGY...");
-				cs.runStrategy(plotDisplay, myResults);
+				
+				cs.runStrategy(myResults);
 				
 			}else {
 				System.out.println(countryChoice != null);
@@ -292,11 +309,11 @@ public class MainDisplay extends JFrame implements ActionListener{
 		}
         
 
-		if(press.getSource() == analysis) 
+		if(press.getSource() == analysisBox) 
 		{
 			// get analysis drop down menu box
 			System.out.println("CHANGING ANALYSIS...");
-			String newAnalysis = (String) analysis.getSelectedItem();
+			String newAnalysis = (String) analysisBox.getSelectedItem();
 			System.out.println(newAnalysis);
 			
 			
@@ -318,17 +335,17 @@ public class MainDisplay extends JFrame implements ActionListener{
 		
 		if (press.getSource() == addView) {
 			String selectedViewer;
-			selectedViewer = (String) chosenViewer.getSelectedItem();
+			selectedViewer = (String) viewerBox.getSelectedItem();
 			
 			System.out.print("ADDING VIEWER...");
 			System.out.println(selectedViewer);
 			
 			ViewerCreator myCreator = new ViewerCreator();
-			boolean valid = false;
+			
 			
 			if (analysisCheck.validViewer(selectedViewer)) {
 				System.out.print("VALID VIEWER!");
-				chosenViewer.setBackground(Color.white);
+				viewerBox.setBackground(Color.white);
 
 				
 				if (selectedViewer.equals("Report")) {
@@ -416,14 +433,16 @@ public class MainDisplay extends JFrame implements ActionListener{
 				
 			}else {
 				System.out.print("INVALID VIEWER!");
-				chosenViewer.setBackground(Color.red);
+				viewerBox.setBackground(Color.red);
 			}
 		}
 			
 		// REMOVE BUTTON 
 		if (press.getSource() == removeView) {
 			String selectedViewer;
-			selectedViewer = (String) chosenViewer.getSelectedItem();
+			selectedViewer = (String) viewerBox.getSelectedItem();
+			
+			boolean valid = false;
 			
 			
 			if (selectedViewer.equals("Report")) {
@@ -431,7 +450,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 				myReport.setViewportView(report);
 				
 				// Call the viewer creator, create a new bar chart, and attach it 
-				removeViewer(ViewerType.REPORT);
+				valid = removeViewer(ViewerType.REPORT);
 				
 			}else {
 				JFreeChart chart;
@@ -441,42 +460,89 @@ public class MainDisplay extends JFrame implements ActionListener{
 					
 					myPanels.get(1).setChart(chart);
 					
-					removeViewer(ViewerType.BARGRAPH);
+					valid = removeViewer(ViewerType.BARGRAPH);
 				}else if(selectedViewer.equals("Scatter Chart")) {
 					XYPlot plot = new XYPlot();
 					chart = new JFreeChart("", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 
 					myPanels.get(2).setChart(chart);
 					
-					removeViewer(ViewerType.SCATTERPLOT);
+					valid = removeViewer(ViewerType.SCATTERPLOT);
 				}else if(selectedViewer.equals("Line Chart")) {
 					XYPlot plot = new XYPlot();
 					chart = new JFreeChart("",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 					
 					myPanels.get(3).setChart(chart);
 					
-					removeViewer(ViewerType.LINEGRAPH);
+					valid = removeViewer(ViewerType.LINEGRAPH);
 				}else{
 					DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 					chart = ChartFactory.createMultiplePieChart("", dataset,TableOrder.BY_COLUMN, true, true, false);
 					
 					myPanels.get(4).setChart(chart);
 					
-					removeViewer(ViewerType.PIECHART);
+					valid = removeViewer(ViewerType.PIECHART);
 				}
-
+			}
+			
+			if (!valid) {
+				System.out.println("INVALID OPTION -- VIEWER NOT FOUND");
 			}
 		}
-		if (press.getSource() == country) {
+		if (press.getSource() == countryBox) {
 			// Perform check that the country is valid given the analysis 
+			String selectedCountry = (String) countryBox.getSelectedItem();
 			
 			// Add the country to the 
+			System.out.println(analysisCheck == null);
+			if (analysisCheck.validCountry(selectedCountry)) {
+				// VALID COUNTRY 
+				countryBox.setBackground(Color.white);
+				// Add country to the saved user choice
+				countryChoice = selectedCountry;
+				
+			}else {
+				// NOT VALID 
+				System.out.println("INVALID COUNTRY CHOICE");
+				countryBox.setBackground(Color.red);
+			}
+		}
+		
+		if (press.getSource() == startYearBox) {
+			// Perform check that the country is valid given the analysis 
+			int selectedYr = Integer.valueOf((String)startYearBox.getSelectedItem());
+			
+			if (analysisCheck.validStartYr(selectedYr)) {
+				// VALID COUNTRY 
+				startYearBox.setBackground(Color.white);
+				// Add country to the saved user choice
+				startYearChoice = selectedYr;
+				
+			}else {
+				// NOT VALID 
+				System.out.println("INVALID COUNTRY CHOICE");
+				startYearBox.setBackground(Color.red);
+			}
+		}
+		
+		if (press.getSource() == endYearBox) {
+			// Perform check that the country is valid given the analysis 
+			int selectedYr = Integer.valueOf((String)endYearBox.getSelectedItem());
+			
+			if (analysisCheck.validEndYr(selectedYr)) {
+				// VALID COUNTRY 
+				endYearBox.setBackground(Color.white);
+				// Add country to the saved user choice
+				endYearChoice = selectedYr;
+				
+			}else {
+				// NOT VALID 
+				System.out.println("INVALID COUNTRY CHOICE");
+				endYearBox.setBackground(Color.red);
+			}
 		}
 		
 	}
-	
-
-	
 	
 
 	public boolean removeViewer(ViewerType type) {

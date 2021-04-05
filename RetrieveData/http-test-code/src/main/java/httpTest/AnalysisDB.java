@@ -57,6 +57,7 @@ public class AnalysisDB {
 	}
 	
 	public boolean validCountry(String input) {
+		System.out.println(analysis_dict.size());
 		String [] countries = analysis_dict.get(analysis)[0];
 		for (int i = 0 ; i < countries.length ; i ++) {
 			 if (countries[i].equals(input)) {
@@ -95,7 +96,6 @@ public class AnalysisDB {
 		String[] viewers = analysis_dict.get(analysis)[2];
 		for (int i = 0 ; i < viewers.length ; i ++) {
 			 if (viewers[i].equals(input)) {
-				 viewer = false;
 				 return false;
 			 }
 		}
@@ -104,6 +104,11 @@ public class AnalysisDB {
 	}
 	
 	public boolean allValid() {
+		System.out.println("...");
+		System.out.println(country);
+		System.out.println(start);
+		System.out.println(end);
+		System.out.println(viewer);
 		return country && start && end && viewer;
 	}
 }

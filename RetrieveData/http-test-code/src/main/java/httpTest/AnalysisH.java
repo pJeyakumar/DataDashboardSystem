@@ -14,7 +14,8 @@ public class AnalysisH extends AnalysisStrategy
 		this.dataNames[0] = "Average Agricultural Land %";
 		this.dataNames[1] = "Average Other Land %";
 		
-		// no axisNames given its a pie chart??
+		this.axisNames = new String[1];
+		this.axisNames[0] = "";
 	}
 	
 	
@@ -34,7 +35,8 @@ public class AnalysisH extends AnalysisStrategy
 		
 		Data[] finalData = retrieveData(selection);
 		
-		this.processedData[0] = finalData[0].getFirst();
+		this.processedData[0] = this.getAverage(finalData[0].getFirst());
+
 		this.years[0] = finalData[0].getSecond();
 		
 		// getAverage?

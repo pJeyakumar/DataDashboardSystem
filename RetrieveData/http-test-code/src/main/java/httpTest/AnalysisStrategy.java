@@ -93,9 +93,10 @@ abstract class AnalysisStrategy {
 	/*
 	 * Helper method to get an average (mean) from a list of values
 	 */
-	public double getAverage(ArrayList<Double> values) 
+	public ArrayList<Double> getAverage(ArrayList<Double> values) 
 	{
 		// Initialize average variable, number of values and sum of the values
+		ArrayList<Double> averages = new ArrayList<Double>();
 		double average = 0;
 		int numValues = values.size();
 		double sum = 0;
@@ -106,7 +107,8 @@ abstract class AnalysisStrategy {
 		}
 		
 		average = sum / numValues;
-		return average;
+		averages.add(average);
+		return averages;
 		
 	} // End Get Average
 	

@@ -9,15 +9,6 @@ public class ComputationServer {
 	
 	private static ComputationServer instance = null; 
 	
-	/*recalculate()
-	{
-		HashMap map = new HashMap(AnalysisBox.analysisID);
-		Selection input = new Selection(countryBox.country, fYearBox.sYear, LYearBox.eYear, AnalysisBox.analysisID);
-		ComputationServer cs = new ComputationServer(input);
-		AnalysisStrategy obj = AnalysisCreator.create(input.getAnalysis());
-		cs.setStrategy(obj);
-		cs.runStrategy();
-	}*/
 	public ComputationServer() {
 		
 	}

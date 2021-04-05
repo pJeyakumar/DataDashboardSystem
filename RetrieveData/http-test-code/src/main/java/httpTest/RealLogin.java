@@ -10,6 +10,7 @@ public class RealLogin implements ILogin
 	public void loginRequest(String inUser, String inPass)
 	{
 		// go to mainUI
+		MainDisplay.main(null);
 		System.out.println("Success");
 	}
 }

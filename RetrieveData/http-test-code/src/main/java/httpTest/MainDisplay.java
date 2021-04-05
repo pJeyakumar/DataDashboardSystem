@@ -59,7 +59,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 	
 	private int endYearChoice;
 	
-	private String analysisID;
+	private String analysisID = null;
 	
 	private Results myResults;  
 	
@@ -220,21 +220,50 @@ public class MainDisplay extends JFrame implements ActionListener{
 	}
 	
 
-	public void actionPerformed(ActionEvent press) {
+	public void actionPerformed(ActionEvent press) 
+	{
+		// if the recalculate button is pressed
 		if (press.getSource() == recalculate) 
 		{
+			// check if all the choices are not null and are all valid
 			if(!countryChoice.equals(null) && !startYear.equals(null) && !endYear.equals(null) && !analysisID.equals(null) && areValid) 
 			{
+				// create a selection object
 				Selection input = new Selection();
+				// set the user choices in the selection object
 				input.setCountry(countryChoice);
 				input.setStartYear(startYearChoice);
 				input.setEndYear(endYearChoice);
 				input.setAnalysis(analysisID);
+				// create a comp server object
 				ComputationServer cs = new ComputationServer();
+				// set the selection object for comp server
 				cs.setSelection(input);
+				// create analysisstrat object with user chosen analysisID
 				AnalysisStrategy analysis = AnalysisCreator.create(analysisID);
+				// set analysis object for comp server
 				cs.setStrategy(analysis);
+				// run comp server strategy
 				cs.runStrategy(plotDisplay, myResults);
+				
+			}
+		}
+		if(press.getSource() == analysis) 
+		{
+			// get analysis drop down menu box
+			String newAnalysis = String.valueOf(analysis.getSelectedItem());
+			// if the previous analysisID was null, set it to the chosen analysisID
+			if(this.analysisID == null) 
+			{
+				this.analysisID = newAnalysis;
+			}
+			// if the previous analysisID was the same as the chosen one, leave as is
+			else if(this.analysisID == newAnalysis) 
+			{
+				
+			}
+			else 
+			{
 				
 			}
 		}

@@ -221,7 +221,7 @@ public class MainUI extends JFrame {
 		plot.setRenderer(0, itemrenderer1);
 		DateAxis domainAxis = new DateAxis("Year");
 		plot.setDomainAxis(domainAxis);
-		plot.setRangeAxis(new NumberAxis("Num of Deaths"));
+		plot.setRangeAxis(new NumberAxis(""));
 
 		plot.setDataset(1, dataset2);
 		plot.setRenderer(1, itemrenderer2);

@@ -24,7 +24,7 @@ import org.jfree.data.time.Year;
  */
 public class ScatterPlot extends Viewer
 {
-	private ChartPanel chartPanel;
+	// constructor
 	ScatterPlot()
 	{
 		super(ViewerType.SCATTERPLOT);
@@ -32,7 +32,7 @@ public class ScatterPlot extends Viewer
 	}
 	
 	@Override
-	protected void display(JPanel plotArea, ArrayList<Double>[] data, 
+	protected void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames,  String[] axisNames, String analysisID) 
 	{
 		// Variable Declaration
@@ -73,6 +73,11 @@ public class ScatterPlot extends Viewer
 				dataSet[1].addSeries(seriesArray[i]);
 			}
 		}
+		// print out an error message if there are more than 2 TSCs
+		else if(numTSC > 2) 
+		{
+			System.out.println("ERROR: there should not be more than 2 TimeSeriesCollections made - scatter");
+		}
 		// Otherwise ad all time series into a single collection
 		else
 		{
@@ -88,7 +93,7 @@ public class ScatterPlot extends Viewer
 		XYItemRenderer[] itemRenArray = new XYItemRenderer[numTSC];
 		
 		// create XYItemRenderer for EACH TimeSeriesCollection
-		// set the data sets and renderers for the plot\		
+		// set the data sets and renderers for the plot		
 		for(int k = 0; k < numTSC; k++) 
 		{
 			// create XYLineAndShapeRenderer for that TimeSeriesCollection
@@ -111,16 +116,13 @@ public class ScatterPlot extends Viewer
 		JFreeChart scatterChart = new JFreeChart(analysisID,
 				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 
-		chartPanel.setChart(scatterChart);
-
-	
-		// add ChartPanel to JPanel plotArea
-		plotArea.add(chartPanel);
+		targetPanel.setChart(scatterChart);
 	}
-	
+	/*
 	public void setChartPanel(ChartPanel panel) 
 	{
 		this.chartPanel = panel;
 	}
+	(*/
 	
 }

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import org.jfree.chart.ChartPanel;
+
 /*
  * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
  * DATE: 2021-04-01
@@ -20,7 +22,7 @@ public abstract class Viewer
 	
 	public String name;
 	
-	private JPanel targetPanel;
+	protected ChartPanel targetPanel;
 	
 	// constructor class with ViewerType for parameter
 	public Viewer(ViewerType viewer) 
@@ -34,7 +36,7 @@ public abstract class Viewer
 		return this.viewerState;
 	}
 	
-	public void setPanel(JPanel target) {
+	public void setPanel(ChartPanel target) {
 		targetPanel = target;
 	}
 	
@@ -42,9 +44,8 @@ public abstract class Viewer
 		return name;
 	}
 	
-	
 	// Subclass-level displaying
-	protected abstract void display(JPanel plotArea, ArrayList<Double>[] data, 
+	protected abstract void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames, String[] axisNames, String analysisID);
 	
 }

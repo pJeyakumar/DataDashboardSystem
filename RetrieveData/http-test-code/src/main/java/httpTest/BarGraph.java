@@ -24,7 +24,7 @@ import org.jfree.data.time.TimeSeriesCollection;
 
 public class BarGraph extends Viewer
 {
-	private ChartPanel chartPanel;
+	// constructor 
 	BarGraph()
 	{
 		super(ViewerType.BARGRAPH);
@@ -32,7 +32,7 @@ public class BarGraph extends Viewer
 	}
 	
 	@Override
-	protected void display(JPanel plotArea, ArrayList<Double>[] data, 
+	protected void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames, String[] axisNames, String analysisID) 
 	{
 		// Variable Declaration
@@ -42,7 +42,7 @@ public class BarGraph extends Viewer
 		
 		// create DefaultCategoryDataset array
 		DefaultCategoryDataset[] dataSet = new DefaultCategoryDataset[numDCD];
-		// Based on 
+		// for each unique axis we have, add a DCD element to our DCD array
 		for (int i = 0 ; i < numDCD ; i++) 
 		{
 			dataSet[i] = new DefaultCategoryDataset();
@@ -61,28 +61,40 @@ public class BarGraph extends Viewer
 				dataSet[1].setValue(data[2].get(k), dataNames[2], years[2].get(k));
 			}
 		}
-		
+		// print out an error message if there are more than 2 DCDs
+		else if(numDCD > 2) 
+		{
+			System.out.println("ERROR: there should not be more than 2 DefaultCategoryDatasets - bar");
+		}
 		// Otherwise ad all the data into a single Dataset
 		else
 		{
 			for (int l = 0; l < numYears; l++) 
 			{
-				for(int m = 0; m < numData; m++	) 
+				for(int m = 0; m < numData; m++) 
 				{
 					dataSet[0].setValue(data[m].get(l), dataNames[m], years[m].get(l));
 				}
 			}
 		}
 		
+		// create a CategoryPlot object
 		CategoryPlot plot = new CategoryPlot();
+		// create a BarRenderer array
 		BarRenderer[] barRend = new BarRenderer[numDCD];
 		
+		// for the number of DCDs we have:
 		for(int n = 0; n < numDCD; n++) 
 		{
+			// add a BarRenderer object to our BarRenderer array
 			barRend[n] = new BarRenderer();
+			// set the dataset to our plot
 			plot.setDataset(n,dataSet[n]);
+			// set the bar renderer to our plot
 			plot.setRenderer(n, barRend[n]);
+			// set the y axis titles
 			plot.setRangeAxis(n, new NumberAxis(axisNames[n]));
+			// map our data to their corresponding y axis
 			plot.mapDatasetToRangeAxis(n, n);
 			
 		}
@@ -91,17 +103,18 @@ public class BarGraph extends Viewer
 		CategoryAxis domainAxis = new CategoryAxis("Year");
 		plot.setDomainAxis(domainAxis);
 		
+		// create JFreeChart using analysisID as title, and the plot we just created 
 		JFreeChart barChart = new JFreeChart(analysisID,
 				new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 		
-		chartPanel.setChart(barChart);
-		
-		// add ChartPanel to JPanel plotArea
-		plotArea.add(chartPanel);
+		// set the chart Panel with the JFreeChart
+		targetPanel.setChart(barChart);	
 	}
 	
+	/*
 	public void setChartPanel(ChartPanel panel) 
 	{
 		this.chartPanel = panel;
 	}
+	(*/
 }

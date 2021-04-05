@@ -15,7 +15,9 @@ import javax.swing.JTextArea;
 
 public class Report extends Viewer
 {
+	// instance variable
 	private JScrollPane output;
+	// constructor 
 	Report()
 	{
 		super(ViewerType.REPORT);
@@ -23,27 +25,33 @@ public class Report extends Viewer
 	}
 	
 	@Override
-	protected void display(JPanel plotArea, ArrayList<Double>[] data, 
+	protected void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames, String[] axisNames, String analysisID) 
 	{
+		// create a JTextArea object
 		JTextArea myReport = new JTextArea();
+		// set the properties of the JTextArea
 		myReport.setEditable(false);
 		myReport.setPreferredSize(new Dimension(400, 300));
 		myReport.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		myReport.setBackground(Color.white);
+		// add title to the message
 		String reportMessage = analysisID + "\n";
+		// go through the number of years
 		for(int i = 0; i < years[0].size(); i++) 
 		{
+			// add the year to the message
 			reportMessage += "Year " + years[0].get(i) + ":\n";
+			// add all the data values under that year to the message
 			for(int j = 0; j < data.length; j++) 
 			{
 				reportMessage += "\t" + dataNames[j] + "=>" + data[j].get(i) + "\n";
 			}
 		}
+		// set the JTextArea text to the message we just created
 		myReport.setText(reportMessage);
+		// set the JScrollPane to display the JTextArea
 		output.setViewportView(myReport);
-		
-		plotArea.add(output);
 		
 	}
 	public void setScrollPane (JScrollPane jScroll) 

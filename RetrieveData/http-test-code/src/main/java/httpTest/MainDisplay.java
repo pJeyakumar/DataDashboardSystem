@@ -264,7 +264,8 @@ public class MainDisplay extends JFrame implements ActionListener{
 			}
 			else 
 			{
-				
+				myResults.emptyViewers();
+				this.analysisID = newAnalysis;
 			}
 		}
 		

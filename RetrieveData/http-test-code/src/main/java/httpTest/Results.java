@@ -74,8 +74,10 @@ public class Results implements IResults
             v.display(mainPanel, analysis.getProcessedData(), analysis.getYears(), analysis.getDataNames(), analysis.getAxisNames(), analysis.getAnalysisID());
         }
     }
-    
-    
+    public void emptyViewers()
+    {
+    	this.viewers = new ArrayList<Viewer>();
+    }
 }
 
 

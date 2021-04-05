@@ -1,0 +1,4 @@
+Renewable electricity output vs Renewable energy consumption
+can,bra,chn,jpn,ind,lka,nor,bel,usa,wld:1995,2015:bargraph,linegraph,scatterplot,report
+Ratio of Electricity production from coal sources vs Renewable electricity output
+can,bra,chn,jpn,ind,lka,nor,bel,usa,wld:1995,2015:bargraph,linegraph,scatterplot,report

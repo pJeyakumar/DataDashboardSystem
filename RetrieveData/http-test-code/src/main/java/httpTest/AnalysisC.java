@@ -45,7 +45,7 @@ public class AnalysisC extends AnalysisStrategy
 	public void doAnalysis(Selection selection) {
 		
 		this.processedData = new ArrayList[2];
-		this.years = new ArrayList[29];
+		this.years = new ArrayList[2];
 		
 		Data[] dataSet = this.retrieveData(selection);
 		ArrayList<Double> forestData = dataSet[0].getFirst(); // Get data to perform avg calc on

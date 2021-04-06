@@ -50,7 +50,7 @@ public class AnalysisD extends AnalysisStrategy
 	public void doAnalysis(Selection selection) {
 		
 		this.processedData = new ArrayList[2];
-		this.years = new ArrayList[20];
+		this.years = new ArrayList[2];
 		
 		Data[] dataSet = this.retrieveData(selection);
 		

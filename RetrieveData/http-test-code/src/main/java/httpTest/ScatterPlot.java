@@ -50,6 +50,7 @@ public class ScatterPlot extends Viewer
 			// For every year in the specified series, add the Year and its corresponding data value to that series
 			for(int j = 0; j < numYears; j++)
 			{
+				// if the value NOT -1 (indicating a null value) add it
 				if(data[i].get(j) != -1) 
 				{
 					seriesArray[i].add(new Year(years[i].get(j)), data[i].get(j));

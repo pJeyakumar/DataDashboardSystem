@@ -53,9 +53,11 @@ public class Reader
 				{
 // PIRANA COMMENT -- In order to add a value to an ArrayList, you need to use the arrayName.add(value) method
 					data2.add(jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("date").getAsInt());
+					// if the value is NULL, set it as -1.0 (we will use this as an indicator for if the value for the given)
+					// year was null when rendering the viewers
 					if (jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("value").isJsonNull()) 
 					{
-						data1.add(0.0);
+						data1.add(-1.0);
 					}
 					else 
 					{

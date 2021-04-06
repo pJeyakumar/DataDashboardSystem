@@ -45,7 +45,16 @@ public class Report extends Viewer
 			// add all the data values under that year to the message
 			for(int j = 0; j < data.length; j++) 
 			{
-				reportMessage += "\t" + dataNames[j] + "=>" + data[j].get(i) + "\n";
+				// if the value IS a null value, we will write it down as a null value in the report
+				if(data[j].get(i) == -1) 
+				{
+					reportMessage += "\t" + dataNames[j] + "=>" + "n/a" + "\n";
+				}
+				// otherwise add it as normal
+				else 
+				{
+					reportMessage += "\t" + dataNames[j] + "=>" + data[j].get(i) + "\n";
+				}
 			}
 		}
 		// set the JTextArea text to the message we just created

@@ -53,12 +53,24 @@ public class BarGraph extends Viewer
 		{
 			for(int j = 0; j < numYears; j++) 
 			{
-				dataSet[0].setValue(data[0].get(j), dataNames[0], years[0].get(j));				
+				// if the value NOT -1 (indicating a null value) add it
+				if(data[0].get(j) != -1)
+				{
+					dataSet[0].setValue(data[0].get(j), dataNames[0], years[0].get(j));	
+				}
 			}
 			for (int k = 0; k < numYears; k++) 
 			{
-				dataSet[1].setValue(data[1].get(k), dataNames[1], years[1].get(k));
-				dataSet[1].setValue(data[2].get(k), dataNames[2], years[2].get(k));
+				// if the value NOT -1 (indicating a null value) add it
+				if(data[1].get(k) != -1) 
+				{
+					dataSet[1].setValue(data[1].get(k), dataNames[1], years[1].get(k));
+				}
+				// if the value NOT -1 (indicating a null value) add it
+				if(data[2].get(k) != -1) 
+				{
+					dataSet[1].setValue(data[2].get(k), dataNames[2], years[2].get(k));
+				}
 			}
 		}
 		// print out an error message if there are more than 2 DCDs
@@ -73,7 +85,11 @@ public class BarGraph extends Viewer
 			{
 				for(int m = 0; m < numData; m++) 
 				{
-					dataSet[0].setValue(data[m].get(l), dataNames[m], years[m].get(l));
+					// if the value NOT -1 (indicating a null value) add it
+					if(data[m].get(l) != -1) 
+					{
+						dataSet[0].setValue(data[m].get(l), dataNames[m], years[m].get(l));
+					}
 				}
 			}
 		}

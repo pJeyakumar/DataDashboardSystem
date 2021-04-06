@@ -27,9 +27,8 @@ public class AnalysisC extends AnalysisStrategy
 		this.dataNames[1] = "Other land area";
 		
 		// ?
-		this.axisNames = new String[2];
-		this.axisNames[0] = "Forest area %";
-		this.axisNames[1] = "Other land";
+		this.axisNames = new String[1];
+		this.axisNames[0] = "";
 	}
 	
 	
@@ -44,20 +43,21 @@ public class AnalysisC extends AnalysisStrategy
 	*/
 	public void doAnalysis(Selection selection) {
 		
-		this.processedData = new ArrayList[2];
-		this.years = new ArrayList[29];
+		this.processedData = new ArrayList[1];
+		this.years = new ArrayList[1];
 		
 		Data[] dataSet = this.retrieveData(selection);
 		ArrayList<Double> forestData = dataSet[0].getFirst(); // Get data to perform avg calc on
 		ArrayList<Double> avgForest = this.getAverage(forestData); // Array that has an element with the average
 		
-		double restOfLand = 1 - avgForest.get(0); // Calc 100-average for rest of pie-chart
-		ArrayList<Double> restOfLandList = new ArrayList<Double>();
-		Double restOfLand_As_Double = Double.valueOf(restOfLand);
-		restOfLandList.add(restOfLand_As_Double);
+		// double restOfLand = 1 - avgForest.get(0); // Calc 100-average for rest of pie-chart
+		// ArrayList<Double> restOfLandList = new ArrayList<Double>();
+		// Double restOfLand_As_Double = Double.valueOf(restOfLand);
+		// restOfLandList.add(restOfLand_As_Double);
 		
 		this.processedData[0] = avgForest;
-		this.processedData[1] = restOfLandList;
+		// this.processedData[1] = restOfLandList;
+		this.years[0] = dataSet[0].getSecond();
 		
 	} // End Do Analysis
 	

@@ -4,8 +4,20 @@ import java.util.ArrayList;
 public class Test {
 	public static void main(String[] args) {
 		
-		AnalysisDB myDB = new AnalysisDB("Ratio of Electricity production from coal sources vs Renewable electricity output");
-		
-		System.out.println(myDB.validViewer("Bar Chart"));
+		AnalysisStrategy myAnalysis = new AnalysisE();
+		Selection myS = new Selection();
+		myS.setCountry("Germany");
+		myS.setStartYear(1985);
+		myS.setEndYear(2015);
+		Data[] list = myAnalysis.retrieveData(myS);
+		ArrayList<Double> current;
+		for (int i = 0; i < list.length; i++) {
+			current = list[i].getFirst();
+			
+			for (int j = 0 ; j < current.size(); j++) {
+				System.out.printf("%f  ", current.get(j));
+			}
+			System.out.println("");
+		}
 	}
 }

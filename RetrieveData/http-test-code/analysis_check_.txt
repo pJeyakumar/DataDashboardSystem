@@ -1,0 +1,8 @@
+Renewable electricity output vs Renewable energy consumption:Japan,India,Sri Lanka,Norway,Belgium,USA,World:1995,2015:Bar Chart,Line Chart,Scatter Chart,Report
+Ratio of Electricity production from coal sources vs Renewable electricity output:Canada,Brazil,China,Japan,India,Sri Lanka,Norway,Belgium,USA,World:1995,2015:Bar Chart,Line Chart,Scatter Chart
+Ratio of agricultural land (% of total area) vs forest land (%)::1990,2015:Pie Chart
+Average agricultural land (% of land area)::1985,2015:Bar Chart,Line Chart,Scatter Chart
+Agricultural Land vs NO2 Emissions vs Methane Emissions:France:1985,2008:Pie Chart
+Total GHG Emissions vs % Urban Population vs % Fossil Fuel Energy Consumption:Spain:1985,2012:Pie Chart
+Forest area (% of land area):Brazil:1990,2015:Pie Chart
+Forest area (% of land area) vs Average GHG net emissions/removals by LUCF:Brazil,China:1990,2009:Pie Chart

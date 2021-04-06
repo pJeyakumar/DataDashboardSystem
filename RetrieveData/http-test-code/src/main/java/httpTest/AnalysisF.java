@@ -12,9 +12,6 @@ public class AnalysisF extends AnalysisStrategy
 		this.analysisID = "Total GHG Emissions vs % Urban Population vs % Fossil Fuel Energy Consumption";
 		
 		this.dataNames = new String[3];
-		this.dataNames[0] = "Total GHG Emissions (MT CO2 eqv)";
-		this.dataNames[1] = "% Urban Population (% Total Population)";
-		this.dataNames[2] = "% Fossil Fuel Consumption (% Total Energy)";
 		
 		this.axisNames = new String[2];
 		this.axisNames[0] =  "Megatons (CO2 Equivalent)";
@@ -56,6 +53,7 @@ public class AnalysisF extends AnalysisStrategy
 			
 			this.processedData[i] = temp;
 			this.years[i] = dataSets[i].getSecond();
+			this.dataNames[i] = dataSets[i].getTypeA(); 
 		}
 	}
 	

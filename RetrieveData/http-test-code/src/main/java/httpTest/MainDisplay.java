@@ -120,6 +120,11 @@ public class MainDisplay extends JFrame implements ActionListener{
 		countriesNames.add("France");
 		countriesNames.add("China");
 		countriesNames.add("Brazil");
+		countriesNames.add("Germany");
+		countriesNames.add("Japan");
+		countriesNames.add("Norway");
+		countriesNames.add("Spain");
+		
 		countriesNames.sort(null);
 		countryBox = new JComboBox<String>(countriesNames);
 

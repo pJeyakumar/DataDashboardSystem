@@ -4,9 +4,9 @@ import java.util.ArrayList;
 public class Test {
 	public static void main(String[] args) {
 		
-		AnalysisStrategy myAnalysis = new AnalysisE();
+		AnalysisStrategy myAnalysis = new AnalysisD();
 		Selection myS = new Selection();
-		myS.setCountry("USA");
+		myS.setCountry("Norway");
 		myS.setStartYear(1985);
 		myS.setEndYear(2015);
 		Data[] list = myAnalysis.retrieveData(myS);
@@ -21,3 +21,9 @@ public class Test {
 		}
 	}
 }
+
+
+// 1990 start
+// 2009
+// Brazil
+// China

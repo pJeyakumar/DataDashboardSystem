@@ -193,7 +193,7 @@ Country Code,"Country Name, Full ","Country Name, Abbreviation",Country Comments
 574,Norfolk Islands,Norfolk Isds,,NF,NFK,1962,Now
 637,"North America, the Caribbean and Central America not elsewhere specified","North America and Central America, nes",,N/A,N/A,1962,Now
 290,"Northern Africa, not elsewhere specified","Northern Africa, nes",,N/A,N/A,1962,2004
-579,"Norway, Svalbard and Jan Mayen",Norway,Including Svalbard and Jan Mayen,NO,NOR,1962,Now
+579,Norway,Norway,Including Svalbard and Jan Mayen,NO,NOR,1962,Now
 527,"Oceania, not elsewhere specified","Oceania, nes",,N/A,N/A,1962,Now
 512,Oman,Oman,,OM,OMN,1962,Now
 577,"Other Africa, not elsewhere specified","Other Africa, nes",,N/A,N/A,1962,Now

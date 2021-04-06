@@ -28,11 +28,14 @@ public class Report extends Viewer
 	protected void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames, String[] axisNames, String analysisID) 
 	{
+		int dataCount;
+		dataCount = data.length * data[0].size() + years[0].size();
+		System.out.println(dataCount);
 		// create a JTextArea object
-		JTextArea myReport = new JTextArea();
+		JTextArea myReport = new JTextArea(dataCount,1);
 		// set the properties of the JTextArea
 		myReport.setEditable(false);
-		myReport.setPreferredSize(new Dimension(400, 300));
+		myReport.setPreferredSize(new Dimension(600, 500));
 		myReport.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		myReport.setBackground(Color.white);
 		// add title to the message
@@ -48,12 +51,12 @@ public class Report extends Viewer
 				// if the value IS a null value, we will write it down as a null value in the report
 				if(data[j].get(i) == -1) 
 				{
-					reportMessage += "\t" + dataNames[j] + "=>" + "n/a" + "\n";
+					reportMessage += dataNames[j] + "=>" + "n/a" + "\n";
 				}
 				// otherwise add it as normal
 				else 
 				{
-					reportMessage += "\t" + dataNames[j] + "=>" + data[j].get(i) + "\n";
+					reportMessage += dataNames[j] + "=>" + data[j].get(i) + "\n";
 				}
 			}
 		}

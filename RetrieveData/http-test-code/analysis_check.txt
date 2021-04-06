@@ -1,4 +1,2 @@
 Renewable electricity output vs Renewable energy consumption:France,Spain:1990,2015:Pie Chart
 Ratio of Electricity production from coal sources vs Renewable electricity output:France,Spain,Sri Lanka:1990,2015:Pie Chart, Report
-Forest area (% of land area)::1990,2015:
-Forest area (% of land area) vs Average GHG net emissions/removals by LUCF:Brazil,China:1990,2009:

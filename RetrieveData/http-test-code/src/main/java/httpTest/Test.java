@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Test {
 	public static void main(String[] args) {
 		
-		AnalysisStrategy myAnalysis = new AnalysisE();
+		AnalysisStrategy myAnalysis = new AnalysisG();
 		Selection myS = new Selection();
 		myS.setCountry("Spain");
 		myS.setStartYear(1985);

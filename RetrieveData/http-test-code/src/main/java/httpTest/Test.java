@@ -6,7 +6,7 @@ public class Test {
 		
 		AnalysisStrategy myAnalysis = new AnalysisE();
 		Selection myS = new Selection();
-		myS.setCountry("Germany");
+		myS.setCountry("USA");
 		myS.setStartYear(1985);
 		myS.setEndYear(2015);
 		Data[] list = myAnalysis.retrieveData(myS);

@@ -1,3 +1,4 @@
+Renewable electricity output vs Renewable energy consumption:France,Spain:1990,2015:Pie Chart
 Ratio of Electricity production from coal sources vs Renewable electricity output:France,Spain,Sri Lanka:1990,2015:Pie Chart, Report
 Ratio of agricultural land (% of total area) vs forest land (%)::1990,2015:Pie Chart
 Average agricultural land (% of land area)::1985,2015:Bar Chart,Line Chart,Scatter Chart

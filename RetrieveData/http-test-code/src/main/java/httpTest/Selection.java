@@ -12,7 +12,7 @@ public class Selection {
 	private String country;
 	private int startYear;
 	private int endYear;
-	private String analysisType;
+	private String analysisType = "";
 	private HashMap<String, String> country_dict;
 	
 	public Selection() {

@@ -70,8 +70,10 @@ public class AnalysisE extends AnalysisStrategy
 		// Create an instance of the Reader class
 		Reader reader = new Reader();
 		
+		// VALID TIME RANGE 
+		// 1985 : 2015
 		String[] urlNames = {"AG.LND.AGRI.ZS", "EN.ATM.NOXE.AG.KT.CE","EN.ATM.METH.AG.KT.CE"};
-		
+		// MISSING VALUES FOR FIRST 5 FOR GERMANY
 		// Get Data object for Renewable electricity output (% of total electricity output) P.I
 		Data[] seriesArray = new Data[3];
 		

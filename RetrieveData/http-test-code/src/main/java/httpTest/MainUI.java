@@ -300,6 +300,14 @@ public class MainUI extends JFrame {
 		dataset2.setValue(8399, "Health Expenditure per Capita", "2012");
 		dataset2.setValue(8130, "Health Expenditure per Capita", "2011");
 		dataset2.setValue(7930, "Health Expenditure per Capita", "2010");
+		dataset2.setValue(7930, "Health Expenditure per Capita", "2009");
+		dataset2.setValue(7930, "Health Expenditure per Capita", "2008");
+		dataset2.setValue(7930, "Health Expenditure per Capita", "2007");
+		dataset2.setValue(7930, "Health Expenditure per Capita", "2006");
+		dataset2.setValue(7930, "Health Expenditure per Capita", "2005");
+		dataset2.setValue(7930, "Health Expenditure per Capita", "2004");
+		dataset2.setValue(7930, "Health Expenditure per Capita", "2003");
+		
 
 		CategoryPlot plot = new CategoryPlot();
 		BarRenderer barrenderer1 = new BarRenderer();

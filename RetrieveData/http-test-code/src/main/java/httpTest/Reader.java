@@ -23,6 +23,7 @@ public class Reader
 	// Method that will make an API request to World Bank
 	public Data retrieveData(Selection choices, String ind)
 	{
+		String dataName;
 		String urlString = String.format("http://api.worldbank.org/v2/country/%s/indicator/%s?date=%d:%d&format=json", 
 				choices.getCountry(), ind, choices.getStartYr(), choices.getEndYr());
 		System.out.println(urlString);
@@ -49,6 +50,7 @@ public class Reader
 // PIRANA COMMENT -- Create an ArrayList for both value sets (used Double and Integer to cover all cases)
 				ArrayList<Double> data1 = new ArrayList<Double>(sizeOfResults);
 				ArrayList<Integer> data2 = new ArrayList<Integer>(sizeOfResults);
+				dataName = jsonArray.get(1).getAsJsonArray().get(0).getAsJsonObject().get("indicator").getAsJsonObject().get("value").getAsString();
 				for (int i = 0; i < sizeOfResults; i++) 
 				{
 // PIRANA COMMENT -- In order to add a value to an ArrayList, you need to use the arrayName.add(value) method
@@ -65,7 +67,7 @@ public class Reader
 					}
 				}
 // PIRANA COMMENT -- We create an instance of the Data object
-				Data fetchedData = new Data(data1, data2, choices.getAnalysis());
+				Data fetchedData = new Data(data1, data2, dataName);
 				return fetchedData;		
 			}
 		} 

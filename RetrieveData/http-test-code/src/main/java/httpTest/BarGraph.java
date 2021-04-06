@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
@@ -51,7 +52,7 @@ public class BarGraph extends Viewer
 		// If there are two types of Datasets, add first set of Data to one Dataset, and all the rest to the other
 		if (numDCD == 2) 
 		{
-			for(int j = 0; j < numYears; j++) 
+			for(int j = numYears - 1; j >= 0; j--) 
 			{
 				// if the value NOT -1 (indicating a null value) add it
 				if(data[0].get(j) != -1)
@@ -59,7 +60,7 @@ public class BarGraph extends Viewer
 					dataSet[0].setValue(data[0].get(j), dataNames[0], years[0].get(j));	
 				}
 			}
-			for (int k = 0; k < numYears; k++) 
+			for (int k = numYears - 1; k >= 0; k--) 
 			{
 				// if the value NOT -1 (indicating a null value) add it
 				if(data[1].get(k) != -1) 
@@ -81,7 +82,7 @@ public class BarGraph extends Viewer
 		// Otherwise ad all the data into a single Dataset
 		else
 		{
-			for (int l = 0; l < numYears; l++) 
+			for (int l = numYears - 1; l >= 0; l--) 
 			{
 				for(int m = 0; m < numData; m++) 
 				{
@@ -118,6 +119,7 @@ public class BarGraph extends Viewer
 		// set Domain axis (only 1 for Years)
 		CategoryAxis domainAxis = new CategoryAxis("Year");
 		plot.setDomainAxis(domainAxis);
+		plot.getDomainAxis().setCategoryLabelPositions(CategoryLabelPositions.UP_45);
 		
 		// create JFreeChart using analysisID as title, and the plot we just created 
 		JFreeChart barChart = new JFreeChart(analysisID,

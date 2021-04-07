@@ -2,7 +2,7 @@ package httpTest;
 /*
  * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
  * DATE: 2021-04-04
- * DESCRIPTION: Class responsible for rendering the report viewer and adding that render to the JScrollPane
+ * DESCRIPTION: Class responsible for rendering the report viewer 
  */
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,6 +30,11 @@ public class Report extends Viewer
 		this.name = "Report";
 	}
 	
+	/* DESCRIPTION: Method will, using the parameters by the AnalysisStrategy class, will render a Report file by adding the years
+	 * 				and grouping the data Values found for each data Name in that year
+	 * INPUT: ArrayList<Double>[], ArrayList<Integer>[], String[], String[]. String
+	 * OUTPUT: N/A
+	 */
 	@Override
 	protected void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames, String[] axisNames, String analysisID) 
@@ -77,6 +82,11 @@ public class Report extends Viewer
 		output.setViewportView(myReport);
 		
 	}
+	
+	/* DESCRIPTION: Method that will set the instance variable for JScrollPane for this Report object
+	 * INPUT: JScrollPane
+	 * OUTPUT: N/A
+	 */
 	public void setScrollPane (JScrollPane jScroll) 
 	{
 		this.output = jScroll;

@@ -2,7 +2,7 @@ package httpTest;
 /*
  * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
  * DATE: 2021-04-04
- * DESCRIPTION: Class responsible for rendering the line graph viewer and adding that render to the ChartPanel
+ * DESCRIPTION: Class responsible for rendering the line graph viewer 
  */
 import java.awt.Color;
 import java.awt.Dimension;
@@ -32,7 +32,12 @@ public class LineGraph extends Viewer
 		super(ViewerType.LINEGRAPH);
 		this.name = "Line Chart";
 	}
-
+	
+	/* DESCRIPTION: Method will, using the parameters given by the AnalysisStrategy class, will render a Line Graph. It will add all the data values
+	 * 				the years, units, title and group the data by their units if needed
+	 * INPUT: ArrayList<Double>[], ArrayList<Integer>[], String[], String[]. String
+	 * OUTPUT: N/A
+	 */
 	@Override
 	protected void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames, String[] axisNames, String analysisID) 

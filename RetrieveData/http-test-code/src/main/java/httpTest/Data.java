@@ -24,7 +24,6 @@ public class Data
 	{
 		this.firstSet = data1;
 		this.secondSet = data2;
-
 	}
 	
 	public Data(ArrayList<Double> data1, ArrayList<Integer> data2, String type)

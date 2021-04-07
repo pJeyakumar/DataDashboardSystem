@@ -94,6 +94,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 	JComboBox<String> startYearBox;
 	JComboBox<String> endYearBox;
 	JComboBox<String> analysisBox;
+	HashMap<String, ViewerType> viewerMap; 
 	
 	
 	public String AnalysisID;
@@ -209,7 +210,15 @@ public class MainDisplay extends JFrame implements ActionListener{
 		// add analysis drop down
 		south.add(analysisBox);
 		south.add(recalculate);
-
+		
+		viewerMap = new HashMap<String, ViewerType>();
+		viewerMap.put("Pie Chart", ViewerType.PIECHART); 
+		viewerMap.put("Line Chart", ViewerType.LINEGRAPH); 
+		viewerMap.put("Bar Chart", ViewerType.BARGRAPH); 
+		viewerMap.put("Scatter Chart", ViewerType.SCATTERPLOT); 
+		viewerMap.put("Report", ViewerType.REPORT); 
+		
+		// ----  SET UP EMPTY PANELS  -----
 		
 		// Main Plot 
 		JPanel plotDisplay = new JPanel();
@@ -375,7 +384,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 			ViewerCreator myCreator = new ViewerCreator();
 			
 			
-			if (analysisCheck.validViewer(selectedViewer)) {
+			if (analysisCheck.validViewer(selectedViewer) && this.findViewer(viewerMap.get(selectedViewer)) == -1) {
 				System.out.print("VALID VIEWER!");
 				viewerBox.setBackground(Color.white);
 
@@ -388,8 +397,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 					myReport.setViewportView(report);
 					
 					// Call the viewer creator, create a new bar chart, and attach it 
-					ViewerType type = ViewerType.REPORT;
-					Viewer newViewer = myCreator.createViewer(type);
+					Viewer newViewer = myCreator.createViewer(viewerMap.get(selectedViewer));
 					
 					
 					Report myRep = (Report) newViewer;
@@ -412,8 +420,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 						myPanels.get(1).setChart(chart);
 						
 						// Call the viewer creator, create a new bar chart, and attach it 
-						ViewerType type = ViewerType.BARGRAPH;
-						newViewer = myCreator.createViewer(type);
+						newViewer = myCreator.createViewer(viewerMap.get(selectedViewer));
 						newViewer.setPanel(myPanels.get(1));
 						
 					}else if(selectedViewer.equals("Scatter Chart")) {
@@ -424,8 +431,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 						myPanels.get(2).setChart(chart);
 						
 						// Call the viewer creator, create a new bar chart, and attach it 
-						ViewerType type = ViewerType.SCATTERPLOT;
-						newViewer = myCreator.createViewer(type);
+						newViewer = myCreator.createViewer(viewerMap.get(selectedViewer));
 						newViewer.setPanel(myPanels.get(2));
 						
 						
@@ -437,8 +443,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 						myPanels.get(3).setChart(chart);
 						
 						// Call the viewer creator, create a new bar chart, and attach it 
-						ViewerType type = ViewerType.LINEGRAPH;
-						newViewer = myCreator.createViewer(type);
+						newViewer = myCreator.createViewer(viewerMap.get(selectedViewer));
 						
 						newViewer.setPanel(myPanels.get(3));
 						
@@ -450,8 +455,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 						myPanels.get(4).setChart(chart);
 						
 						// Call the viewer creator, create a new bar chart, and attach it 
-						ViewerType type = ViewerType.PIECHART;
-						newViewer = myCreator.createViewer(type);
+						newViewer = myCreator.createViewer(viewerMap.get(selectedViewer));
 						
 						newViewer.setPanel(myPanels.get(4));
 					}
@@ -462,7 +466,9 @@ public class MainDisplay extends JFrame implements ActionListener{
 					System.out.printf("CURRENT # OF VIEWERS: %d", myViewers.size());
 					this.pack();
 				}
-				
+			}else if (analysisCheck.validViewer(selectedViewer) && this.findViewer(viewerMap.get(selectedViewer)) != -1){
+				System.out.print("SORRY! ONLY ONE OF EACH VIEWER ALLOWED.");
+
 			}else {
 				System.out.print("INVALID VIEWER!");
 				viewerBox.setBackground(Color.red);
@@ -473,45 +479,44 @@ public class MainDisplay extends JFrame implements ActionListener{
 		if (press.getSource() == removeView) {
 			String selectedViewer;
 			selectedViewer = (String) viewerBox.getSelectedItem();
-			
-			boolean valid = false;
-			
-			
-			
-			
-			if (selectedViewer.equals("Report")) {
-				JTextArea report = new JTextArea();
-				myReport.setViewportView(report);
+						
+			if(this.findViewer(viewerMap.get(selectedViewer)) != -1) {
 				
-				// Call the viewer creator, create a new bar chart, and attach it 
-				valid = removeViewer(ViewerType.REPORT);
-				
-			}else {
-				CategoryPlot plot = new CategoryPlot();
-				JFreeChart chart = new JFreeChart("", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
-				
-				if (selectedViewer.equals("Bar Chart")){					
-					myPanels.get(1).setChart(chart);
+				if (selectedViewer.equals("Report")) {
+					JTextArea report = new JTextArea();
+					myReport.setViewportView(report);
 					
-					valid = removeViewer(ViewerType.BARGRAPH);
-				}else if(selectedViewer.equals("Scatter Chart")) {
-					myPanels.get(2).setChart(chart);
+					// Call the viewer creator, create a new bar chart, and attach it 
+					removeViewer(ViewerType.REPORT);
 					
-					valid = removeViewer(ViewerType.SCATTERPLOT);
-				}else if(selectedViewer.equals("Line Chart")) {
-					myPanels.get(3).setChart(chart);
+				}else {
+					CategoryPlot plot = new CategoryPlot();
+					JFreeChart chart = new JFreeChart("", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 					
-					valid = removeViewer(ViewerType.LINEGRAPH);
-				}else{
-					myPanels.get(4).setChart(chart);
-					
-					valid = removeViewer(ViewerType.PIECHART);
+					if (selectedViewer.equals("Bar Chart")){					
+						myPanels.get(1).setChart(chart);
+						
+						removeViewer(ViewerType.BARGRAPH);
+					}else if(selectedViewer.equals("Scatter Chart")) {
+						myPanels.get(2).setChart(chart);
+						
+						removeViewer(ViewerType.SCATTERPLOT);
+					}else if(selectedViewer.equals("Line Chart")) {
+						myPanels.get(3).setChart(chart);
+						
+						removeViewer(ViewerType.LINEGRAPH);
+					}else{
+						myPanels.get(4).setChart(chart);
+						
+						removeViewer(ViewerType.PIECHART);
+					}
 				}
-			}
-			
-			if (!valid) {
+	
+			}else {
 				System.out.println("INVALID OPTION -- VIEWER NOT FOUND");
 			}
+			
+			
 		}
 		if (press.getSource() == countryBox) {
 			// Perform check that the country is valid given the analysis 
@@ -569,26 +574,28 @@ public class MainDisplay extends JFrame implements ActionListener{
 	}
 	
 
-	public boolean removeViewer(ViewerType type) {
-		boolean valid = true;
+	public void removeViewer(ViewerType type) {
+		int pos = this.findViewer(type); 
 		try {
-			for (int i = 0 ; i < myViewers.size(); i++) {
-				if (myViewers.get(i).getType() == type) {
-					myResults.detachViewer(myViewers.get(i).getType());
-					myViewers.remove(i);
-				}
-			}
-			
-			for (int j = 0; j < myViewers.size(); j++) {
-				if (!analysisCheck.validViewer(myViewers.get(j).getName())) {
-					valid = false;
-				}
+			if (pos != -1) {
+				myResults.detachViewer(myViewers.get(pos).getType());
+				myViewers.remove(pos);
 			}
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}
-		return valid;
+	}
 		
+	
+	public int findViewer(ViewerType type) {
+		
+		for (int i = 0 ; i < myViewers.size(); i++) {
+			if (myViewers.get(i).getType() == type) {
+				return i;
+			}
+		}
+		return -1;
+
 	}
 
 

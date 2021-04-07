@@ -54,6 +54,7 @@ public class AnalysisD extends AnalysisStrategy
 		
 		// dataSet[1] = the GHG emissions/removals data
 		ArrayList<Double> GHGData = dataSet[1].getFirst(); // get values
+		// Array List of the averages for these GHG data lines
 		ArrayList<Double> avgGHG = new ArrayList<Double>();
 		
 		for (int i = 0; i < GHGData.size(); i++) {

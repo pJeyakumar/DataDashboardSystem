@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  * @author - Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
+ * @date - April 7, 2021
  * 
  * Analysis Strategy Classes Abstract
  * Functional Classes that:
@@ -17,9 +18,10 @@ import java.util.ArrayList;
  * - Attributes of Fetched Data
  * - Arrays to contain Processed Data and Related Years
  * Methods:
+ * - Constructor that creates an instance of an object of this class
  * - Do Analysis: Varies per Analysis Strategy. Does the computations if needed
  *    , and fills processed data and year arrays
- * - Populate Results - Set Data organized to a Results object
+ * - Populate Results - Set current analysis to a Results object so it can access populated data
  * - Helper methods for getting averages and ratios
  */
 
@@ -40,7 +42,6 @@ abstract class AnalysisStrategy {
 	protected ArrayList<Double>[] processedData; 
 	// Array to hold the ArrayList<Integer> that have the years corresponding to the above data values | sent to results object
 	protected ArrayList<Integer>[] years;
-
 	// Integer value that indicates the number of series the analysis deals with | sent to results object
 	protected int numOfSeries;
 	
@@ -51,40 +52,25 @@ abstract class AnalysisStrategy {
 	* To be called from Computational Server class
 	* Core method of the project that, based on the user selection:
 	* 1. Gets unprocessed data from Reader class
-	* 2. 
-	* 
-	* @param Selection - has getAnalysis, getAnalysis, getCountry, getStartYr, getEndYr
-	* 
+	* 2. Processes the data if need be
+	* 3. Populates Processed Data and Years array
+	* @param Selection - user choices
 	*/
 	public abstract void doAnalysis(Selection selection);
-
-		/*
-		// Get the Data from Reader, store in tempData
-		Data tempData = retrieveData(selection);
-		
-		// PLACEHOLDER
-		ArrayList<Double> pData1 = new ArrayList<Double>();
-		this.processedDataArray[0] = new Data(pData1);
-		
-		populateResults(this.processedDataArray[0]);
-		*/
-	 // End Do Analysis Method
 
 	
 	/**
 	 * Retrieve Data Method
-	 * To be called from Do Analysis to get the data to be processed
+	 * To be called from Do Analysis to get the data from the world bank to be processed
 	 * @return Data - a single Data object
 	 */
 	public abstract Data[] retrieveData(Selection selection);
-		//return this.reader.retrieveData(selection);
-	 // End Retrieve Data method
 	
 	/**
 	 * Populate Results Method
-	 * @input Data to be Processed (Array)
+	 * @input A Results object
 	 * @output
-	 * 	- Populate Results Object
+	 * 	- Attach current analysis to this results object so it may access the processed data
 	 */
 	public void populateResults(Results res) {
 		res.attachAnalysis(this);
@@ -106,6 +92,7 @@ abstract class AnalysisStrategy {
 			sum += values.get(i).doubleValue();
 		}
 		
+		// Calculate average through division, add to array to return and return the array
 		average = sum / numValues;
 		averages.add(average);
 		return averages;
@@ -113,7 +100,7 @@ abstract class AnalysisStrategy {
 	} // End Get Average
 	
 	/*
-	 * Helper method to get a bunch of ratios between two lists of values
+	 * Helper method to get a list of ratios between two lists of values
 	 */
 	public ArrayList<Double> getRatios(ArrayList<Double> numVal, ArrayList<Double> denoVal) 
 	{
@@ -141,23 +128,18 @@ abstract class AnalysisStrategy {
 	/**
 	 * Following methods used as getters in the "Result" class
 	 */
-	
 	public ArrayList<Double>[] getProcessedData() {
 		return this.processedData;
 	}
-	
 	public ArrayList<Integer>[] getYears() {
 		return this.years;
 	}
-	
 	public String[] getDataNames() {
 		return this.dataNames;
 	}
-	
 	public String[] getAxisNames() {
 		return this.axisNames;
 	}
-	
 	public String getAnalysisID() {
 		return this.analysisID;
 	}

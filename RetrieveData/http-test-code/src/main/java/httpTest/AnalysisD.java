@@ -64,6 +64,10 @@ public class AnalysisD extends AnalysisStrategy
 		this.processedData[0] = dataSet[0].getFirst(); // Unchanged values of Forest Area
 		this.processedData[1] = avgGHG; // Data for single horizontal line that is the avg GHG emissions/removals
 		
+		// Set years
+		this.years[0] = dataSet[0].getSecond();
+		this.years[1] = dataSet[1].getSecond();
+		
 	} // End Do Analysis
 	
 	

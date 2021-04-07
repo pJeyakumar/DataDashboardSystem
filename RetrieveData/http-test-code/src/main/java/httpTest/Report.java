@@ -13,6 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+
+
 public class Report extends Viewer
 {
 	// instance variable
@@ -28,8 +34,10 @@ public class Report extends Viewer
 	protected void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames, String[] axisNames, String analysisID) 
 	{
+		
+
 		int dataCount;
-		dataCount = data.length * data[0].size() + years[0].size();
+		dataCount = data.length * data[0].size() + years[0].size() + 1;
 		System.out.println(dataCount);
 		// create a JTextArea object
 		JTextArea myReport = new JTextArea(dataCount,1);
@@ -40,6 +48,8 @@ public class Report extends Viewer
 		myReport.setBackground(Color.white);
 		// add title to the message
 		String reportMessage = analysisID + "\n";
+		String dataString; 
+		int len;
 		// go through the number of years
 		for(int i = 0; i < years[0].size(); i++) 
 		{
@@ -47,16 +57,18 @@ public class Report extends Viewer
 			reportMessage += "Year " + years[0].get(i) + ":\n";
 			// add all the data values under that year to the message
 			for(int j = 0; j < data.length; j++) 
-			{
+			{	
+				dataString = dataNames[j].replaceAll("\\([^)]+\\)", "");
+				len = dataString.length();
 				// if the value IS a null value, we will write it down as a null value in the report
 				if(data[j].get(i) == -1) 
 				{
-					reportMessage += dataNames[j] + "=>" + "n/a" + "\n";
+					reportMessage += dataString + " :" + " ".repeat(5) + "n/a" + "\n";
 				}
 				// otherwise add it as normal
 				else 
 				{
-					reportMessage += dataNames[j] + "=>" + data[j].get(i) + "\n";
+					reportMessage += dataString + " :" + " ".repeat(5) + String.format("%.2f", data[j].get(i))   + "\n";
 				}
 			}
 		}

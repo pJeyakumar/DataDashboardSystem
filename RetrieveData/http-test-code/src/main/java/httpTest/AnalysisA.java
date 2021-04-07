@@ -9,22 +9,17 @@ import java.util.ArrayList;
 
 public class AnalysisA extends AnalysisStrategy
 {
-	
+	// Constructor
 	public AnalysisA() 
 	{
 		
 	}
 	
-	/** Do Analysis Method
-	* To be called from Computational Server class
-	* Core method of the project that, based on the user selection:
-	* 1. Gets unprocessed data from Reader class
-	* 2. Processes this data (not in this case)
-	* 3. Separates the data values, years and names and group them into their own arrays (which will be sent to the results object)
-	* 
-	* @param Selection
-	* 
-	*/
+	/*DESCRIPTION:  Method for performing AnalysisA, given the Selection object containing the user choices, this method will call the retrieveData
+	 * 				method and place the values, years and dataNames into arrays. The method also sets the analysisID that will be used as well as units
+	 * INPUT: Selection
+	 * OUTPUT: N/A
+	 */
 	@SuppressWarnings("unchecked") 		// pretty ugly and annoying but we need this as an array so that it will be easier to access later
 	public void doAnalysis(Selection selection) 
 	{
@@ -54,10 +49,10 @@ public class AnalysisA extends AnalysisStrategy
 		this.axisNames[0] = "%";
 	}
 	
-	/**
-	 * Retrieve Data
-	 * To be called from Do Analysis to get the data to be processed
-	 * @return Data
+	/* DESCRIPTION: Method that will create a Reader object and get the data specified by the user selections and analysis CODE
+	 * 				it will then put the retrieved data objects into an array of data objects and return this array
+	 * INPUT: Selection
+	 * OUTPUT: Data[]
 	 */
 	public Data[] retrieveData(Selection selection) 
 	{

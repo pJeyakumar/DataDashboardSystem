@@ -6,5 +6,6 @@ package httpTest;
  */
 public interface ILogin 
 {
+	// given the username and password, valid them and provide access to MainDisplay
 	public void loginRequest(String inUser, String inPass);
 }

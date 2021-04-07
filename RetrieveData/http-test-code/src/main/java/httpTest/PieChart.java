@@ -2,7 +2,7 @@ package httpTest;
 /*
  * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
  * DATE: 2021-04-04
- * DESCRIPTION: Class responsible for rendering the pie chart viewer and adding that render to the ChartPanel
+ * DESCRIPTION: Class responsible for rendering the pie chart viewer 
  */
 import java.util.ArrayList;
 
@@ -23,6 +23,11 @@ public class PieChart extends Viewer
 		this.name = "Pie Chart";
 	}
 	
+	/* DESCRIPTION: Method will, using the parameters given by the AnalysisStrategy class, will render a Pie Chart using the data values given and the 
+	 * 				data names. There should only be 2 values, the value given by the analysis, and the other value that is calculated here
+	 * INPUT: ArrayList<Double>[], ArrayList<Integer>[], String[], String[]. String
+	 * OUTPUT: N/A
+	 */
 	@Override
 	protected void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames, String[] axisNames, String analysisID) 

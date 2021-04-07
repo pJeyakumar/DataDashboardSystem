@@ -38,9 +38,8 @@ public class AnalysisG extends AnalysisStrategy
 	public void doAnalysis(Selection selection)
 	{
 		// variable declarations
-		this.processedData = new ArrayList[2];
-		this.years = new ArrayList[2];
-		this.dataNames = new String[2];
+		this.processedData = new ArrayList[1];
+		this.years = new ArrayList[1];
 		
 		// getting array of data objects from reader class
 		Data[] finalData = retrieveData(selection);
@@ -48,7 +47,7 @@ public class AnalysisG extends AnalysisStrategy
 		// perform ratio computation on both series, store in processedData array
 		this.processedData[0] = this.getRatios(finalData[0].getFirst(), finalData[1].getFirst());
 		
-		for(int i = 0; i < 2; i++) {
+		for(int i = 0; i < 1; i++) {
 			// get Array of ArrayList<Integer> containing years
 			this.years[i] = finalData[i].getSecond();
 			// get Array storing Strings, which are name of data series

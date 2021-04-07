@@ -137,7 +137,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		JLabel to = new JLabel("To");
 		Vector<String> years = new Vector<String>();
 		
-		int s = 1995;
+		int s = 1985;
 		int e = 2015;
 		for (int i = e; i >= s; i--) {
 			years.add("" + i);
@@ -145,20 +145,20 @@ public class MainDisplay extends JFrame implements ActionListener{
 		
 		
 		startYearBox = new JComboBox<String>(years);
-		startYearBox.setSelectedIndex(years.size()-1);
+		startYearBox.setSelectedIndex(years.size()-6);
 		endYearBox = new JComboBox<String>(years);
 		endYearBox.setSelectedIndex(0);
 		
 		countryChoice = "Brazil";
 		
-		startYearChoice = s;
+		startYearChoice = 1990;
 		endYearChoice = e;
 		
 		analysisID = "Renewable electricity output vs Renewable energy consumption";
 		analysisCheck = new AnalysisDB(analysisID);
 		
-		analysisCheck.validStartYr(s);
-		analysisCheck.validEndYr(e);
+		analysisCheck.validStartYr(startYearChoice);
+		analysisCheck.validEndYr(endYearChoice);
 		analysisCheck.validCountry(countryChoice);
 		
 		
@@ -316,13 +316,34 @@ public class MainDisplay extends JFrame implements ActionListener{
 				
 				cs.runStrategy(myResults);
 				
-			}else {
-				System.out.println(countryChoice != null);
-				System.out.println(startYearChoice != -1);
-				System.out.println( endYearChoice != -1);
-				System.out.println(analysisID!=null ); 
-				System.out.println(analysisCheck.allValid() );
-				System.out.println("Invalid Selection or Choices not loaded yet");
+			}
+			else
+			{
+				// Default message
+				String errorMessage = "You have INVALID / UNLOADED choices! Please fix the following: \n";
+				// get the boolean values
+				boolean[] flags = analysisCheck.getTruth();
+				// if country is invalid add it to the list
+				if(!flags[0]) 
+				{
+					errorMessage += "Country\n";
+				}
+				// if sYear is invalid add it to the list
+				if(!flags[1]) 
+				{
+					errorMessage += "Start Year\n";
+				}	
+				// if eYear is invalid add it to the list
+				if(!flags[2]) 
+				{
+					errorMessage += "End Year\n";
+				}
+				// if Viewers is invalid add it to the list
+				if(!flags[3]) 
+				{
+					errorMessage += "Viewers\n";
+				}
+				JOptionPane.showMessageDialog(null, errorMessage, "Selection Error", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
         
@@ -360,14 +381,29 @@ public class MainDisplay extends JFrame implements ActionListener{
 				// Always set the new analysisID and create a new analysisDB
 				this.analysisID = newAnalysis;
 				analysisCheck = new AnalysisDB(newAnalysis);
-				if (!analysisCheck.validCountry(countryChoice)) {
+				if (!analysisCheck.validCountry(countryChoice))
+				{
 					countryBox.setBackground(Color.red);
 				}
-				if (!analysisCheck.validStartYr(startYearChoice)) {
+				else
+				{
+					countryBox.setBackground(Color.white);
+				}
+				if (!analysisCheck.validStartYr(startYearChoice)) 
+				{
 					startYearBox.setBackground(Color.red);
 				}
-				if (!analysisCheck.validEndYr(endYearChoice)) {
+				else 
+				{
+					startYearBox.setBackground(Color.white);
+				}
+				if (!analysisCheck.validEndYr(endYearChoice)) 
+				{
 					endYearBox.setBackground(Color.red);
+				}
+				else 
+				{
+					endYearBox.setBackground(Color.white);
 				}
 			}
 			

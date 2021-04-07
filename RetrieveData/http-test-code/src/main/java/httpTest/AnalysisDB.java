@@ -15,6 +15,8 @@ public class AnalysisDB {
 
 	String analysis; 
 	
+	int numOfViewers;
+	
 	public AnalysisDB() {
 		
 	}
@@ -56,6 +58,7 @@ public class AnalysisDB {
 		start = false;
 		end = false;
 		viewer = false;
+		numOfViewers = 0;
 
 	}
 	
@@ -106,16 +109,20 @@ public class AnalysisDB {
 		}
 	}
 	
-	public boolean validViewer(String input) {
+	public boolean validViewer(String input)
+	{
 		// CHECK THIRD STRING ARRAY (VIEWERS)
 		String[] viewers = analysis_dict.get(analysis)[2];
-		for (int i = 0 ; i < viewers.length ; i ++) {
-			 if (viewers[i].equals(input)) {
+		for (int i = 0 ; i < viewers.length ; i ++) 
+		{
+			 if (viewers[i].equals(input)) 
+			 {
 				 return false;
 			 }
 		}
 		viewer = true;
 		return true;
+		
 	}
 	
 	public boolean allValid() {
@@ -125,5 +132,17 @@ public class AnalysisDB {
 		System.out.println(end);
 		System.out.println(viewer);
 		return country && start && end && viewer;
+	}
+
+	public boolean[] getTruth() 
+	{
+		// create a Boolean Array
+		boolean[] flags = new boolean[4];
+		// set each index to the values of our instance variables respectively
+		flags[0] = this.country;
+		flags[1] = this.start;
+		flags[2] = this.end;
+		flags[3] = this.viewer;
+		return flags;
 	}
 }

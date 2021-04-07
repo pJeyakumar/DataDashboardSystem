@@ -19,8 +19,9 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.Year;
 /*
- * ISSUES WE NEED TO RESOLVE: 
- * 1. How do we find out how many TimeSeriesCollections we will need? We will need 1 per UNIQUE unit, for example if axisNames = {kg, kg, g} (for a 3-series graph), we need to create 2 TimeSeriesCollection objects
+ * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
+ * DATE: 2021-04-04
+ * DESCRIPTION: Class responsible for rendering the scatter plot viewer
  */
 public class ScatterPlot extends Viewer
 {
@@ -31,6 +32,11 @@ public class ScatterPlot extends Viewer
 		this.name = "Scatter Chart";
 	}
 	
+	/* DESCRIPTION: Method will, using the parameters given by the AnalysisStrategy class, will render a Scatter Plot. It will add all the data values
+	 * 				the years, units, title and group the data by their units if needed
+	 * INPUT: ArrayList<Double>[], ArrayList<Integer>[], String[], String[]. String
+	 * OUTPUT: N/A
+	 */
 	@Override
 	protected void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames,  String[] axisNames, String analysisID) 

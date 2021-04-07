@@ -10,23 +10,18 @@ import java.util.ArrayList;
  */
 public class AnalysisB extends AnalysisStrategy
 {
-	
-	
+	// Constructor
 	public AnalysisB() 
 	{
 		
 	}
 	
-	
-	/** Do Analysis Method
-	* To be called from Computational Server class
-	* Core method of the project that, based on the user selection:
-	* 1. Gets unprocessed data from Reader class
-	* 2. 
-	* 
-	* @param Selection
-	* 
-	*/
+	/*DESCRIPTION:  Method for performing AnalysisB, given the Selection object containing the user choices, this method will call the retrieveData
+	 * 				method, perform the Ratio computations on the data, and place the values, years and dataNames into arrays. 
+	 * 				The method also sets the analysisID that will be used as well as units
+	 * INPUT: Selection
+	 * OUTPUT: N/A
+	 */
 	@SuppressWarnings("unchecked")
 	public void doAnalysis(Selection selection)
 	{
@@ -54,10 +49,11 @@ public class AnalysisB extends AnalysisStrategy
 		// Setting Units
 		this.axisNames[0] = "";
 	}
-	/**
-	 * Retrieve Data
-	 * To be called from Do Analysis to get the data to be processed
-	 * @return Data
+	
+	/* DESCRIPTION: Method that will create a Reader object and get the data specified by the user selections and analysis CODE
+	 * 				it will then put the retrieved data objects into an array of data objects and return this array
+	 * INPUT: Selection
+	 * OUTPUT: Data[]
 	 */
 	public Data[] retrieveData(Selection selection) 
 	{

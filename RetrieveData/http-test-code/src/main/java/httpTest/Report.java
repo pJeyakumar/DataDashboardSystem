@@ -34,8 +34,6 @@ public class Report extends Viewer
 	protected void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames, String[] axisNames, String analysisID) 
 	{
-		
-
 		int dataCount;
 		// reserve number of lines, number of data values * number of series + number of years*2 (for \n) + 1 (for title)
 		dataCount = data.length * data[0].size() + years[0].size()*2 + 1;
@@ -44,8 +42,8 @@ public class Report extends Viewer
 		JTextArea myReport = new JTextArea(dataCount,1);
 		// set the properties of the JTextArea
 		myReport.setEditable(false);
-		myReport.setPreferredSize(new Dimension(400, 300));
-		myReport.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		myReport.setPreferredSize(new Dimension(400, 400));
+		myReport.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		myReport.setBackground(Color.white);
 		// add title to the message
 		String reportMessage = analysisID + "\n";

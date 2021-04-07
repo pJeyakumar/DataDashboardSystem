@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class LoginProxy extends RealLogin
 {
-	
+	private int attemptsRemaining = 3;
 	@Override
 	public void loginRequest(String inUser, String inPass) 
 	{
@@ -24,9 +24,11 @@ public class LoginProxy extends RealLogin
 		String line;
 		String[] fields;
 		
+		// Read through the credentials file and store the allowed set of user names and passwords into arrays
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("credentials.txt"));
 			while ((line = br.readLine()) != null) {
+				// each line contains a [username,password]
 				fields = line.split(",");
 				usernames.add(fields[0]);
 				passwords.add(fields[1]);
@@ -60,7 +62,19 @@ public class LoginProxy extends RealLogin
 			}
 			else 
 			{
-				System.out.println("Login Failed.");
+				// check if we have surpassed number of attempts
+				if(this.attemptsRemaining == 0) 
+				{
+					System.out.println("Too many failed attempts. Exiting system...");
+					System.exit(attemptsRemaining);
+				}
+				else
+				{
+					// if not, notify user and decrement number of attempts left
+					System.out.println("Incorrect Username or Password. Please try again.");
+					System.out.println("Attempts remaining: " + attemptsRemaining);
+					this.attemptsRemaining--;
+				}
 			}
 		
 	}

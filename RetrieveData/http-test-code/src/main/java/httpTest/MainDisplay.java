@@ -124,6 +124,8 @@ public class MainDisplay extends JFrame implements ActionListener{
 		countriesNames.add("Japan");
 		countriesNames.add("Norway");
 		countriesNames.add("Spain");
+		countriesNames.add("India");
+		countriesNames.add("Sri Lanka");
 		
 		countriesNames.sort(null);
 		countryBox = new JComboBox<String>(countriesNames);
@@ -336,7 +338,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 					
 					// RESET REPORT 
 					JTextArea report = new JTextArea();
-					report.setText("Textual Report");
+					report.setText("");
 					
 					myReport.setViewportView(report);
 					
@@ -379,8 +381,8 @@ public class MainDisplay extends JFrame implements ActionListener{
 				if (selectedViewer.equals("Report")) {
 					
 					JTextArea report = new JTextArea();
-					report.setText("Textual Report");
-					
+					report.setFont(new Font("Serif", java.awt.Font.BOLD, 18));
+					report.setText("\tTEXTUAL REPORT");
 					myReport.setViewportView(report);
 					
 					// Call the viewer creator, create a new bar chart, and attach it 

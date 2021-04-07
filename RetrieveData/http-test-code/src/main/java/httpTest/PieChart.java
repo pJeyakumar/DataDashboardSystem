@@ -41,12 +41,5 @@ public class PieChart extends Viewer
 		// set the chart panel
 		targetPanel.setChart(pieChart);
 	}
-	/*
-	public void setChartPanel(ChartPanel panel) 
-	{
-		this.chartPanel = panel;
-	}
-	(*/
-	
 	
 }

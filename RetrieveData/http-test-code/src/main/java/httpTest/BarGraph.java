@@ -128,11 +128,4 @@ public class BarGraph extends Viewer
 		// set the chart Panel with the JFreeChart
 		targetPanel.setChart(barChart);	
 	}
-	
-	/*
-	public void setChartPanel(ChartPanel panel) 
-	{
-		this.chartPanel = panel;
-	}
-	(*/
 }

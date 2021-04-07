@@ -76,12 +76,3 @@ public class Results implements IResults
     	this.viewers = new ArrayList<Viewer>();
     }
 }
-
-
-// attachViewer
-// detachViewer
-// notifyViewers
-// getState
-// setState
-// getData
-// setData

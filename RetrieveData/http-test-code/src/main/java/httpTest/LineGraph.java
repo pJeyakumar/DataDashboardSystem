@@ -122,10 +122,4 @@ public class LineGraph extends Viewer
 		// set chart panel with JFreeChart we just made
 		targetPanel.setChart(lineGraph);
 	}
-	/*
-	public void setChartPanel(ChartPanel panel) 
-	{
-		this.chartPanel = panel;
-	}
-	(*/
 }

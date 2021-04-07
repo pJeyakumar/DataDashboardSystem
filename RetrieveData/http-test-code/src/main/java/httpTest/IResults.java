@@ -1,8 +1,8 @@
 package httpTest;
 /*
- * NAME:
- * DATE:
- * DESCRIPTION:
+ * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
+ * DATE: 2021-04-02
+ * DESCRIPTION: Results interface containing the methods the Results class must implement
  */
 public interface IResults 
 {

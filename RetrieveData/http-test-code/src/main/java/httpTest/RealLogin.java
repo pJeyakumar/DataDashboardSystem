@@ -11,6 +11,5 @@ public class RealLogin implements ILogin
 	{
 		// go to mainUI
 		MainDisplay.main(null);
-		System.out.println("Success");
 	}
 }

@@ -19,9 +19,11 @@ public class LoginFace extends JFrame implements ActionListener
     JPasswordField passwordText = new JPasswordField();
     JButton login = new JButton("LOGIN");
     JButton reset = new JButton("RESET");
+	// create a proxy object
+	RealLogin proxy = new LoginProxy();
 	LoginFace()
 	{
-		// Set layout to null at firsr
+		// Set layout to null at first
 		container.setLayout(null);
 		
 		// Set the sizes and locations of the labels, text boxes and buttons
@@ -81,8 +83,6 @@ public class LoginFace extends JFrame implements ActionListener
 			// store the text box values into strings
 			String inUser = usernameText.getText();
 			String inPass = passwordText.getText();
-			// create a proxy object
-			RealLogin proxy = new LoginProxy();
 			// call the loginRequest method with our given strings, this will check if the credentials were valid
 			proxy.loginRequest(inUser, inPass);
 		}

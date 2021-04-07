@@ -119,11 +119,4 @@ public class ScatterPlot extends Viewer
 
 		targetPanel.setChart(scatterChart);
 	}
-	/*
-	public void setChartPanel(ChartPanel panel) 
-	{
-		this.chartPanel = panel;
-	}
-	(*/
-	
 }

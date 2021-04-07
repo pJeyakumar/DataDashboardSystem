@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class AnalysisD extends AnalysisStrategy
 {
 	
-	
 	public AnalysisD() {
 		
 		this.numOfSeries = 2;
@@ -42,7 +41,6 @@ public class AnalysisD extends AnalysisStrategy
 	* To be called from Computational Server class
 	* Core method of the project that, based on the user selection:
 	* 1. Gets unprocessed data from Reader class
-	* 2. 
 	* 
 	* @param Selection
 	* 
@@ -56,7 +54,11 @@ public class AnalysisD extends AnalysisStrategy
 		
 		// dataSet[1] = the GHG emissions/removals data
 		ArrayList<Double> GHGData = dataSet[1].getFirst(); // get values
-		ArrayList<Double> avgGHG = this.getAverage(GHGData);
+		ArrayList<Double> avgGHG = new ArrayList<Double>();
+		
+		for (int i = 0; i < GHGData.size(); i++) {
+			avgGHG.add(this.getAverage(GHGData).get(0));
+		}
 		
 		this.processedData[0] = dataSet[0].getFirst(); // Unchanged values of Forest Area
 		this.processedData[1] = avgGHG; // Data for single horizontal line that is the avg GHG emissions/removals

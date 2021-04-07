@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class AnalysisC extends AnalysisStrategy
 {
 	
-	
 	public AnalysisC() 
 	{
 		this.numOfSeries = 1;

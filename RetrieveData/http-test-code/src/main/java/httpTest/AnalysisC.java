@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Analysis Strategy for Analysis C:
  *  - 1-series
  *  - AG.LND.FRST.ZS
- *  - Average of Forest area (% of land area) in Canada from 1990 to 2018
+ *  - Average of Forest area (% of land area) from 1990 to 2018
  *  - Pie chart:
  *    - Average of Forest area
  *    - Other land area
@@ -22,7 +22,7 @@ public class AnalysisC extends AnalysisStrategy
 		this.analysisID = "Forest area (% of land area)";
 		
 		this.dataNames = new String[2];
-		this.dataNames[0] = "Average Forest area in Canada";
+		this.dataNames[0] = "Average Forest area";
 		this.dataNames[1] = "Other land area";
 		
 		// ?

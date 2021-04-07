@@ -24,8 +24,9 @@ public class AnalysisDB {
 		
 		String line; 
 		String[] fields;
-		analysis_dict = new HashMap<String,String[][]>();
 		
+		// Load analysis_dict (hash map) from the analysis_check.txt file 
+		analysis_dict = new HashMap<String,String[][]>();
 		analysis = analysisID;
 		
 		try {
@@ -59,7 +60,11 @@ public class AnalysisDB {
 	}
 	
 	public boolean validCountry(String input) {
-		System.out.println(analysis_dict.size());
+		System.out.println("Country Check -- Length: ");
+		System.out.println(analysis);
+		System.out.println(analysis_dict.get(analysis).length);
+		
+		// CHECK FIRST STRING ARRAY (COUNTRIES)
 		String [] countries = analysis_dict.get(analysis)[0];
 		
 		if (countries.length != 0) {
@@ -76,6 +81,8 @@ public class AnalysisDB {
 	}
 	
 	public boolean validStartYr(int input) {
+		
+		// CHECK FIRST STRING ARRAY (COUNTRIES)
 		String s = analysis_dict.get(analysis)[1][0];
 		if (input >= Integer.valueOf(s)) {
 			start = true;
@@ -88,6 +95,7 @@ public class AnalysisDB {
 	}
 	
 	public boolean validEndYr(int input) {
+		// CHECK SECOND STRING ARRAY (YEARS)
 		String e = analysis_dict.get(analysis)[1][1];
 		if (input <= Integer.valueOf(e)) {
 			end = true;
@@ -99,6 +107,7 @@ public class AnalysisDB {
 	}
 	
 	public boolean validViewer(String input) {
+		// CHECK THIRD STRING ARRAY (VIEWERS)
 		String[] viewers = analysis_dict.get(analysis)[2];
 		for (int i = 0 ; i < viewers.length ; i ++) {
 			 if (viewers[i].equals(input)) {

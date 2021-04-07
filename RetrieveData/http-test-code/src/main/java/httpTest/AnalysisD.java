@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *  - In other words, 
  *    
  *  - Line Graph
- *    - Line 1: Forest area in Canada from 1990 to 2009
+ *    - Line 1: Forest area from 1990 to 2009
  *    - Line 2: Average of Greenhouse gas net emissions/removals by land-use, change and forestry in Canada
  *              from 1990 to 2009
  *              (Horizontal line as it is one value)
@@ -29,7 +29,7 @@ public class AnalysisD extends AnalysisStrategy
 		this.analysisID = "Forest area (% of land area) vs Average GHG net emissions/removals by LUCF";
 		
 		this.dataNames = new String[2];
-		this.dataNames[0] = "Average Forest area in Canada";
+		this.dataNames[0] = "Average Forest area";
 		this.dataNames[1] = "Average GHG net emissions/removal";
 		
 		this.axisNames = new String[1];

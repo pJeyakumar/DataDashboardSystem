@@ -328,9 +328,17 @@ public class MainDisplay extends JFrame implements ActionListener{
 				if (this.analysisID != null) {
 					System.out.println("NEW ANALYSIS, EMPTYING VIEWERS...");
 					
+					
+					// RESET ALL GRAPHS 
 					CategoryPlot plot = new CategoryPlot();
 					JFreeChart chart = new JFreeChart("", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 					for (ChartPanel p : myPanels) p.setChart(chart);
+					
+					// RESET REPORT 
+					JTextArea report = new JTextArea();
+					report.setText("Textual Report");
+					
+					myReport.setViewportView(report);
 					
 					myViewers = new ArrayList<Viewer>();
 					myResults.emptyViewers();

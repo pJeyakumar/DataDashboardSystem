@@ -13,6 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+
+
 public class Report extends Viewer
 {
 	// instance variable
@@ -28,35 +34,42 @@ public class Report extends Viewer
 	protected void display(ArrayList<Double>[] data, 
 			ArrayList<Integer>[] years, String[] dataNames, String[] axisNames, String analysisID) 
 	{
+		
+
 		int dataCount;
-		dataCount = data.length * data[0].size() + years[0].size();
+		// reserve number of lines, number of data values * number of series + number of years*2 (for \n) + 1 (for title)
+		dataCount = data.length * data[0].size() + years[0].size()*2 + 1;
 		System.out.println(dataCount);
 		// create a JTextArea object
 		JTextArea myReport = new JTextArea(dataCount,1);
 		// set the properties of the JTextArea
 		myReport.setEditable(false);
-		myReport.setPreferredSize(new Dimension(600, 500));
+		myReport.setPreferredSize(new Dimension(400, 300));
 		myReport.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		myReport.setBackground(Color.white);
 		// add title to the message
 		String reportMessage = analysisID + "\n";
+		String dataString; 
+		int len;
 		// go through the number of years
 		for(int i = 0; i < years[0].size(); i++) 
 		{
 			// add the year to the message
-			reportMessage += "Year " + years[0].get(i) + ":\n";
+			reportMessage += "\nYear " + years[0].get(i) + "\n";
 			// add all the data values under that year to the message
 			for(int j = 0; j < data.length; j++) 
-			{
+			{	
+				dataString = dataNames[j].replaceAll("\\([^)]+\\)", "");
+				len = dataString.length();
 				// if the value IS a null value, we will write it down as a null value in the report
 				if(data[j].get(i) == -1) 
 				{
-					reportMessage += dataNames[j] + "=>" + "n/a" + "\n";
+					reportMessage += dataString + " : " + "n/a" + "\n";
 				}
 				// otherwise add it as normal
 				else 
 				{
-					reportMessage += dataNames[j] + "=>" + data[j].get(i) + "\n";
+					reportMessage += dataString + " : " + String.format("%.2f", data[j].get(i))   + "\n";
 				}
 			}
 		}

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Test {
 	public static void main(String[] args) {
 		
-		AnalysisStrategy myAnalysis = new AnalysisG();
+		AnalysisStrategy myAnalysis = new AnalysisC();
 		Selection myS = new Selection();
 		myS.setCountry("Spain");
 		myS.setStartYear(1985);
@@ -19,6 +19,8 @@ public class Test {
 			}
 			System.out.println("");
 		}
+		
+		System.out.println(". ".repeat(20));
 	}
 }
 

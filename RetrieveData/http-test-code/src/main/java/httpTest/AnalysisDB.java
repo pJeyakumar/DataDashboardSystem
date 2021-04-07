@@ -61,12 +61,16 @@ public class AnalysisDB {
 	public boolean validCountry(String input) {
 		System.out.println(analysis_dict.size());
 		String [] countries = analysis_dict.get(analysis)[0];
-		for (int i = 0 ; i < countries.length ; i ++) {
-			 if (countries[i].equals(input)) {
-				 country = false;
-				 return false;
-			 }
+		
+		if (countries.length != 0) {
+			for (int i = 0 ; i < countries.length ; i ++) {
+				 if (countries[i].equals(input)) {
+					 country = false;
+					 return false;
+				 }
+			}
 		}
+
 		country = true;
 		return true;
 	}
@@ -85,7 +89,7 @@ public class AnalysisDB {
 	
 	public boolean validEndYr(int input) {
 		String e = analysis_dict.get(analysis)[1][1];
-		if (input >= Integer.valueOf(e)) {
+		if (input <= Integer.valueOf(e)) {
 			end = true;
 			return true;
 		}else {

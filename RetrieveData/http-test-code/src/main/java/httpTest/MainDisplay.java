@@ -181,7 +181,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		methodNames.add("Agricultural Land vs NO2 Emissions vs Methane Emissions");
 		methodNames.add("Total GHG Emissions vs % Urban Population vs % Fossil Fuel Energy Consumption");
 		methodNames.add("Ratio of agricultural land (% of total area) vs forest land (%)");
-		methodNames.add("Average Agricultural land (% of land area)");
+		methodNames.add("Average agricultural land (% of land area)");
 		// creating JComboBox object for analysis, with the analysis options
 		analysisBox = new JComboBox<String>(methodNames);
 		
@@ -257,11 +257,13 @@ public class MainDisplay extends JFrame implements ActionListener{
 		getContentPane().add(plotDisplay, BorderLayout.WEST);
 	}
 	public void addActionListeners() {
-		recalculate.addActionListener(this);
-		addView.addActionListener(this);
-		removeView.addActionListener(this);
-		viewerBox.addActionListener(this);
 		
+		recalculate.addActionListener(this); // recalculate
+		addView.addActionListener(this);   // +
+		removeView.addActionListener(this);  // -
+		
+		
+		viewerBox.addActionListener(this);
 		countryBox.addActionListener(this);
 		startYearBox.addActionListener(this);
 		endYearBox.addActionListener(this);

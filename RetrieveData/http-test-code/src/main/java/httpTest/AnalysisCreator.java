@@ -2,6 +2,7 @@ package httpTest;
 
 /**
  * @author - Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
+ * @date - April 7, 2021
  *
  * Analysis Creator Class:
  *  - Sole purpose is to return a specific type of AnalysisStrategy object
@@ -13,8 +14,14 @@ package httpTest;
 
 public class AnalysisCreator {
 	
+	// Constructor just to instantiate
 	public AnalysisCreator() {}
 	
+	/**
+	 * Return a new specific analysis strategy object
+	 * @param analysis type
+	 * @return analysis strategy object based on that type
+	 */
 	public static AnalysisStrategy create(String analysisType) {
 		
 		if (analysisType.equals("Renewable electricity output vs Renewable energy consumption")) {

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 public class Test {
 	public static void main(String[] args) {
 		
-		AnalysisStrategy myAnalysis = new AnalysisD();
+		AnalysisStrategy myAnalysis = new AnalysisG();
 		Selection myS = new Selection();
-		myS.setCountry("Norway");
+		myS.setCountry("Spain");
 		myS.setStartYear(1985);
 		myS.setEndYear(2015);
 		Data[] list = myAnalysis.retrieveData(myS);

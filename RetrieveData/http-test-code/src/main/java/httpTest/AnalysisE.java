@@ -12,9 +12,6 @@ public class AnalysisE extends AnalysisStrategy
 		this.analysisID = "Agricultural Land vs NO2 Emissions vs Methane Emissions";
 		
 		this.dataNames = new String[3];
-		this.dataNames[0] = "Agricultural Land (% Total)";
-		this.dataNames[1] = "Nitrous Oxide Emission (MT)";
-		this.dataNames[2] = "Methane Emissions (MT)";
 		
 		this.axisNames = new String[2];
 		this.axisNames[0] = "% Total Land";
@@ -56,6 +53,7 @@ public class AnalysisE extends AnalysisStrategy
 			
 			this.processedData[i] = temp;
 			this.years[i] = dataSets[i].getSecond();
+			this.dataNames[i] = dataSets[i].getTypeA(); 
 		}
 	}
 	

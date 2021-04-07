@@ -37,13 +37,14 @@ public class Report extends Viewer
 		
 
 		int dataCount;
-		dataCount = data.length * data[0].size() + years[0].size() + 1;
+		// reserve number of lines, number of data values * number of series + number of years*2 (for \n) + 1 (for title)
+		dataCount = data.length * data[0].size() + years[0].size()*2 + 1;
 		System.out.println(dataCount);
 		// create a JTextArea object
 		JTextArea myReport = new JTextArea(dataCount,1);
 		// set the properties of the JTextArea
 		myReport.setEditable(false);
-		myReport.setPreferredSize(new Dimension(600, 500));
+		myReport.setPreferredSize(new Dimension(400, 300));
 		myReport.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		myReport.setBackground(Color.white);
 		// add title to the message
@@ -54,7 +55,7 @@ public class Report extends Viewer
 		for(int i = 0; i < years[0].size(); i++) 
 		{
 			// add the year to the message
-			reportMessage += "Year " + years[0].get(i) + ":\n";
+			reportMessage += "\nYear " + years[0].get(i) + "\n";
 			// add all the data values under that year to the message
 			for(int j = 0; j < data.length; j++) 
 			{	
@@ -63,12 +64,12 @@ public class Report extends Viewer
 				// if the value IS a null value, we will write it down as a null value in the report
 				if(data[j].get(i) == -1) 
 				{
-					reportMessage += dataString + " :" + " ".repeat(5) + "n/a" + "\n";
+					reportMessage += dataString + " : " + "n/a" + "\n";
 				}
 				// otherwise add it as normal
 				else 
 				{
-					reportMessage += dataString + " :" + " ".repeat(5) + String.format("%.2f", data[j].get(i))   + "\n";
+					reportMessage += dataString + " : " + String.format("%.2f", data[j].get(i))   + "\n";
 				}
 			}
 		}

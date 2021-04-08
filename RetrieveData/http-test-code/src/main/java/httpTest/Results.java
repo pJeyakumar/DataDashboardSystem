@@ -19,40 +19,41 @@ public class Results implements IResults
     
     private AnalysisStrategy analysis; 
     
-    /* DESCRIPTION: Constructor for the Results object, includes setting up the list of viewers & the state.
-     * INPUT: N/A
-     * OUTPUT: N/A
+    /**
+     * DESCRIPTION: Constructor for the Results object, includes setting up the list of viewers & the state.
      */
     public Results() {
         viewers = new ArrayList<Viewer>();
         state = 0;
     }
     
-    /* DESCRIPTION: Method sets current AnalysisStrategy object to work with.
-     * INPUT: AnalysisStrategy
-     * OUTPUT: N/A
+    /** DESCRIPTION: Method sets current AnalysisStrategy object to work with.
+     * @param AnalysisStrategy The analysis strategy to be attached to the current result object 
      */
     public void attachAnalysis(AnalysisStrategy current){
     	analysis = current;
     }
        
-    /* DESCRIPTION: Method attaches viewer to the list of viewers to be notified.
-     * INPUT: Viewer
-     * OUTPUT: N/A
+    /** DESCRIPTION: Method attaches viewer to the list of viewers to be notified.
+     * @param viewer The viewer object to be attached 
      */
     public void attachViewer (Viewer viewer) {
         viewers.add(viewer);
     }
     
-    /* DESCRIPTION: Method removes viewer from the list of viewers to be notified, should it exist.
-     * INPUT: ViewerType (to identify the specific viewer)
-     * OUTPUT: Boolean (success/fail)
+    /** 
+     * DESCRIPTION: Method removes viewer from the list of viewers to be notified, should it exist.
+     * @type ViewerType Type of viewer to be removed
+     * @throws ViewerNotFoundException 
+     * @return Boolean indicating whether viewer has been detached
      */
-    public boolean detachViewer (ViewerType type) throws Exception{
-        if (viewers.size() == 0) {
-        	throw new Exception("No viewers are loaded");
+    public boolean detachViewer (ViewerType type) throws ViewerNotFoundException{
+        // Throw exception if no viewers
+    	if (viewers.size() == 0) {
+        	throw new ViewerNotFoundException("No viewers are loaded");
         }
         
+        // Search through list of viewers are remove the correct one 
         for (int i = 0 ; i < viewers.size(); i ++) {
         	if (viewers.get(i).getType() == type) {
         		viewers.remove(i);
@@ -62,27 +63,24 @@ public class Results implements IResults
        return false;
     }
     
-    /* DESCRIPTION: Return state of the Results object.
-     * INPUT: N/A
-     * OUTPUT: Integer
+    /** 
+     * DESCRIPTION: Return state of the Results object.
+     * @return The current state of the results object
      */
     public int getState() {
         return state;
     }
     
-    /* DESCRIPTION: Set the state of the Results object.
-     * INPUT: Integer
-     * OUTPUT: N/A
+    /** DESCRIPTION: Set the state of the Results object.
+     * @param newState The new state of the results object
      */
     public void setState(int newState) {
         state = newState;
         notifyViewers();
     }
     
-    /* DESCRIPTION: Method will notify viewers when the state has changed, 
+    /** DESCRIPTION: Method will notify viewers when the state has changed, 
      *              causing the viewers to update their displays with the new data.
-     * INPUT: N/A
-     * OUTPUT: N/A
      */
     public void notifyViewers() {
     	System.out.println("NOTIFYING VIEWERS ...");
@@ -91,9 +89,7 @@ public class Results implements IResults
         }
     }
     
-    /* DESCRIPTION: Method empties the list of viewers.
-     * INPUT: N/A
-     * OUTPUT: N/A
+    /** DESCRIPTION: Method empties the list of viewers.
      */
     public void emptyViewers()
     {

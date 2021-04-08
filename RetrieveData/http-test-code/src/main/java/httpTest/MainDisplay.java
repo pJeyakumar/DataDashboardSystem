@@ -51,33 +51,31 @@ import org.jfree.data.time.Year;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+
+/**
+ * NAME: John Palmer, Piranavan Jeyakumar
+ * DATE: 2021-04-07
+ * DESCRIPTION: Main display class. Provides the main interface for the Data Dashboard Software system 
+ */
+
 public class MainDisplay extends JFrame implements ActionListener{
-	/**
-	 * 
-	 */
-	private String countryChoice = null;
 	
-	private int startYearChoice = -1;
-	
-	private int endYearChoice = -1;
-	
-	private String analysisID = null;
-	
-	private Results myResults;  
-	
-	private AnalysisDB analysisCheck;
-	
-	private ArrayList<Viewer> myViewers;
-	
-	private ArrayList<ChartPanel> myPanels;
-	
-	private JScrollPane myReport;
-	
-	private static final long serialVersionUID = 1L;
-	
+	// Initialize global variables 
+	private String countryChoice = null;	
+	private int startYearChoice = -1;	
+	private int endYearChoice = -1;	
+	private String analysisID = null;	
+	private Results myResults;  	
+	private AnalysisDB analysisCheck;	
+	private ArrayList<Viewer> myViewers;	
+	private ArrayList<ChartPanel> myPanels;	
+	private JScrollPane myReport;	
+	private static final long serialVersionUID = 1L;	
 	private final JPanel plotDisplay;
 	private static MainDisplay instance;
 
+	
+	// Use a singleton design pattern
 	public static MainDisplay getInstance() 
 	{
 		if (instance == null)
@@ -86,6 +84,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		return instance;
 	}
 	
+	// Buttons, drop downs and a hashmap
 	JButton recalculate;
 	JButton addView;
 	JButton removeView;
@@ -96,9 +95,8 @@ public class MainDisplay extends JFrame implements ActionListener{
 	JComboBox<String> analysisBox;
 	HashMap<String, ViewerType> viewerMap; 
 	
-	
-	public String AnalysisID;
-
+	/** DESCRIPTION: Constructor for the mainDisplay class 
+	 */
 	private MainDisplay() 
 	{
 		// Set window title
@@ -113,7 +111,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		plotDisplay.setLayout(new GridLayout(2, 0));
 		
 		
-		// COUNTRIES 
+		// Load the countries drop down menu 
 		JLabel chooseCountryLabel = new JLabel("Choose a country: ");
 		Vector<String> countriesNames = new Vector<String>();
 		countriesNames.add("USA");
@@ -127,12 +125,11 @@ public class MainDisplay extends JFrame implements ActionListener{
 		countriesNames.add("Spain");
 		countriesNames.add("India");
 		countriesNames.add("Sri Lanka");
-		
 		countriesNames.sort(null);
 		countryBox = new JComboBox<String>(countriesNames);
 
 		
-		// YEARS 
+		// Load a vector containing all relevant years
 		JLabel from = new JLabel("From");
 		JLabel to = new JLabel("To");
 		Vector<String> years = new Vector<String>();
@@ -143,25 +140,26 @@ public class MainDisplay extends JFrame implements ActionListener{
 			years.add("" + i);
 		}
 		
-		
+		// Initialize the start and end year drop down menus 
 		startYearBox = new JComboBox<String>(years);
 		startYearBox.setSelectedIndex(years.size()-6);
 		endYearBox = new JComboBox<String>(years);
 		endYearBox.setSelectedIndex(0);
 		
+		// Initialize user choices upon entering the program 
 		countryChoice = "Brazil";
-		
 		startYearChoice = 1990;
 		endYearChoice = e;
-		
 		analysisID = "Renewable electricity output vs Renewable energy consumption";
-		analysisCheck = new AnalysisDB(analysisID);
 		
+		// Create a new analysis DB object to check and verify the user choices
+		analysisCheck = new AnalysisDB(analysisID);
 		analysisCheck.validStartYr(startYearChoice);
 		analysisCheck.validEndYr(endYearChoice);
 		analysisCheck.validCountry(countryChoice);
 		
 		
+		// Load the top menu 
 		JPanel north = new JPanel();
 		north.add(chooseCountryLabel);
 		north.add(countryBox);
@@ -183,11 +181,13 @@ public class MainDisplay extends JFrame implements ActionListener{
 		methodNames.add("Total GHG Emissions vs % Urban Population vs % Fossil Fuel Energy Consumption");
 		methodNames.add("Ratio of agricultural land (% of total area) vs forest land (%)");
 		methodNames.add("Average agricultural land (% of land area)");
+		
 		// creating JComboBox object for analysis, with the analysis options
 		analysisBox = new JComboBox<String>(methodNames);
 		
+		
+		// Viewer menu dropdown menu and options 
 		JLabel viewsLabel = new JLabel("Available Views: ");
-
 		Vector<String> viewsNames = new Vector<String>();
 		viewsNames.add("Pie Chart");
 		viewsNames.add("Line Chart");
@@ -196,10 +196,12 @@ public class MainDisplay extends JFrame implements ActionListener{
 		viewsNames.add("Report");
 		viewerBox = new JComboBox<String>(viewsNames);
 		
+		// Add buttons for recalculate, add and remove viewer
 		recalculate = new JButton("Recalculate");
 		addView = new JButton("+");
 		removeView = new JButton("-");
 
+		// Load the bottom display panel
 		JPanel south = new JPanel();
 		south.add(viewsLabel);
 		south.add(viewerBox);
@@ -211,6 +213,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		south.add(analysisBox);
 		south.add(recalculate);
 		
+		// Load the viewerMap hash map with viewer names and types
 		viewerMap = new HashMap<String, ViewerType>();
 		viewerMap.put("Pie Chart", ViewerType.PIECHART); 
 		viewerMap.put("Line Chart", ViewerType.LINEGRAPH); 
@@ -218,7 +221,8 @@ public class MainDisplay extends JFrame implements ActionListener{
 		viewerMap.put("Scatter Chart", ViewerType.SCATTERPLOT); 
 		viewerMap.put("Report", ViewerType.REPORT); 
 		
-		// ----  SET UP EMPTY PANELS  -----
+		
+		// ----  SET UP DEFAULT DISPLAY -----
 		
 		// Main Plot 
 		JPanel plotDisplay = new JPanel();
@@ -255,8 +259,11 @@ public class MainDisplay extends JFrame implements ActionListener{
 			plotDisplay.add(chartPanel);
 		}
 		
+		// Initialize a results object 
 		myResults = new Results();
 		
+		
+		// Add all action listeners 
 		this.addActionListeners();
 		
 
@@ -265,13 +272,17 @@ public class MainDisplay extends JFrame implements ActionListener{
 		getContentPane().add(south, BorderLayout.SOUTH);
 		getContentPane().add(plotDisplay, BorderLayout.WEST);
 	}
+	
+	/** DESCRIPTION: Function to handle set up the action listeners for all buttons and dropdown menus on the main display    
+	 */
 	public void addActionListeners() {
 		
+		// Buttons 
 		recalculate.addActionListener(this); // recalculate
 		addView.addActionListener(this);   // +
 		removeView.addActionListener(this);  // -
 		
-		
+		// Drop down menus 
 		viewerBox.addActionListener(this);
 		countryBox.addActionListener(this);
 		startYearBox.addActionListener(this);
@@ -282,47 +293,52 @@ public class MainDisplay extends JFrame implements ActionListener{
 
 	
 	
-
+	/** DESCRIPTION: Function to handle all cases of button presses and dropdown menu changes on the main display    
+	 * @param press The ActionEvent object associated with a button press or JComboBox choice
+	 */
 	public void actionPerformed(ActionEvent press) 
 	{
 
-		// if the recalculate button is pressed
+		// RECALCULATE BUTTON 
 		if (press.getSource() == recalculate) 
 		{
-			System.out.println("RECALCULATE STARTING...");
-			// check if all the choices are not null and are all valid
+
+			// If proper choices have been loaded ...
 			if(countryChoice != null && startYearChoice != -1 && endYearChoice != -1 && analysisID!=null && analysisCheck.allValid() && myViewers.size() > 0) 
 			{
+				
 				// create a selection object
-				System.out.println("LOADING SELECTION...");
 				Selection input = new Selection();
+				
 				// set the user choices in the selection object
 				input.setCountry(countryChoice);
 				input.setStartYear(startYearChoice);
 				input.setEndYear(endYearChoice);
 				input.setAnalysis(analysisID);
 				
-				// create a comp server object
-				System.out.printf("%s  %s  %d  %d  \n", input.getAnalysis(), input.getCountry(), input.getStartYr(), input.getEndYr());
-				
+				// Create a new computation server to host the analysis
 				ComputationServer cs = new ComputationServer();
+				
 				// set the selection object for comp server
 				cs.setSelection(input);
 				// create analysisstrat object with user chosen analysisID
-				AnalysisStrategy analysis = AnalysisCreator.create(analysisID);
+				
 				// set analysis object for comp server
-				cs.setStrategy(analysis);
+				cs.setStrategy(analysisID);
 				// run comp server strategy
 				
 				cs.runStrategy(myResults);
 				
 			}
+			// User has not selected proper choices 
 			else
 			{
 				// Default message
 				String errorMessage = "You have INVALID / UNLOADED choices! Please fix the following: \n";
-				// get the boolean values
+				
+				// Get the boolean values from analysisDB object
 				Boolean flags[] = analysisCheck.getTruth();
+				
 				// if country is invalid add it to the list
 				if(!flags[0]) 
 				{
@@ -348,20 +364,21 @@ public class MainDisplay extends JFrame implements ActionListener{
 		}
         
 
+		// ANALYSIS DROP DOWN MENU CHANGED 
 		if(press.getSource() == analysisBox) 
 		{
-			// get analysis drop down menu box
-			System.out.println("CHANGING ANALYSIS...");
+			// Get analysis option from the menu 
 			String newAnalysis = (String) analysisBox.getSelectedItem();
 			System.out.println(newAnalysis);
 			
-			
-			// Proceed if there is a change 
+			// Proceed only if the analysis is different 
 			if (this.analysisID != newAnalysis) {
+				
 				// If the existing analysis ID is not null, empty the viewers
 				if (this.analysisID != null) {
-					System.out.println("NEW ANALYSIS, EMPTYING VIEWERS...");
-					
+					System.out.print("NEW ANALYSIS ...");
+					System.out.println(newAnalysis);
+					System.out.println("EMPTYING VIEWERS ...");
 					
 					// RESET ALL GRAPHS 
 					CategoryPlot plot = new CategoryPlot();
@@ -371,16 +388,21 @@ public class MainDisplay extends JFrame implements ActionListener{
 					// RESET REPORT 
 					JTextArea report = new JTextArea();
 					report.setText("");
-					
 					myReport.setViewportView(report);
 					
+					// RESET THE VIEWERS LIST AND RESULTS 
 					myViewers = new ArrayList<Viewer>();
 					myResults.emptyViewers();
 				}
 				
-				// Always set the new analysisID and create a new analysisDB
+				// Always set the new analysisID
 				this.analysisID = newAnalysis;
+				
+				// Create a new analysisDB
 				analysisCheck = new AnalysisDB(newAnalysis);
+				
+				// Check the current country and year entries to see whether theyre valid 
+				// Set them to red if they are invalid, or white if they are valid
 				if (!analysisCheck.validCountry(countryChoice))
 				{
 					countryBox.setBackground(Color.red);
@@ -410,23 +432,25 @@ public class MainDisplay extends JFrame implements ActionListener{
 
 		}
 		
+		// ADD VIEWER BUTTON PRESSED 
 		if (press.getSource() == addView) {
-			String selectedViewer;
-			selectedViewer = (String) viewerBox.getSelectedItem();
-			
+			// Get chosen viewer 
+			String selectedViewer = (String) viewerBox.getSelectedItem();
 			System.out.print("ADDING VIEWER...");
 			System.out.println(selectedViewer);
 			
-			ViewerCreator myCreator = new ViewerCreator();
-			
-			
+			// Proceed if the selected viewer is valid and it is NOT in the current viewer list 
 			if (analysisCheck.validViewer(selectedViewer) && this.findViewer(viewerMap.get(selectedViewer)) == -1) {
-				System.out.print("VALID VIEWER!");
-				viewerBox.setBackground(Color.white);
-
 				
+				viewerBox.setBackground(Color.white);
+				
+				// Create a new viewer creator factory object 
+				ViewerCreator myCreator = new ViewerCreator();
+				
+				// Create a report pane 
 				if (selectedViewer.equals("Report")) {
 					
+					// Fill in the panel with a temporary report 
 					JTextArea report = new JTextArea();
 					report.setFont(new Font("Serif", java.awt.Font.BOLD, 18));
 					report.setText("\tTEXTUAL REPORT");
@@ -437,16 +461,23 @@ public class MainDisplay extends JFrame implements ActionListener{
 					
 					
 					Report myRep = (Report) newViewer;
+					
+					// Set the panel for the report object
 					myRep.setScrollPane(myReport);
 					
+					// Add the report to the viewers 
 					myViewers.add(myRep);
+					
+					// Attach the report to the results 
 					myResults.attachViewer(myRep);
 					
+				// Create one of the four chart objects 
 				}else {
 					ChartPanel chartPanel;
 					JFreeChart chart;
 					Viewer newViewer;
 					
+					// Bar chart 
 					if (selectedViewer.equals("Bar Chart")){
 						
 						CategoryPlot plot = new CategoryPlot();
@@ -457,8 +488,11 @@ public class MainDisplay extends JFrame implements ActionListener{
 						
 						// Call the viewer creator, create a new bar chart, and attach it 
 						newViewer = myCreator.createViewer(viewerMap.get(selectedViewer));
-						newViewer.setPanel(myPanels.get(1));
 						
+						// Set the panel for the viewer
+						newViewer.setPanel(myPanels.get(1));
+					
+					// Scatter plot 
 					}else if(selectedViewer.equals("Scatter Chart")) {
 						XYPlot plot = new XYPlot();
 						chart = new JFreeChart("SCATTER PLOT", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
@@ -468,9 +502,11 @@ public class MainDisplay extends JFrame implements ActionListener{
 						
 						// Call the viewer creator, create a new bar chart, and attach it 
 						newViewer = myCreator.createViewer(viewerMap.get(selectedViewer));
+						
+						// Set the panel for the viewer
 						newViewer.setPanel(myPanels.get(2));
 						
-						
+					// Line chart 	
 					}else if(selectedViewer.equals("Line Chart")) {
 						XYPlot plot = new XYPlot();
 						chart = new JFreeChart("LINE CHART",new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
@@ -481,8 +517,10 @@ public class MainDisplay extends JFrame implements ActionListener{
 						// Call the viewer creator, create a new bar chart, and attach it 
 						newViewer = myCreator.createViewer(viewerMap.get(selectedViewer));
 						
+						// Set the panel for the viewer
 						newViewer.setPanel(myPanels.get(3));
-						
+					
+					// Pie chart
 					}else{
 						DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 						chart = ChartFactory.createMultiplePieChart("PIE CHART", dataset,TableOrder.BY_COLUMN, true, true, false);
@@ -493,138 +531,176 @@ public class MainDisplay extends JFrame implements ActionListener{
 						// Call the viewer creator, create a new bar chart, and attach it 
 						newViewer = myCreator.createViewer(viewerMap.get(selectedViewer));
 						
+						// Set the panel for the viewer
 						newViewer.setPanel(myPanels.get(4));
 					}
-					System.out.println("ATTACHING VIEWER");
+					
+					// Attaching viewer to the results object 
 					myResults.attachViewer(newViewer);
-					System.out.println("ADDING VIEWER");
+					
+					// Add viewer to the viewers list 
 					myViewers.add(newViewer);
+					
 					System.out.printf("CURRENT # OF VIEWERS: %d", myViewers.size());
 					this.pack();
 				}
+				
+			// If the chosen viewer is already in the list, display a message 
 			}else if (analysisCheck.validViewer(selectedViewer) && this.findViewer(viewerMap.get(selectedViewer)) != -1){
-				System.out.print("SORRY! ONLY ONE OF EACH VIEWER ALLOWED.");
+				System.out.print("Sorry! Only one of each viewer type is allowed.");
 
+			// Otherwise, must be an invalid viewer 
 			}else {
-				System.out.print("INVALID VIEWER!");
+				System.out.print("Invalid Viewer!");
 				viewerBox.setBackground(Color.red);
 			}
 		}
 			
 		// REMOVE BUTTON 
 		if (press.getSource() == removeView) {
-			String selectedViewer;
-			selectedViewer = (String) viewerBox.getSelectedItem();
-						
+			
+			// Get user selection
+			String selectedViewer = (String) viewerBox.getSelectedItem();
+				
+			// Only proceed if the selected viewer is found in the viewer list 
 			if(this.findViewer(viewerMap.get(selectedViewer)) != -1) {
 				
+				// Remove the report object 
 				if (selectedViewer.equals("Report")) {
 					JTextArea report = new JTextArea();
 					myReport.setViewportView(report);
 					
-					// Call the viewer creator, create a new bar chart, and attach it 
+					// Remove the viewer from the list 
 					removeViewer(ViewerType.REPORT);
-					
+				
+				// Remove one of the four chart objects 
 				}else {
 					CategoryPlot plot = new CategoryPlot();
 					JFreeChart chart = new JFreeChart("", new Font("Serif", java.awt.Font.BOLD, 18), plot, true);
 					
-					if (selectedViewer.equals("Bar Chart")){					
+					if (selectedViewer.equals("Bar Chart")){	
+						// Set a blank chart
 						myPanels.get(1).setChart(chart);
 						
+						// Call the remove viewer method 
 						removeViewer(ViewerType.BARGRAPH);
 					}else if(selectedViewer.equals("Scatter Chart")) {
+						// Set a blank chart
 						myPanels.get(2).setChart(chart);
 						
+						// Call the remove viewer method 
 						removeViewer(ViewerType.SCATTERPLOT);
 					}else if(selectedViewer.equals("Line Chart")) {
+						// Set a blank chart
 						myPanels.get(3).setChart(chart);
 						
+						// Call the remove viewer method 
 						removeViewer(ViewerType.LINEGRAPH);
 					}else{
+						// Set a blank chart
 						myPanels.get(4).setChart(chart);
 						
+						// Call the remove viewer method 
 						removeViewer(ViewerType.PIECHART);
 					}
 				}
-	
+			
+			// Viewer is not a valid choice
 			}else {
-				System.out.println("INVALID OPTION -- VIEWER NOT FOUND");
+				System.out.println("INVALID VIEWER CHOICE");
 			}
 			
 			
 		}
+		
+		// COUNTRY DROP DOWN MENU CHANGED 
 		if (press.getSource() == countryBox) {
-			// Perform check that the country is valid given the analysis 
+			
 			String selectedCountry = (String) countryBox.getSelectedItem();
 			
-			// Add the country to the 
-			System.out.println(analysisCheck == null);
+			// Perform check that the country is valid given the analysis 
 			if (analysisCheck.validCountry(selectedCountry)) {
-				// VALID COUNTRY 
+				
 				countryBox.setBackground(Color.white);
 				// Add country to the saved user choice
 				countryChoice = selectedCountry;
-				
+			
+			// Country is not valid 
 			}else {
-				// NOT VALID 
+				
 				System.out.println("INVALID COUNTRY CHOICE");
 				countryBox.setBackground(Color.red);
 			}
 		}
 		
+		// START YEAR CHOICE CHANGED 
 		if (press.getSource() == startYearBox) {
-			// Perform check that the country is valid given the analysis 
+			
+			// Get users input for start year 
 			int selectedYr = Integer.valueOf((String)startYearBox.getSelectedItem());
 			
+			// Perform check that the start year is valid given the analysis 
 			if (analysisCheck.validStartYr(selectedYr)) {
-				// VALID COUNTRY 
 				startYearBox.setBackground(Color.white);
-				// Add country to the saved user choice
-				startYearChoice = selectedYr;
 				
+				// Add start year to saved choice
+				startYearChoice = selectedYr;
+			
+			// Perform 
 			}else {
 				// NOT VALID 
-				System.out.println("INVALID COUNTRY CHOICE");
+				System.out.println("INVALID START YEAR CHOICE");
 				startYearBox.setBackground(Color.red);
 			}
 		}
 		
+		// END YEAR CHOICE CHANGED 
 		if (press.getSource() == endYearBox) {
-			// Perform check that the country is valid given the analysis 
+			
+			// Perform check that the end year is valid given the analysis 
 			int selectedYr = Integer.valueOf((String)endYearBox.getSelectedItem());
 			
+			// Valid end year is chosen
 			if (analysisCheck.validEndYr(selectedYr)) {
-				// VALID COUNTRY 
 				endYearBox.setBackground(Color.white);
-				// Add country to the saved user choice
+				
+				// Add end year to the saved user choice
 				endYearChoice = selectedYr;
 				
+			// User end year choice is not valid 
 			}else {
-				// NOT VALID 
-				System.out.println("INVALID COUNTRY CHOICE");
+				System.out.println("INVALID END YEAR CHOICE");
 				endYearBox.setBackground(Color.red);
 			}
 		}
 		
 	}
 	
-
-	public void removeViewer(ViewerType type) {
+	/** DESCRIPTION: Private method to remove a viewer from the viewer list        
+	 * @param type The ViewerType of the viewer to be removed 
+	 */
+	private void removeViewer(ViewerType type) {
 		int pos = this.findViewer(type); 
+		
+		// Try to detach and remove the viewer 
 		try {
 			if (pos != -1) {
 				myResults.detachViewer(myViewers.get(pos).getType());
 				myViewers.remove(pos);
 			}
-		}catch(Exception e ) {
+		// Catch exception 
+		}catch(ViewerNotFoundException e ) {
 			e.printStackTrace();
 		}
 	}
 		
-	
+	/** DESCRIPTION: Private method to locate the position of a viewer within the viewer list     
+	 * @param type The ViewerType of the viewer to be found 
+	 * @return An integer of the viewer position or -1 if not found 
+	 */
 	public int findViewer(ViewerType type) {
 		
+		// Search for viewer in the viewer list 
 		for (int i = 0 ; i < myViewers.size(); i++) {
 			if (myViewers.get(i).getType() == type) {
 				return i;
@@ -634,7 +710,6 @@ public class MainDisplay extends JFrame implements ActionListener{
 
 	}
 
-
 	public static void main(String[] args) {
 
 		JFrame frame = MainDisplay.getInstance();
@@ -642,6 +717,4 @@ public class MainDisplay extends JFrame implements ActionListener{
 		frame.pack();
 		frame.setVisible(true);
 	}
-	// TODO Auto-generated method stub
-
 }

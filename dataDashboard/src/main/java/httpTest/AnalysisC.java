@@ -38,7 +38,7 @@ public class AnalysisC extends AnalysisStrategy
 	* 1. Gets unprocessed data from Reader class by calling retrieveData(selection)
 	* 2. Process data (in this case, get the average of the list of unprocessed data)
 	* 3. Fill in processed data and years arrays
-	* @param Selection
+	* @param selection
 	* @output Fill in processed data and years arrays
 	*/
 	public void doAnalysis(Selection selection) {

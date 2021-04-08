@@ -68,7 +68,7 @@ abstract class AnalysisStrategy {
 	
 	/**
 	 * Populate Results Method
-	 * @input A Results object
+	 * @param res A Results object
 	 * @output
 	 * 	- Attach current analysis to this results object so it may access the processed data
 	 */

@@ -12,16 +12,14 @@ import java.util.ArrayList;
 public class AnalysisG extends AnalysisStrategy
 {
 	
+	// constructor
 	public AnalysisG() 
 	{
 		this.numOfSeries = 1;
 		this.analysisID = "Ratio of agricultural land (% of total area) vs forest land (%)";
 		
-		this.dataNames = new String[1];
-		this.dataNames[0] = "Ratio of Agricultural vs Forest Land";
-		
 		this.axisNames = new String[1];
-		this.axisNames[0] = "Ratio";
+		this.axisNames[0] = "";
 
 	}
 	
@@ -39,7 +37,8 @@ public class AnalysisG extends AnalysisStrategy
 	{
 		// variable declarations
 		this.processedData = new ArrayList[1];
-		this.years = new ArrayList[1];
+		this.years = new ArrayList[2];
+		this.dataNames = new String[2];
 		
 		// getting array of data objects from reader class
 		Data[] finalData = retrieveData(selection);
@@ -47,13 +46,13 @@ public class AnalysisG extends AnalysisStrategy
 		// perform ratio computation on both series, store in processedData array
 		this.processedData[0] = this.getRatios(finalData[0].getFirst(), finalData[1].getFirst());
 		
-		for(int i = 0; i < 1; i++) {
+		for(int i = 0; i < 2; i++) {
 			// get Array of ArrayList<Integer> containing years
 			this.years[i] = finalData[i].getSecond();
-			// get Array storing Strings, which are name of data series
+			
+			this.dataNames[i] = "Agricultural Land:Forest Land";
 		}
 		
-		this.dataNames[0] = "Ratio of Agricultural Land to Forest Land";
 	}
 	
 	

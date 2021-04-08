@@ -291,7 +291,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 		{
 			System.out.println("RECALCULATE STARTING...");
 			// check if all the choices are not null and are all valid
-			if(countryChoice != null && startYearChoice != -1 && endYearChoice != -1 && analysisID!=null && analysisCheck.allValid()) 
+			if(countryChoice != null && startYearChoice != -1 && endYearChoice != -1 && analysisID!=null && analysisCheck.allValid() && myViewers.size() > 0) 
 			{
 				// create a selection object
 				System.out.println("LOADING SELECTION...");
@@ -322,7 +322,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 				// Default message
 				String errorMessage = "You have INVALID / UNLOADED choices! Please fix the following: \n";
 				// get the boolean values
-				boolean[] flags = analysisCheck.getTruth();
+				boolean[] flags =  analysisCheck.getTruth();
 				// if country is invalid add it to the list
 				if(!flags[0]) 
 				{
@@ -339,7 +339,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 					errorMessage += "End Year\n";
 				}
 				// if Viewers is invalid add it to the list
-				if(!flags[3]) 
+				if(!flags[3] || myViewers.size() == 0) 
 				{
 					errorMessage += "Viewers\n";
 				}

@@ -134,15 +134,14 @@ public class AnalysisDB {
 		return country && start && end && viewer;
 	}
 
-	public boolean[] getTruth() 
-	{
+	public boolean[] getTruth() {
 		// create a Boolean Array
 		boolean[] flags = new boolean[4];
 		// set each index to the values of our instance variables respectively
-		flags[0] = this.country;
-		flags[1] = this.start;
-		flags[2] = this.end;
-		flags[3] = this.viewer;
+		flags[0] = country;
+		flags[1] = start;
+		flags[2] = end;
+		flags[3] = viewer;
 		return flags;
 	}
 }

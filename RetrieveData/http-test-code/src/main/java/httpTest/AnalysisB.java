@@ -42,11 +42,12 @@ public class AnalysisB extends AnalysisStrategy
 		for(int i = 0; i < 2; i++)
 		{
 			// Storing the ArrayList<Integer> into the Array | we will get an ARRAY storing ArrayList<Integer>, which are the years
-			this.years[i] = finalData[i].getSecond();
-			// Storing the Strings into the Array | we will get an ARRAY storing Strings, which are the name of the data series
-			this.dataNames[i] = "Coal Source Electricity production : Renewable electricity output";
+			this.years[i] = finalData[i].getSecond();			
 		}
 		
+		// Storing the Strings into the Array | we will get an ARRAY storing Strings, which are the name of the data series
+		this.dataNames[0] = "Coal Source Electricity production : Renewable electricity output";
+		this.dataNames[1] = dataNames[0];
 		// Setting AnalysisID
 		this.analysisID = "Ratio of Electricity production from coal sources vs Renewable electricity output";
 		// Setting Units

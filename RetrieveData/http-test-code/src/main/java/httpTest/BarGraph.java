@@ -25,7 +25,10 @@ import org.jfree.data.time.TimeSeriesCollection;
 
 public class BarGraph extends Viewer
 {
-	// constructor 
+	/* DESCRIPTION: Constructor class that will set ViewerType by calling parent class (abstract Viewer class) and set name instance variable
+	 * INPUT: N/A
+	 * OUTPUT: N/A
+	 */
 	BarGraph()
 	{
 		super(ViewerType.BARGRAPH);

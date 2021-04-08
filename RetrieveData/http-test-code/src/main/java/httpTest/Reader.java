@@ -17,10 +17,20 @@ import com.google.gson.JsonParser;
  */
 public class Reader 
 {	
+	/*DESCRIPTION: Constructor method
+	 * INPUT: N/A
+	 * OUTPUT: N/A
+	 */
 	public Reader() {
 		
 	}
-	// Method that will make an API request to World Bank
+	/*
+	 * DESCRIPTION: given the user choices, this method will make a call to the World Bank database using REST API and return a JSON file
+	 * 				using this JSON file we will go through it and store the data values and corresponding years into ArrayLists, null values are
+	 * 				stored as -1. We will then store all these values as well as the indicator name into a Data object and return it
+	 * INPUT: Selection, String
+	 * OUTPUT: Data
+	 */
 	public Data retrieveData(Selection choices, String ind)
 	{
 		String dataName;

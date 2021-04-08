@@ -26,7 +26,10 @@ import org.jfree.data.time.Year;
 
 public class LineGraph extends Viewer
 {
-	// constructor
+	/* DESCRIPTION: Constructor class that will set ViewerType by calling parent class (abstract Viewer class) and set name instance variable
+	 * INPUT: N/A
+	 * OUTPUT: N/A
+	 */
 	LineGraph()
 	{
 		super(ViewerType.LINEGRAPH);

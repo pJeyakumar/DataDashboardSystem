@@ -10,7 +10,10 @@ import java.util.ArrayList;
  */
 public class AnalysisB extends AnalysisStrategy
 {
-	// Constructor
+	/* DESCRIPTION: Constructor method
+	 * INPUT: N/A
+	 * OUTPUT: N/A
+	 */
 	public AnalysisB() 
 	{
 		

@@ -16,8 +16,7 @@ public class LoginProxy extends RealLogin
 	// instance variable
 	private int attemptsRemaining = 3;
 	@Override
-	/*
-	 * DESCRIPTION: method that when given the username and password, will check if they are valid compared to the pre-set credentials text file
+	/* DESCRIPTION: method that when given the username and password, will check if they are valid compared to the pre-set credentials text file
 	 * 				if valid, this method will call upon the RealLogin loginrequest method to grant access to MainDisplay
 	 * 				if invalid, this method will notify the user and display the number of attempts left, if the user surpasses num of attempts, program will terminate
 	 * INPUT: String, String

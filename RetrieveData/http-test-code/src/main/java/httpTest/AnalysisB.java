@@ -44,7 +44,7 @@ public class AnalysisB extends AnalysisStrategy
 			// Storing the ArrayList<Integer> into the Array | we will get an ARRAY storing ArrayList<Integer>, which are the years
 			this.years[i] = finalData[i].getSecond();
 			// Storing the Strings into the Array | we will get an ARRAY storing Strings, which are the name of the data series
-			this.dataNames[i] = finalData[i].getTypeA();
+			this.dataNames[i] = "Coal Source Electricity production : Renewable electricity output";
 		}
 		
 		// Setting AnalysisID

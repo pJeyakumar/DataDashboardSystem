@@ -133,7 +133,7 @@ public class AnalysisDB {
         System.out.println(viewer);
         return country && start && end && viewer;
     }
-
+    
     public Boolean[] getTruth() {
         // create a Boolean Array
         Boolean[] flags = new Boolean[4];

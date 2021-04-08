@@ -134,9 +134,9 @@ public class AnalysisDB {
 		return country && start && end && viewer;
 	}
 
-	public boolean[] getTruth() {
+	public Boolean[] getTruth() {
 		// create a Boolean Array
-		boolean[] flags = new boolean[4];
+		Boolean[] flags = new Boolean[4];
 		// set each index to the values of our instance variables respectively
 		flags[0] = country;
 		flags[1] = start;

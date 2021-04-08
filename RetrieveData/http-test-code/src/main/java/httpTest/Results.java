@@ -44,7 +44,7 @@ public class Results implements IResults
         		return true;
         	}
         }
-        throw new Exception("Viewer not found");
+       return false;
     }
     
     

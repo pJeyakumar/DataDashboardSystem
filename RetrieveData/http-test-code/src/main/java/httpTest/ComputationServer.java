@@ -15,11 +15,16 @@ public class ComputationServer {
 	
 	private static ComputationServer instance = null; 
 	
+	// Constructor
 	public ComputationServer() {
 		
 	}
 	
-	// Singleton design pattern to implement only 1 instance of the Comp Server
+	/* DESCRIPTION: Method uses a singleton design pattern to implement only 1 instance of the computational server.        
+	 * INPUT: N/A
+	 * OUTPUT: N/A
+	 */
+
 	public static ComputationServer getInstance() {
 		if (instance == null) {
 			instance = new ComputationServer();
@@ -27,23 +32,34 @@ public class ComputationServer {
 		return instance;
 	}
 	
-	// Set the selection object of the Comp Server to given parameter
+	/* DESCRIPTION: Method sets the selection object of the computational server to the given parameter.
+	 * INPUT: Selection
+	 * OUTPUT: N/A
+	 */
 	public void setSelection(Selection choice) {
 		userChoices = choice;
 	}
 	
-	// Set the analysis object of the Comp Server to given parameter
+	/* DESCRIPTION: Method sets the analysis object of the computational server to the given parameter.
+	 * INPUT: AnalysisStrategy
+	 * OUTPUT: N/A
+	 */
 	public void setStrategy(AnalysisStrategy newStrat) {
 		currentStrat = newStrat;
 	}
 	
+	/* DESCRIPTION: Method runs the specified analysis by passing the Selection object for parameters,
+	 *              populating the Results object, and changing the state of the Results object.
+	 * INPUT: Results
+	 * OUTPUT: N/A
+	 */
 	public void runStrategy(Results results) {
 		System.out.println("RUNNING STRATEGY...");
-		// Run the Specified Analysis and pass the Selection object for parameters
+
 		currentStrat.doAnalysis(userChoices);
-		// Populate the results object
+
 		currentStrat.populateResults(results);
-		// Set the state of the results object to 1 (indicating change)
+
 		results.setState(1);
 	}
 	

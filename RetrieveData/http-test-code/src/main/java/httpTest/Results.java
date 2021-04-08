@@ -1,4 +1,9 @@
 package httpTest;
+/*
+ * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
+ * DATE: 2921-04-06
+ * DESCRIPTION: Results class, ultimately responsible for rendering the results on the selected viewers after the data has been fetched & results have been calculated
+ */
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,27 +17,37 @@ public class Results implements IResults
     private ArrayList<Viewer> viewers;
     private int state;
     
-    
-    // ---- DRAFT CLASS ----
-    // Had an idea for a way less crowded results class where we simply attach the analysis strategy
-    // Might not be correct, just a thought; its far more efficient tho
     private AnalysisStrategy analysis; 
     
+    /* DESCRIPTION: Constructor for the Results object, includes setting up the list of viewers & the state.
+     * INPUT: N/A
+     * OUTPUT: N/A
+     */
     public Results() {
-
         viewers = new ArrayList<Viewer>();
         state = 0;
     }
     
+    /* DESCRIPTION: Method sets current AnalysisStrategy object to work with.
+     * INPUT: AnalysisStrategy
+     * OUTPUT: N/A
+     */
     public void attachAnalysis(AnalysisStrategy current){
     	analysis = current;
     }
        
-    
+    /* DESCRIPTION: Method attaches viewer to the list of viewers to be notified.
+     * INPUT: Viewer
+     * OUTPUT: N/A
+     */
     public void attachViewer (Viewer viewer) {
         viewers.add(viewer);
     }
     
+    /* DESCRIPTION: Method removes viewer from the list of viewers to be notified, should it exist.
+     * INPUT: ViewerType (to identify the specific viewer)
+     * OUTPUT: Boolean (success/fail)
+     */
     public boolean detachViewer (ViewerType type) throws Exception{
         if (viewers.size() == 0) {
         	throw new Exception("No viewers are loaded");
@@ -47,29 +62,39 @@ public class Results implements IResults
         throw new Exception("Viewer not found");
     }
     
-    
+    /* DESCRIPTION: Return state of the Results object.
+     * INPUT: N/A
+     * OUTPUT: Integer
+     */
     public int getState() {
         return state;
     }
     
+    /* DESCRIPTION: Set the state of the Results object.
+     * INPUT: Integer
+     * OUTPUT: N/A
+     */
     public void setState(int newState) {
         state = newState;
         notifyViewers();
     }
     
+    /* DESCRIPTION: Method will notify viewers when the state has changed, 
+     *              causing the viewers to update their displays with the new data.
+     * INPUT: N/A
+     * OUTPUT: N/A
+     */
     public void notifyViewers() {
-        // take values from result object, display these new values
-        // for every viewer, update data --> update()
-        // take values from result object, display these new values
-    	
-    	
-    	// Check : at least one viewer loaded 
-    	// Check : valid analysis strategy loaded 
     	System.out.println("NOTIFYING VIEWERS ...");
         for (Viewer v : viewers){
             v.display(analysis.getProcessedData(), analysis.getYears(), analysis.getDataNames(), analysis.getAxisNames(), analysis.getAnalysisID());
         }
     }
+    
+    /* DESCRIPTION: Method empties the list of viewers.
+     * INPUT: N/A
+     * OUTPUT: N/A
+     */
     public void emptyViewers()
     {
     	System.out.println("EMPTYING VIEWERS ...");

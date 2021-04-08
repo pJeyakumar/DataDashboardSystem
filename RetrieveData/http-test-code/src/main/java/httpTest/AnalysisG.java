@@ -21,7 +21,7 @@ public class AnalysisG extends AnalysisStrategy
 		this.dataNames[0] = "Ratio of Agricultural vs Forest Land";
 		
 		this.axisNames = new String[1];
-		this.axisNames[0] = "";
+		this.axisNames[0] = "Ratio";
 
 	}
 	
@@ -51,8 +51,9 @@ public class AnalysisG extends AnalysisStrategy
 			// get Array of ArrayList<Integer> containing years
 			this.years[i] = finalData[i].getSecond();
 			// get Array storing Strings, which are name of data series
-			this.dataNames[i] = finalData[i].getTypeA();
 		}
+		
+		this.dataNames[0] = "Ratio of Agricultural Land to Forest Land";
 	}
 	
 	

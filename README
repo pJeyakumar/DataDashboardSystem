@@ -5,3 +5,7 @@ The Data Dashboard system seeks to display varying types of analysis' related to
 To run the program, please run the LoginFace.java class. 
 	The Main method there will allow you to interact with the Login Interface.
     After inputting the correct credentials, you will be taken to the Main Interface.
+    
+USERNAME: user
+PASSWORD: pass
+^ not very secure huh

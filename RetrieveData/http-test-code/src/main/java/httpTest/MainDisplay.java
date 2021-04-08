@@ -322,7 +322,7 @@ public class MainDisplay extends JFrame implements ActionListener{
 				// Default message
 				String errorMessage = "You have INVALID / UNLOADED choices! Please fix the following: \n";
 				// get the boolean values
-				boolean[] flags = analysisCheck.getTruth();
+				Boolean flags[] = analysisCheck.getTruth();
 				// if country is invalid add it to the list
 				if(!flags[0]) 
 				{

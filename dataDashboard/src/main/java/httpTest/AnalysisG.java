@@ -67,9 +67,9 @@ public class AnalysisG extends AnalysisStrategy
 		Reader reader = new Reader();
 		
 		// get Data object for Agricultural land data
-		Data series1 = reader.retrieveData(selection,  "AG.LND.AGRI.ZS");
+		Data series1 = reader.retrieveWorldData(selection,  "AG.LND.AGRI.ZS");
 		// get Data object for Forest land data
-		Data series2 = reader.retrieveData(selection,  "AG.LND.FRST.ZS");
+		Data series2 = reader.retrieveWorldData(selection,  "AG.LND.FRST.ZS");
 		
 		// create array of Data objects, size 2 since 2-series
 		Data[] seriesArray = new Data[2];

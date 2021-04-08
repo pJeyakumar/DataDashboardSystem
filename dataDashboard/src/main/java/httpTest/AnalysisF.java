@@ -88,7 +88,7 @@ public class AnalysisF extends AnalysisStrategy
 		// Prepare and load an array of data objects (3 in this case)
 		Data[] seriesArray = new Data[3];
 		for (int i = 0; i < 3 ; i ++) {
-			seriesArray[i] = reader.retrieveData(selection, urlNames[i]);
+			seriesArray[i] = reader.retrieveWorldData(selection, urlNames[i]);
 		}
 
 		// Return Data objects Array to caller

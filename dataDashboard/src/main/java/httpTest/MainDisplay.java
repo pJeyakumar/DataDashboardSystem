@@ -542,7 +542,6 @@ public class MainDisplay extends JFrame implements ActionListener{
 					myViewers.add(newViewer);
 					
 					System.out.printf("CURRENT # OF VIEWERS: %d", myViewers.size());
-					this.pack();
 				}
 				
 			// If the chosen viewer is already in the list, display a message 

@@ -31,7 +31,7 @@ public class Reader
 	 * INPUT: Selection, String
 	 * OUTPUT: Data
 	 */
-	public Data retrieveData(Selection choices, String ind)
+	public Data retrieveWorldData(Selection choices, String ind) 
 	{
 		String dataName;
 		// URL for API request

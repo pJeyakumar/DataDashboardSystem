@@ -72,7 +72,7 @@ public class AnalysisC extends AnalysisStrategy
 		
 		// Create a reader and retrieve data based on selection and Analysis
 		Reader reader = new Reader();
-		seriesArray[0] = reader.retrieveData(selection, "AG.LND.FRST.ZS");
+		seriesArray[0] = reader.retrieveWorldData(selection, "AG.LND.FRST.ZS");
 		
 		// Return data array
 		return seriesArray;

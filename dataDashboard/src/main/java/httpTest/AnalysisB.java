@@ -64,9 +64,9 @@ public class AnalysisB extends AnalysisStrategy
 			// Create an instance of the Reader class
 			Reader reader = new Reader();
 			// Get Data object for Electricity production from coal sources (% of total) P.I
-			Data series1 = reader.retrieveData(selection, "EG.ELC.COAL.ZS");
+			Data series1 = reader.retrieveWorldData(selection, "EG.ELC.COAL.ZS");
 			// Get Data object for Renewable electricity output (% of total electricity output)  P.I
-			Data series2 = reader.retrieveData(selection, "EG.ELC.RNEW.ZS");
+			Data series2 = reader.retrieveWorldData(selection, "EG.ELC.RNEW.ZS");
 			// Create an Array of Data objects * hard-coded to be size 2 since this is a 2-series analysis*
 			Data[] seriesArray = new Data[2];
 			// Put the Data objects into the Data objects Array

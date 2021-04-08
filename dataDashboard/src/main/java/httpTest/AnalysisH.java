@@ -64,7 +64,7 @@ public class AnalysisH extends AnalysisStrategy
 		Reader reader = new Reader();
 		
 		// get Data object for Agricultural land
-		Data series1 = reader.retrieveData(selection, "AG.LND.AGRI.ZS");
+		Data series1 = reader.retrieveWorldData(selection, "AG.LND.AGRI.ZS");
 		
 		// create array of Data objects, 1-series analysis, so size 1
 		Data[] seriesArray = new Data[1];

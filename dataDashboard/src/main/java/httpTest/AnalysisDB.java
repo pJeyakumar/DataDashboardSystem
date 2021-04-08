@@ -6,21 +6,23 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * NAME: Allan Zhang, John Palmer, Piranavan Jeyakumar, Shoumik Shill
+ * DATE: 2021-04-07
+ * DESCRIPTION: Analysis database class used to check whether user selections of country, start year, end year, and viewers are valid 
+ * for the chosen type of analysis. It references the analysis_check.txt file to function
+ */
 public class AnalysisDB {
     
     
-    HashMap<String, String[][]> analysis_dict;
-    
+    HashMap<String, String[][]> analysis_dict; 
     boolean country, start, end, viewer;
-
     String analysis; 
-    
     int numOfViewers;
     
-    public AnalysisDB() {
-        
-    }
-    
+	/** DESCRIPTION: Constructor for the analysis DB class
+	 * @param analysisID The string name of the analysis type to create
+	 */
     public AnalysisDB(String analysisID) {
         // Used to load a  dictionary (hashmap)
         
@@ -62,11 +64,11 @@ public class AnalysisDB {
 
     }
     
-    public boolean validCountry(String input) {
-        System.out.println("Country Check -- Length: ");
-        System.out.println(analysis);
-        System.out.println(analysis_dict.get(analysis).length);
-        
+	/** DESCRIPTION: Method to check whether the currently selected country is valid 
+	 * @param input String describing the country to check 
+	 * @return Boolean indicating whether country is valid 
+	 */
+    public boolean validCountry(String input) {        
         // CHECK FIRST STRING ARRAY (COUNTRIES)
         String [] countries = analysis_dict.get(analysis)[0];
         
@@ -83,6 +85,10 @@ public class AnalysisDB {
         return true;
     }
     
+	/** DESCRIPTION: Method to check whether the currently selected start year is valid 
+	 * @param input Integer of the start year to check
+	 * @return Boolean indicating whether start year is valid 
+	 */
     public boolean validStartYr(int input) {
         
         // CHECK FIRST STRING ARRAY (COUNTRIES)
@@ -97,6 +103,10 @@ public class AnalysisDB {
         
     }
     
+	/** DESCRIPTION: Method to check whether the currently selected end year is valid 
+	 * @param input Integer of the end year to check
+	 * @return Boolean indicating whether end year is valid 
+	 */
     public boolean validEndYr(int input) {
         // CHECK SECOND STRING ARRAY (YEARS)
         String e = analysis_dict.get(analysis)[1][1];
@@ -109,6 +119,10 @@ public class AnalysisDB {
         }
     }
     
+	/** DESCRIPTION: Method to check whether the currently selected viewer is valid 
+	 * @param input String describing the viewer to check 
+	 * @return Boolean indicating whether viewer is valid 
+	 */
     public boolean validViewer(String input)
     {
         // CHECK THIRD STRING ARRAY (VIEWERS)
@@ -125,15 +139,16 @@ public class AnalysisDB {
         
     }
     
+	/** DESCRIPTION: Method to check whether all selections are valid 
+	 * @return Boolean indicating whether all choices are valid 
+	 */
     public boolean allValid() {
-        System.out.println("...");
-        System.out.println(country);
-        System.out.println(start);
-        System.out.println(end);
-        System.out.println(viewer);
         return country && start && end && viewer;
     }
     
+	/** DESCRIPTION: Method to get all boolean flags 
+	 * @return Array of booleans indicating whether user selections are valid
+	 */
     public Boolean[] getTruth() {
         // create a Boolean Array
         Boolean[] flags = new Boolean[4];

@@ -14,18 +14,29 @@ public class Data
 	private ArrayList<Double> firstSet;		// values
 	private ArrayList<Integer> secondSet;	// years
 	
-	// Constructor class with data1 as a parameter
+	/* DESCRIPTION: Constructor method with data1 as a parameter
+	 * INPUT: ArrayList<Double>
+	 * OUTPUT: N/A
+	 */
 	public Data(ArrayList<Double> data1)
 	{
 		this.firstSet = data1;
 	}
-	// Second Constructor class with 
+	
+	/* DESCRIPTION: Second Constructor method with data1 AND data2 as parameters
+	 * INPUT: ArrayList<Double>, ArrayList<Integer> 
+	 * OUTPUT: N/A
+	 */
 	public Data(ArrayList<Double> data1, ArrayList<Integer> data2)
 	{
 		this.firstSet = data1;
 		this.secondSet = data2;
 	}
 	
+	/* DESCRIPTION: Third Constructor method with data1 AND data2 AND type as parameters
+	 * INPUT: ArrayList<Double>, ArrayList<Integer>, String
+	 * OUTPUT: N/A
+	 */
 	public Data(ArrayList<Double> data1, ArrayList<Integer> data2, String type)
 	{
 		this.firstSet = data1;
@@ -33,32 +44,55 @@ public class Data
 		this.aType = type;
 	}
 	
-	// Setter method for firstSet variable
+	/* DESCRIPTION: Setter method for firstSet variable
+	 * INPUT: ArrayList<Double>
+	 * OUTPUT: N/A
+	 */
 	public void  setFirst(ArrayList<Double> data) 
 	{
 		this.firstSet = data;
 	}
-	// Setter method for secondSet variable
+	
+	/* DESCRIPTION:Setter method for secondSet variable
+	 * INPUT: ArrayList<Integer>
+	 * OUTPUT: N/A
+	 */
 	public void setSecond(ArrayList<Integer> data)
 	{
 		this.secondSet = data;
-	}
-	// Setter method for aType variable
+	} 
+	
+	/* DESCRIPTION: Setter method for aType variable
+	 * INPUT: String
+	 * OUTPUT: N/A
+	 */
 	public void setTypeA(String type) 
 	{
 		this.aType = type;
 	}
-	// Getter method for firstSet
+	
+	/* DESCRIPTION: Getter method for firstSet
+	 * INPUT: N/A
+	 * OUTPUT: ArrayList<Double>
+	 */
 	public ArrayList<Double> getFirst() 
 	{
 		return this.firstSet;
 	}
-	// Getter method for secondSet
+	
+	/* DESCRIPTION: Getter method for secondSet
+	 * INPUT: N/A
+	 * OUTPUT: ArrayList<Integer>
+	 */
 	public ArrayList<Integer> getSecond() 
 	{
 		return this.secondSet;
 	}
-	// Getter method for type
+	
+	/* DESCRIPTION: Getter method for type
+	 * INPUT: N/A
+	 * OUTPUT: String
+	 */
 	public String getTypeA() 
 	{
 		return this.aType;

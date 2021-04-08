@@ -28,7 +28,10 @@ public class LoginFace extends JFrame implements ActionListener
 	RealLogin proxy = new LoginProxy();
 	ImageIcon picture = new ImageIcon("god.jpg");
 	
-	// Constructor
+	/* DESCRIPTION: Constructor class that will call all the methods needed to set up the container with all the Login features
+	 * INPUT: N/A
+	 * OUTPUT: N/A
+	 */
 	LoginFace()
 	{
 		// Set layout to null at first
@@ -51,8 +54,7 @@ public class LoginFace extends JFrame implements ActionListener
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
 	}
-	/*
-	 * DESCRIPTION: method that will set the locations and sizes of all the labels, buttons and textboxes
+	/* DESCRIPTION: method that will set the locations and sizes of all the labels, buttons and textboxes
 	 * INPUT: N/A
 	 * OUTPUT: N/A
 	 */
@@ -78,8 +80,7 @@ public class LoginFace extends JFrame implements ActionListener
        
         
 	}
-	/*
-	 * DESCRIPTION: method that will add all the labels, buttons and textboxes to the container
+	/* DESCRIPTION: method that will add all the labels, buttons and textboxes to the container
 	 * INPUT: N/A
 	 * OUTPUT: N/A
 	 */
@@ -95,8 +96,7 @@ public class LoginFace extends JFrame implements ActionListener
         container.add(picture1);
         container.add(picture2);
 	}
-	/*
-	 * DESCRIPTION: method that will set listeners to our buttons
+	/* DESCRIPTION: method that will set listeners to our buttons
 	 * INPUT: N/A
 	 * OUTPUT: N/A
 	 */
@@ -107,8 +107,7 @@ public class LoginFace extends JFrame implements ActionListener
 		reset.addActionListener(this);
 	}
 	@SuppressWarnings("deprecation")
-	/*
-	 * DESCRIPTION: method that will be run whenever an ActionListener object is pressed, based on the button that was pressed, different code
+	/* DESCRIPTION: method that will be run whenever an ActionListener object is pressed, based on the button that was pressed, different code
 	 * 				will be run
 	 * INPUT: ActionEvent
 	 * OUTPUT: N/A
@@ -132,8 +131,7 @@ public class LoginFace extends JFrame implements ActionListener
 			resetText();
 		}
 	}
-	/*
-	 * DESCRIPTION: Method for setting the texts in the TextBoxes to "", basically resetting them
+	/* DESCRIPTION: Method for setting the texts in the TextBoxes to "", basically resetting them
 	 * INPUT: N/A
 	 * OUTPUT: N/A
 	 */

@@ -9,13 +9,16 @@ import java.util.ArrayList;
 
 public class AnalysisA extends AnalysisStrategy
 {
-	// Constructor
+	/*DESCRIPTION: Constructor method
+	 * INPUT: N/A
+	 * OUTPUT: N/A
+	 */
 	public AnalysisA() 
 	{
 		
 	}
 	
-	/*DESCRIPTION:  Method for performing AnalysisA, given the Selection object containing the user choices, this method will call the retrieveData
+	/* DESCRIPTION:  Method for performing AnalysisA, given the Selection object containing the user choices, this method will call the retrieveData
 	 * 				method and place the values, years and dataNames into arrays. The method also sets the analysisID that will be used as well as units
 	 * INPUT: Selection
 	 * OUTPUT: N/A

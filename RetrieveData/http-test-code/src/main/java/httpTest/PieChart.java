@@ -16,7 +16,10 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class PieChart extends Viewer
 {
-	// constructor
+	/* DESCRIPTION: Constructor class that will set ViewerType by calling parent class (abstract Viewer class) and set name instance variable
+	 * INPUT: N/A
+	 * OUTPUT: N/A
+	 */
 	PieChart()
 	{
 		super(ViewerType.PIECHART);

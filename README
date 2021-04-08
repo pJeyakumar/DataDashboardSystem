@@ -1,6 +1,6 @@
 # Data Dashboard System 
 
-The Data Dashboard system seeks to display varying types of analysis related to the ENVIRONMENT (chosen by us) using data from the World Bank.
+The Data Dashboard system seeks to display varying types of analysis' related to the ENVIRONMENT (chosen by us) using data from the World Bank.
 
 To run the program, please run the LoginFace.java class. 
 	The Main method there will allow you to interact with the Login Interface.

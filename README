@@ -3,7 +3,7 @@
 The Data Dashboard system is an interactive system allowing the user to select varying types of analysis' on ENVIRONMENTAL data retrieved from the World Bank Database and display these analysis' through Viewers (e.g Bar Graphs, Line Graphs, etc) that the user may select.
 
 **LOGIN:**
-Our system features a Login panel, in which the user must enter a username and password, that will be verified by our system, in order to gain access to the Main System.
+Our system features a Login panel, in which the user must enter a username and password, that will be verified by our system, in order to gain access to **MAIN_DISPLAY**.
 
 **MAIN_DISPLAY:**
 Our Main_Display will have drop-down menus, for which the user will select:
@@ -24,5 +24,6 @@ To run the program, please run the LoginFace.java class.
     After inputting the correct credentials, you will be taken to the Main Interface.
     
 USERNAME: user
+
 PASSWORD: pass
 

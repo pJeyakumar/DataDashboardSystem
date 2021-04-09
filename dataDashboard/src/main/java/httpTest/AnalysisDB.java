@@ -12,7 +12,8 @@ import java.util.HashMap;
  * DESCRIPTION: Analysis database class used to check whether user selections of country, start year, end year, and viewers are valid 
  * for the chosen type of analysis. It references the analysis_check.txt file to function
  */
-public class AnalysisDB {
+public class AnalysisDB
+{
     
     
     HashMap<String, String[][]> analysis_dict; 
@@ -23,7 +24,8 @@ public class AnalysisDB {
 	/** DESCRIPTION: Constructor for the analysis DB class
 	 * @param analysisID The string name of the analysis type to create
 	 */
-    public AnalysisDB(String analysisID) {
+    public AnalysisDB(String analysisID) 
+    {
         // Used to load a  dictionary (hashmap)
         
         String line; 
@@ -33,26 +35,26 @@ public class AnalysisDB {
         analysis_dict = new HashMap<String,String[][]>();
         analysis = analysisID;
         
-        try {
+        try 
+        {
             BufferedReader br = new BufferedReader(new FileReader("analysis_check.txt"));
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) 
+            {
 
                 fields = line.split(":");
                 String[][] list = new String[3][];
-                
-                String[] items;
-                System.out.println(list.length);
-                System.out.println(fields.length);
-                for (int i = 1 ; i <= 3 ; i ++) {
+                for (int i = 1 ; i <= 3 ; i ++) 
+                {
                     list[i-1] = fields[i].split(",");
                      
                 }
-                
                 analysis_dict.put(fields[0], list);                             
             }
             
             br.close();        
-        }catch(IOException e ) {
+        }
+        catch(IOException e ) 
+        {
             e.printStackTrace();
         }
         
@@ -68,13 +70,16 @@ public class AnalysisDB {
 	 * @param input String describing the country to check 
 	 * @return Boolean indicating whether country is valid 
 	 */
-    public boolean validCountry(String input) {        
+    public boolean validCountry(String input)
+    {        
         // CHECK FIRST STRING ARRAY (COUNTRIES)
         String [] countries = analysis_dict.get(analysis)[0];
         
         if (countries.length != 0) {
-            for (int i = 0 ; i < countries.length ; i ++) {
-                 if (countries[i].equals(input)) {
+            for (int i = 0 ; i < countries.length ; i ++) 
+            {
+                 if (countries[i].equals(input)) 
+                 {
                      country = false;
                      return false;
                  }
@@ -89,14 +94,19 @@ public class AnalysisDB {
 	 * @param input Integer of the start year to check
 	 * @return Boolean indicating whether start year is valid 
 	 */
-    public boolean validStartYr(int input) {
+    public boolean validStartYr(int input)
+    {
         
         // CHECK FIRST STRING ARRAY (COUNTRIES)
         String s = analysis_dict.get(analysis)[1][0];
-        if (input >= Integer.valueOf(s)) {
+        String e = analysis_dict.get(analysis)[1][1];
+        if (input >= Integer.valueOf(s) && input <= Integer.valueOf(e))
+        {
             start = true;
             return true;
-        }else {
+        }
+        else
+        {
             start = false;
             return false;
         }
@@ -107,13 +117,18 @@ public class AnalysisDB {
 	 * @param input Integer of the end year to check
 	 * @return Boolean indicating whether end year is valid 
 	 */
-    public boolean validEndYr(int input) {
+    public boolean validEndYr(int input) 
+    {
         // CHECK SECOND STRING ARRAY (YEARS)
+    	String s = analysis_dict.get(analysis)[1][0];
         String e = analysis_dict.get(analysis)[1][1];
-        if (input <= Integer.valueOf(e)) {
+        if (input <= Integer.valueOf(e) && input >= Integer.valueOf(s)) 
+        {
             end = true;
             return true;
-        }else {
+        }
+        else
+        {
             end = false;
             return false;
         }
@@ -142,14 +157,16 @@ public class AnalysisDB {
 	/** DESCRIPTION: Method to check whether all selections are valid 
 	 * @return Boolean indicating whether all choices are valid 
 	 */
-    public boolean allValid() {
+    public boolean allValid() 
+    {
         return country && start && end && viewer;
     }
     
 	/** DESCRIPTION: Method to get all boolean flags 
 	 * @return Array of booleans indicating whether user selections are valid
 	 */
-    public Boolean[] getTruth() {
+    public Boolean[] getTruth() 
+    {
         // create a Boolean Array
         Boolean[] flags = new Boolean[4];
         // set each index to the values of our instance variables respectively

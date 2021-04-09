@@ -369,7 +369,6 @@ public class MainDisplay extends JFrame implements ActionListener{
 		{
 			// Get analysis option from the menu 
 			String newAnalysis = (String) analysisBox.getSelectedItem();
-			System.out.println(newAnalysis);
 			
 			// Proceed only if the analysis is different 
 			if (this.analysisID != newAnalysis) {
@@ -377,7 +376,6 @@ public class MainDisplay extends JFrame implements ActionListener{
 				// If the existing analysis ID is not null, empty the viewers
 				if (this.analysisID != null) {
 					System.out.print("NEW ANALYSIS ...");
-					System.out.println(newAnalysis);
 					System.out.println("EMPTYING VIEWERS ...");
 					
 					// RESET ALL GRAPHS 
@@ -437,7 +435,6 @@ public class MainDisplay extends JFrame implements ActionListener{
 			// Get chosen viewer 
 			String selectedViewer = (String) viewerBox.getSelectedItem();
 			System.out.print("ADDING VIEWER...");
-			System.out.println(selectedViewer);
 			
 			// Proceed if the selected viewer is valid and it is NOT in the current viewer list 
 			if (analysisCheck.validViewer(selectedViewer) && this.findViewer(viewerMap.get(selectedViewer)) == -1) {
@@ -541,7 +538,6 @@ public class MainDisplay extends JFrame implements ActionListener{
 					// Add viewer to the viewers list 
 					myViewers.add(newViewer);
 					
-					System.out.printf("CURRENT # OF VIEWERS: %d", myViewers.size());
 				}
 				
 			// If the chosen viewer is already in the list, display a message 

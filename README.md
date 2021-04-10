@@ -4,14 +4,18 @@ The Data Dashboard system is an interactive system allowing the user to select v
 
 **LOGIN:**
 Our system features a Login panel, in which the user must enter a username and password, that will be verified by our system, in order to gain access to **MAIN_DISPLAY**.
+\newline
 ![Login Interface](https://ibb.co/VjTfCWs)
+\newline
 **MAIN_DISPLAY:**
 Our Main_Display will have drop-down menus, for which the user will select:
 1. The analysis they'd like to run.
 2. The country for which the data for the analysis will be based on.
 3. The start and end year periods for the data.
 4. The Viewers the user would like to be displayed.
+\newline
 ![Main Interface (Empty)](https://ibb.co/GsFWDhR)
+\newline
 ![Main Interface (Populated)](https://ibb.co/PD6WgSf)
 
 After the user has made all their selection choices, pressing the recalculate button will:

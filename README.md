@@ -1,5 +1,7 @@
 # Data Dashboard System 
 
+**Our Vision:** due to the Covid-19 pandemic that is currently occuring, we realized that there is an abundance of data showing different analysis' on Covid cases, deaths, recovery rates and generally how Covid is affecting the world. We then chose this opportunity to shed light on the **NEXT PRESSING ISSUE** humanity will face and must solve, just as we are doing with this pandemic. The issue we are focusing on is **Climate Change**. We hope that by showing the relationships between specific Environmental Data Indicators (EDIs) the user can find trends that are occuring, learn something about them and _hopefully_ strive to be a little more conscious about the state of the environment.
+
 The Data Dashboard system is an interactive system allowing the user to select varying types of analysis' on ENVIRONMENTAL data retrieved from the World Bank Database and display these analysis' through Viewers (e.g Bar Graphs, Line Graphs, etc) that the user may select.
 
 **LOGIN:**

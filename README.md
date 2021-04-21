@@ -25,10 +25,9 @@ After the user has made all their selection choices, pressing the recalculate bu
 - render the data onto the panels on **MAIN_DISPLAY**
 
 
-To run the program, please run the LoginFace.java class. 
-	The Main method there will allow you to interact with the Login Interface.
-    After inputting the correct credentials, you will be taken to the Main Interface.
-Run on Java, need to include Maven dependencies.
+To run the program, please run the LoginFace.java class. The Main method there will allow you to interact with the Login Interface. After inputting the correct credentials, you will be taken to the Main Interface.
+
+Run on Java, be sure to include Maven dependencies.
     
 USERNAME: user
 
